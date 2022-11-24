@@ -1,21 +1,21 @@
-import { v4 as uuid } from "uuid";
+import { UniqueId } from "../../../@shared/domains/value-objects/unique-id.vo";
 
 export class CategoryEntity {
-  private _id: string;
+  private _id?: UniqueId;
   private _name: string;
   private _description?: string;
   private _is_active: boolean;
   private _created_at?: Date;
 
-  constructor(protected readonly props: CategoryProps, id?: string) {
-    this._id = id ?? uuid();
+  constructor(protected readonly props: CategoryProps, id?: UniqueId) {
+    this._id = id ?? new UniqueId();
     this._name = props.name;
     this._description = props.description ?? null;
     this._is_active = props.is_active ?? true;
     this._created_at = props.created_at ?? new Date();
   }
 
-  get id(): string {
+  get id(): UniqueId {
     return this._id;
   }
 

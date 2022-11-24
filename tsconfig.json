@@ -4,6 +4,9 @@
     "rootDir": "src",
     "baseUrl": "./src",
     "outDir": "./dist",
+    // "paths": {
+    //   "@core/domain/*": ["./*"],
+    // },
     // Defaults
     // "sourceMap": true,
     "strict": false,

@@ -2,7 +2,7 @@ import {
   CategoryEntity as Entity,
   CategoryProps as EntityProps,
 } from "./category.entity";
-import { validate } from "uuid";
+import { UniqueId } from "../../../@shared/domains/value-objects/unique-id.vo";
 
 describe("CategoryEntity Unit Test", () => {
   it("constructor", () => {
@@ -34,18 +34,18 @@ describe("CategoryEntity Unit Test", () => {
   });
 
   it("id field", () => {
-    type TypeData = { props: EntityProps; id: string };
+    type TypeData = { props: EntityProps; id: UniqueId };
 
     const list: TypeData[] = [
       { props: { name: "t" }, id: null },
       { props: { name: "t" }, id: undefined },
-      { props: { name: "t" }, id: "b92df8aa-f44f-45a8-a06d-8f8fe64f64c6" },
+      { props: { name: "t" }, id: new UniqueId() },
     ];
 
     list.map((rs: TypeData) => {
       const category = new Entity(rs.props, rs.id);
       expect(category.id).not.toBeNull;
-      expect(validate(category.id)).toBeTruthy;
+      expect(category.id).toBeInstanceOf(UniqueId);
     });
   });
 });
