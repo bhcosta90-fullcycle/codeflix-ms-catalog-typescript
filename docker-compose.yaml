@@ -5,9 +5,9 @@ services:
     build:
       context: .
       target: dev
-    ports:
-      - "3000:3000"
-      - "9229:9229"
+    # ports:
+    #   - "3000:3000"
+    #   - "9229:9229"
     command: ./run.sh
     volumes:
       - .:/home/node/app

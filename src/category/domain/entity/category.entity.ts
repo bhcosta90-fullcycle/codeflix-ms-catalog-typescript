@@ -1,14 +1,22 @@
+import { v4 as uuid } from "uuid";
+
 export class CategoryEntity {
+  private _id: string;
   private _name: string;
   private _description?: string;
   private _is_active: boolean;
-  private _date?: Date;
+  private _created_at?: Date;
 
-  constructor(protected readonly props: CategoryProps) {
+  constructor(protected readonly props: CategoryProps, id?: string) {
+    this._id = id ?? uuid();
     this._name = props.name;
-    this._description = props.description;
-    this._is_active = props.is_active;
-    this._date = props.date;
+    this._description = props.description ?? null;
+    this._is_active = props.is_active ?? true;
+    this._created_at = props.created_at ?? new Date();
+  }
+
+  get id(): string {
+    return this._id;
   }
 
   get name(): string {
@@ -23,14 +31,14 @@ export class CategoryEntity {
     return this._is_active;
   }
 
-  get date(): Date {
-    return this._date;
+  get created_at(): Date {
+    return this._created_at;
   }
 }
 
-type CategoryProps = {
+export type CategoryProps = {
   name: string;
   description?: string;
-  is_active: boolean;
-  date?: Date;
+  is_active?: boolean;
+  created_at?: Date;
 };
