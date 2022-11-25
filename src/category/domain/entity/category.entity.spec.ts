@@ -48,4 +48,35 @@ describe("CategoryEntity Unit Test", () => {
       expect(category['_uniqueId']).toBeInstanceOf(UniqueId);
     });
   });
+
+  it("should update a entity", () => {
+    const category = new Entity({
+      name: "Test",
+      description: "Test",
+      is_active: false,
+    });
+    category.update("Test 2", "Test 3");
+    expect(category.name).toBe("Test 2");
+    expect(category.description).toBe("Test 3");
+  })
+
+  it("should active a entity", () => {
+    const category = new Entity({
+      name: "Test",
+      description: "Test",
+      is_active: false,
+    });
+    category.enabled();
+    expect(category.is_active).toBeTruthy();
+  });
+
+  it("should deactive a entity", () => {
+    const category = new Entity({
+      name: "Test",
+      description: "Test",
+      is_active: true,
+    });
+    category.disabled();
+    expect(category.is_active).toBeFalsy();
+  })
 });

@@ -30,6 +30,19 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
   get created_at(): Date {
     return this._created_at;
   }
+
+  update(name: string, description ?: string){
+    this._name = name;
+    this._description = description;
+  }
+
+  enabled() {
+    this._is_active = true;
+  }
+
+  disabled() {
+    this._is_active = false;
+  }
 }
 
 export type CategoryProps = {
