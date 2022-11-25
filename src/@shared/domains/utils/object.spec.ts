@@ -14,6 +14,14 @@ describe("object Unit Tests", () => {
     expect(typeof num).toBe("number");
   });
 
+  it("should a value null and undefined", () => {
+    const verifyNull = deepFreeze(null);
+    expect(verifyNull).toBe(null);
+
+    const verifyUndefined = deepFreeze(undefined);
+    expect(verifyUndefined).toBe(undefined);
+  })
+
   it("should be a immutable object", () => {
     const obj = deepFreeze({
       prop1: "value1",

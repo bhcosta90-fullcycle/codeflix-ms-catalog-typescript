@@ -2,7 +2,7 @@ import {
   CategoryEntity as Entity,
   CategoryProps as EntityProps,
 } from "./category.entity";
-import { UniqueId } from "../../../@shared/domains/value-objects/unique-id.vo";
+import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
 
 describe("CategoryEntity Unit Test", () => {
   it("constructor", () => {

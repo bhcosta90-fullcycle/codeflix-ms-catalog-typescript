@@ -1,4 +1,4 @@
-import { UniqueId } from "../../../@shared/domains/value-objects/unique-id.vo";
+import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
 
 export class CategoryEntity {
   private _id?: UniqueId;
