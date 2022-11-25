@@ -1,23 +1,19 @@
+import { EntityAbstract } from "../../../@shared/domains/entity/entity.abstract";
 import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
 
-export class CategoryEntity {
-  private _id?: UniqueId;
+export class CategoryEntity extends EntityAbstract<CategoryProps> {
   private _name: string;
   private _description?: string;
   private _is_active: boolean;
   private _created_at?: Date;
 
   constructor(protected readonly props: CategoryProps, id?: UniqueId) {
-    this._id = id ?? new UniqueId();
+    super(props, id)
     this._name = props.name;
     this._description = props.description ?? null;
     this._is_active = props.is_active ?? true;
     this._created_at = props.created_at ?? new Date();
-  }
-
-  get id(): UniqueId {
-    return this._id;
-  }
+  };
 
   get name(): string {
     return this._name;

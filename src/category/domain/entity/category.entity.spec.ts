@@ -45,7 +45,7 @@ describe("CategoryEntity Unit Test", () => {
     list.map((rs: TypeData) => {
       const category = new Entity(rs.props, rs.id);
       expect(category.id).not.toBeNull;
-      expect(category.id).toBeInstanceOf(UniqueId);
+      expect(category['_uniqueId']).toBeInstanceOf(UniqueId);
     });
   });
 });
