@@ -2,7 +2,12 @@ import { validate as uuidValidate } from "uuid";
 import { UniqueId } from "../vo/unique-id.vo";
 import { EntityAbstract } from "./entity.abstract";
 
-class StubEntity extends EntityAbstract<{ prop1: string; prop2: number }> { }
+class StubEntity extends EntityAbstract<{ prop1: string; prop2: number }> { 
+  update(props: { prop1: string; prop2: number; }) {
+    this.props.prop1 = props.prop1;
+    this.props.prop2 = props.prop2;
+  }
+}
 
 describe("Entity Unit Tests", () => {
   it("should set props and id", () => {

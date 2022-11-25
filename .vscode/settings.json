@@ -1,4 +1,3 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "jestrunner.jestCommand": ""
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

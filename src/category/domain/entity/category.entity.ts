@@ -1,13 +1,15 @@
+import { ValidatorRules } from "../../../@shared/validator/validator-rules";
 import { EntityAbstract } from "../../../@shared/domains/entity/entity.abstract";
 import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
 
 export class CategoryEntity extends EntityAbstract<CategoryProps> {
-  private _name: string;
-  private _description?: string;
-  private _is_active: boolean;
-  private _created_at?: Date;
+  protected _name: string;
+  protected _description?: string;
+  protected _is_active: boolean;
+  protected _created_at?: Date;
 
   constructor(props: CategoryProps, id?: UniqueId) {
+    CategoryEntity.validate(props);
     super(props, id)
     this._name = props.name;
     this._description = props.description ?? null;
@@ -31,16 +33,23 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
     return this._created_at;
   }
 
-  update(name: string, description ?: string){
-    this._name = name;
-    this._description = description;
+  update(props: Pick<CategoryProps, 'name' | 'description'>) {
+    CategoryEntity.validate(props);
+    this._name = props.name;
+    this._description = props.description;
   }
 
-  enabled() {
+  private static validate(props: Omit<CategoryProps, 'id' | 'created_at'>) {
+    ValidatorRules.values(props.name, "name").required().maxLength(100).string();
+    ValidatorRules.values(props.description, "description").string();
+    ValidatorRules.values(props.is_active, "is_active").boolean();
+  }
+
+  active() {
     this._is_active = true;
   }
 
-  disabled() {
+  deactive() {
     this._is_active = false;
   }
 }

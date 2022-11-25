@@ -1,4 +1,4 @@
-import { InvalidIdError } from "./invalid-id.error";
+import { InvalidIdError } from "../invalid-id.error";
 
 describe("InvalidIdError Unit Test", () => {
   it("should a message default", () => {

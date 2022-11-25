@@ -5,11 +5,13 @@ import {
 import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
 
 describe("CategoryEntity Unit Test", () => {
+  beforeEach(() => Entity['validate'] = jest.fn());
+
   it("constructor", () => {
     let category = new Entity({
       name: "Test",
     });
-
+    expect(Entity['validate']).toHaveBeenCalledTimes(1);
     expect(category.name).toBe("Test");
     expect(category.is_active).toBeTruthy();
     expect(category.description).toBeNull();
@@ -55,7 +57,11 @@ describe("CategoryEntity Unit Test", () => {
       description: "Test",
       is_active: false,
     });
-    category.update("Test 2", "Test 3");
+    category.update({
+      name: 'Test 2',
+      description: 'Test 3'
+    });
+    expect(Entity['validate']).toHaveBeenCalledTimes(2);
     expect(category.name).toBe("Test 2");
     expect(category.description).toBe("Test 3");
   })
@@ -66,7 +72,7 @@ describe("CategoryEntity Unit Test", () => {
       description: "Test",
       is_active: false,
     });
-    category.enabled();
+    category.active();
     expect(category.is_active).toBeTruthy();
   });
 
@@ -76,7 +82,7 @@ describe("CategoryEntity Unit Test", () => {
       description: "Test",
       is_active: true,
     });
-    category.disabled();
+    category.deactive();
     expect(category.is_active).toBeFalsy();
   })
 });

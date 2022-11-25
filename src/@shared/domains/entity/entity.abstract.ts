@@ -2,6 +2,8 @@ import { UniqueId } from "../vo/unique-id.vo";
 
 export abstract class EntityAbstract<Props> {
 
+  abstract update(props: Props);
+
   private _uniqueId?: UniqueId;
 
   constructor(protected readonly props: Props, protected readonly _id?: UniqueId) {
