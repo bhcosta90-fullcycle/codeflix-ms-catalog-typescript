@@ -7,7 +7,7 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
   private _is_active: boolean;
   private _created_at?: Date;
 
-  constructor(protected readonly props: CategoryProps, id?: UniqueId) {
+  constructor(props: CategoryProps, id?: UniqueId) {
     super(props, id)
     this._name = props.name;
     this._description = props.description ?? null;

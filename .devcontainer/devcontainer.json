@@ -21,7 +21,8 @@
 	"extensions": [
 		"firsttris.vscode-jest-runner",
 		"esbenp.prettier-vscode",
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"george-alisson.html-preview-vscode"
 	]
 
 
