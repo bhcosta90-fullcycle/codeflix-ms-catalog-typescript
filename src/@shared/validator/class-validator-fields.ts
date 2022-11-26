@@ -5,14 +5,14 @@ import {
   ValidatorFieldsInterface
 } from "./@interface/validator-fields.interface";
 
-export abstract class ClassValidatorFields<PropsValidated>
+export abstract class ClassValidatorFields<PropsValidated, EntityProps>
   implements ValidatorFieldsInterface<PropsValidated>
 {
   errors: FieldsErrors = null;
   data: PropsValidated = null;
 
-  validate(data: any): boolean {
-    const errors = validateSync(data);
+  validate(data: EntityProps): boolean {
+    const errors = validateSync(data as object);
     if (errors.length) {
       this.errors = {};
       for (const error of errors) {
@@ -20,7 +20,7 @@ export abstract class ClassValidatorFields<PropsValidated>
         this.errors[field] = Object.values(error.constraints);
       }
     } else {
-      this.data = data;
+      this.data = data as any;
     }
 
     if (errors.length) {
