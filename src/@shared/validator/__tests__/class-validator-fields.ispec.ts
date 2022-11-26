@@ -17,7 +17,10 @@ class StubRules {
   }
 }
 
-class StubClassValidatorFields extends ClassValidatorFields<StubRules> {
+class StubClassValidatorFields extends ClassValidatorFields<
+  StubRules,
+  { name: string; price: number }
+> {
   validate(data: any): boolean {
     return super.validate(new StubRules(data));
   }
@@ -40,8 +43,8 @@ describe("ClassValidatorFields Integration Tests", () => {
           "price must be a number conforming to the specified constraints",
         ],
       });
-    } catch(e) {
-      if (e instanceof ValidatorFieldError){
+    } catch (e) {
+      if (e instanceof ValidatorFieldError) {
         expect(e.errors).toStrictEqual({
           name: [
             "name should not be empty",
