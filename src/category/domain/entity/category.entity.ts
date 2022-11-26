@@ -1,6 +1,7 @@
-import { ValidatorRules } from "../../../@shared/validator/validator-rules";
 import { EntityAbstract } from "../../../@shared/domains/entity/entity.abstract";
 import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
+import { CategoryValidatorFactory } from "./../../validators/category.validator";
+import { ValidatorFieldError } from "../../../@shared/errors/validator-fields.error";
 
 export class CategoryEntity extends EntityAbstract<CategoryProps> {
   protected _name: string;
@@ -40,9 +41,11 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
   }
 
   private static validate(props: Omit<CategoryProps, 'id' | 'created_at'>) {
-    ValidatorRules.values(props.name, "name").required().maxLength(100).string();
-    ValidatorRules.values(props.description, "description").string();
-    ValidatorRules.values(props.is_active, "is_active").boolean();
+    const validator = CategoryValidatorFactory.create();
+    validator.validate(props);
+    if (validator.errors) {
+      throw new ValidatorFieldError(validator.errors);
+    }
   }
 
   active() {

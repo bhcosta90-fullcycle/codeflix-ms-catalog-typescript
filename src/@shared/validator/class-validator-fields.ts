@@ -6,7 +6,7 @@ import {
 } from "./@interface/validator-fields.interface";
 
 export abstract class ClassValidatorFields<PropsValidated, EntityProps>
-  implements ValidatorFieldsInterface<PropsValidated>
+  implements ValidatorFieldsInterface<PropsValidated, EntityProps>
 {
   errors: FieldsErrors = null;
   data: PropsValidated = null;
@@ -21,10 +21,6 @@ export abstract class ClassValidatorFields<PropsValidated, EntityProps>
       }
     } else {
       this.data = data as any;
-    }
-
-    if (errors.length) {
-      throw new ValidatorFieldError(this.errors);
     }
 
     return !errors.length;

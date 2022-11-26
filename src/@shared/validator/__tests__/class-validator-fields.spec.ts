@@ -2,9 +2,14 @@ import { ClassValidatorFields } from "../class-validator-fields";
 import * as libClassValidator from "class-validator";
 import { ValidatorFieldError } from "./../../errors/validator-fields.error";
 
-class StubClassValidatorFields extends ClassValidatorFields<{
-  field: string;
-}> { }
+class StubClassValidatorFields extends ClassValidatorFields<
+  {
+    field: string;
+  },
+  {
+    field: string;
+  }
+> {}
 
 describe("ClassValidatorFields Unit Tests", () => {
   it("should initialize erros and validated variables with null", () => {

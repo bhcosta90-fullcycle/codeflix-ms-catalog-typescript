@@ -3,33 +3,64 @@ import { CategoryEntity } from "./category.entity";
 describe("CategoryEntity Integration Test", () => {
   describe("create method", () => {
     it("should a invalid category when using name property", () => {
-      expect(() => new CategoryEntity({ name: null })).toThrow(
-        "The name is required"
-      );
+      try {
+        new CategoryEntity({ name: null });
+      } catch (e) {
+        expect(e.errors).toStrictEqual({
+          name: [
+            "name should not be empty",
+            "name must be a string",
+            "name must be shorter than or equal to 100 characters",
+          ],
+        });
+      }
       
-      expect(() => new CategoryEntity({ name: "" })).toThrow(
-        "The name is required"
-      );
+      try {
+        new CategoryEntity({ name: "" });
+      } catch (e) {
+        expect(e.errors).toStrictEqual({
+          name: ["name should not be empty"],
+        });
+      }
+
+      try {
+        new CategoryEntity({ name: "t".repeat(1000) });
+      } catch (e) {
+        expect(e.errors).toStrictEqual({
+          name: ["name must be shorter than or equal to 100 characters"],
+        });
+      }
       
-      expect(() => new CategoryEntity({ name: "t".repeat(1000) })).toThrow(
-        "The name must be less or equal than 100 characters"
-      );
-      
-      expect(() => new CategoryEntity({ name: 5 as any })).toThrow(
-        "The name must be a string"
-      );
+      try {
+        new CategoryEntity({ name: 5 as any });
+      } catch (e) {
+        expect(e.errors).toStrictEqual({
+          name: [
+            "name must be a string",
+            "name must be shorter than or equal to 100 characters",
+          ],
+        });
+      }
     });
 
     it("should a invalid category when using description property", () => {
-      expect(
-        () => new CategoryEntity({ name: "test", description: 5 as any })
-      ).toThrow("The description must be a string");
+      try {
+        new CategoryEntity({ name: "test", description: 5 as any });
+      } catch (e) {
+        expect(e.errors).toStrictEqual({
+          description: ["description must be a string"],
+        });
+      }
     });
 
     it("should a invalid category when using is_active property", () => {
-      expect(
-        () => new CategoryEntity({ name: "test", is_active: 5 as any })
-      ).toThrow("The is_active must be a boolean");
+      try {
+        new CategoryEntity({ name: "test", is_active: 5 as any })
+      } catch(e) {
+        expect(e.errors).toStrictEqual({
+          is_active: ["is_active must be a boolean value"],
+        });
+      }
     });
 
     it("should a valid category", () => {
@@ -56,27 +87,54 @@ describe("CategoryEntity Integration Test", () => {
     const category = new CategoryEntity({ name: 'test' });
 
     it("should a invalid category when using name property", () => {
-      expect(() => category.update({ name: null })).toThrow(
-        "The name is required"
-      );
+      try {
+        category.update({ name: null })
+      } catch(e) {
+        expect(e.errors).toStrictEqual({
+          name: [
+            "name should not be empty",
+            "name must be a string",
+            "name must be shorter than or equal to 100 characters",
+          ],
+        });
+      }
       
-      expect(() => category.update({ name: "" })).toThrow(
-        "The name is required"
-      );
+      try {
+        category.update({ name: "" })
+      } catch(e) {
+        expect(e.errors).toStrictEqual({
+          name: ["name should not be empty"],
+        });
+      }
       
-      expect(() => category.update({ name: "t".repeat(1000) })).toThrow(
-        "The name must be less or equal than 100 characters"
-      );
+      try {
+        category.update({ name: "t".repeat(1000) })
+      } catch(e) {
+        expect(e.errors).toStrictEqual({
+          name: ["name must be shorter than or equal to 100 characters"],
+        });
+      }
       
-      expect(() => category.update({ name: 5 as any })).toThrow(
-        "The name must be a string"
-      );
+      try {
+        category.update({ name: 5 as any })
+      } catch(e) {
+        expect(e.errors).toStrictEqual({
+          name: [
+            "name must be a string",
+            "name must be shorter than or equal to 100 characters",
+          ],
+        });
+      }
     });
 
     it("should a invalid category when using description property", () => {
-      expect(
-        () => category.update({ name: "test", description: 5 as any })
-      ).toThrow("The description must be a string");
+      try {
+        category.update({ name: "test", description: 5 as any })
+      }catch(e) {
+        expect(e.errors).toStrictEqual({
+          description: ["description must be a string"],
+        });
+      }
     });
 
     it("should a valid category", () => {

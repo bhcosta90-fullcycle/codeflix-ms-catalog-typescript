@@ -1,9 +1,15 @@
-import { ValidatorFieldsInterface } from "../../@shared/validator/@interface/validator-fields.interface";
-import { CategoryProps } from "category/domain/entity/category.entity";
-import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
+import { CategoryProps } from "../domain/entity/category.entity";
+import {
+  IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from "class-validator";
 import { ClassValidatorFields } from "../../@shared/validator/class-validator-fields";
 
-class CategoryValidator extends ClassValidatorFields<CategoryRules, CategoryProps>{
+export class CategoryRules {
   @MaxLength(100)
   @IsString()
   @IsNotEmpty()
@@ -20,18 +26,28 @@ class CategoryValidator extends ClassValidatorFields<CategoryRules, CategoryProp
   @IsDate()
   @IsOptional()
   created_at: Date;
+
+  constructor({ name, description, is_active, created_at }: CategoryProps) {
+    Object.assign(this, { name, description, is_active, created_at });
+  }
 }
 
-class CategoryRules {
-  constructor(data: CategoryProps) {
-    Object.assign(this, data);
+export class CategoryRulesClassValidator extends ClassValidatorFields<
+  CategoryRules,
+  CategoryProps
+> {
+  validate(data: CategoryProps): boolean {
+    return super.validate(new CategoryRules(data));
   }
 }
 
 export class CategoryValidatorFactory {
-  static create(type: 'class-validator' = 'class-validator'): ValidatorFieldsInterface<CategoryRules> {
+  static create(
+    type: "class-validator" = "class-validator"
+  ): ClassValidatorFields<CategoryRules, CategoryProps> {
     switch (type) {
-      default: return new CategoryValidator();
+      default:
+        return new CategoryRulesClassValidator();
     }
   }
 }
