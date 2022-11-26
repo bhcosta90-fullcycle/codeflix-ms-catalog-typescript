@@ -1,14 +1,14 @@
-import { ValidatorFieldError } from "./../validator-fields.error";
+import { EntityValidationError } from "../entity-validation.error";
 
-describe("ValidatorFieldError Unit Test", () => {
+describe("EntityValidationError Unit Test", () => {
   it("should a message default", () => {
     expect((): never => {
-      throw new ValidatorFieldError(null);
+      throw new EntityValidationError(null);
     }).toThrow("Validator Field Error");
   });
 
   it("should 1 error in get error", () => {
-    const error = new ValidatorFieldError({ field: ['some error'] });
-    expect(error.errors).toStrictEqual({ field: ['some error'] });
-  })
-})
+    const error = new EntityValidationError({ field: ["some error"] });
+    expect(error.errors).toStrictEqual({ field: ["some error"] });
+  });
+});

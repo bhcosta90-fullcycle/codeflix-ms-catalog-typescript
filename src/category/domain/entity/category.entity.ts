@@ -1,7 +1,7 @@
+import { EntityValidationError } from "../../../@shared/errors/entity-validation.error";
 import { EntityAbstract } from "../../../@shared/domains/entity/entity.abstract";
 import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
 import { CategoryValidatorFactory } from "./../../validators/category.validator";
-import { ValidatorFieldError } from "../../../@shared/errors/validator-fields.error";
 
 export class CategoryEntity extends EntityAbstract<CategoryProps> {
   protected _name: string;
@@ -44,7 +44,7 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
     const validator = CategoryValidatorFactory.create();
     validator.validate(props);
     if (validator.errors) {
-      throw new ValidatorFieldError(validator.errors);
+      throw new EntityValidationError(validator.errors);
     }
   }
 

@@ -1,6 +1,6 @@
 import { ClassValidatorFields } from "../class-validator-fields";
 import * as libClassValidator from "class-validator";
-import { ValidatorFieldError } from "./../../errors/validator-fields.error";
+import { ValidatorFieldError } from "../../errors/entity-validation.error";
 
 class StubClassValidatorFields extends ClassValidatorFields<
   {
