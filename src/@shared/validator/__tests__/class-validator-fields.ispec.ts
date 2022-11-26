@@ -1,4 +1,3 @@
-import { ValidatorFieldError } from "../../errors/entity-validation.error";
 import { IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
 import { ClassValidatorFields } from "../class-validator-fields";
 

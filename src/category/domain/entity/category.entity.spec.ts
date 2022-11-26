@@ -35,19 +35,19 @@ describe("CategoryEntity Unit Test", () => {
     expect(category.created_at).toBe(created_at);
   });
 
-  it("id field", () => {
+  describe("id field", () => {
     type TypeData = { props: EntityProps; id: UniqueId };
 
     const list: TypeData[] = [
-      { props: { name: "t" }, id: null },
-      { props: { name: "t" }, id: undefined },
-      { props: { name: "t" }, id: new UniqueId() },
+      { props: { name: "t1" }, id: null },
+      { props: { name: "t2" }, id: undefined },
+      { props: { name: "t3" }, id: new UniqueId() },
     ];
 
-    list.map((rs: TypeData) => {
-      const category = new Entity(rs.props, rs.id);
+    test.each(list)("validate %o", (item: TypeData) => {
+      const category = new Entity(item.props, item.id);
       expect(category.id).not.toBeNull;
-      expect(category['_uniqueId']).toBeInstanceOf(UniqueId);
+      expect(category["_uniqueId"]).toBeInstanceOf(UniqueId);
     });
   });
 
