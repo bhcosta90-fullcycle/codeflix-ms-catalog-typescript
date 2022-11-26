@@ -1,21 +1,24 @@
 import { EntityValidationError } from "../../@shared/errors/entity-validation.error";
 import { FieldsErrors } from "../../@shared/validator/@interface/validator-fields.interface";
 import { ClassValidatorFields } from "../../@shared/validator/class-validator-fields";
-import { objectContaining } from "expect";
 
 type Expected =
   | { validator: ClassValidatorFields<any, any>; data: any }
   | (() => any);
 
 expect.extend({
-  containsErrorMessages(expected: Expected, received: FieldsErrors) {
+  containsErrorMessages(
+    expected: Expected,
+    received: FieldsErrors
+  ): { pass: boolean; message: any } {
+    let retErrors: any = null;
     if (typeof expected === "function") {
       try {
         expected();
         return isValid();
       } catch (e) {
         const error = e as EntityValidationError;
-        return assertContainsErrorsMessages(error.errors, received);
+        retErrors = error.errors;
       }
     } else {
       const { validator, data } = expected;
@@ -24,9 +27,10 @@ expect.extend({
       if (validated) {
         return isValid();
       }
-
-      return assertContainsErrorsMessages(validator.errors, received);
+      retErrors = validator.errors;
     }
+
+    return assertContainsErrorsMessages(retErrors, received);
   },
 });
 
@@ -38,7 +42,7 @@ function assertContainsErrorsMessages(
   expected: FieldsErrors,
   received: FieldsErrors
 ) {
-  const isMatch = objectContaining(received).asymmetricMatch(expected);
+  const isMatch = expect.objectContaining(received).asymmetricMatch(expected);
 
   return isMatch
     ? { pass: true, message: () => "" }
