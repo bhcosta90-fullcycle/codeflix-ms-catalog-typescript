@@ -14,7 +14,7 @@ describe("Entity Unit Tests", () => {
     const arrange = { prop1: "prop1 value", prop2: 10 };
     const entity = new StubEntity(arrange);
     expect(entity['props']).toStrictEqual(arrange);
-    expect(entity['_uniqueId']).toBeInstanceOf(UniqueId);
+    expect(entity.uniqueId).toBeInstanceOf(UniqueId);
     expect(uuidValidate(entity.id)).toBeTruthy();
   });
 
@@ -22,7 +22,7 @@ describe("Entity Unit Tests", () => {
     const arrange = { prop1: "prop1 value", prop2: 10 };
     const uniqueEntityId = new UniqueId();
     const entity = new StubEntity(arrange, uniqueEntityId);
-    expect(entity['_uniqueId']).toBeInstanceOf(UniqueId);
+    expect(entity.uniqueId).toBeInstanceOf(UniqueId);
     expect(entity.id).toBe(uniqueEntityId.value);
   });
 
