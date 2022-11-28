@@ -42,8 +42,7 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
 
   private static validate(props: Omit<CategoryProps, 'id' | 'created_at'>) {
     const validator = CategoryValidatorFactory.create();
-    validator.validate(props);
-    if (validator.errors) {
+    if (!validator.validate(props)) {
       throw new EntityValidationError(validator.errors);
     }
   }

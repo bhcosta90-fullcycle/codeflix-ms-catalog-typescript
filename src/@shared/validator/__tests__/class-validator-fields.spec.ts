@@ -1,6 +1,6 @@
 import { ClassValidatorFields } from "../class-validator-fields";
 import * as libClassValidator from "class-validator";
-import { ValidatorFieldError } from "../../errors/entity-validation.error";
+import { EntityValidationError } from "../../errors/entity-validation.error";
 
 class StubClassValidatorFields extends ClassValidatorFields<
   {
@@ -30,8 +30,8 @@ describe("ClassValidatorFields Unit Tests", () => {
       expect(validator.data).toBeNull();
       expect(validator.errors).toStrictEqual({ field: ["some error"] });
     }catch(e) {
-      if (e instanceof ValidatorFieldError){
-        expect(e.errors).toStrictEqual({ field: ['some error'] });
+      if (e instanceof EntityValidationError) {
+        expect(e.error).toStrictEqual({ field: ["some error"] });
       }
     }
   });

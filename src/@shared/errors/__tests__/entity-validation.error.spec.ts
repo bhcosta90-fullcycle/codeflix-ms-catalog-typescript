@@ -9,6 +9,6 @@ describe("EntityValidationError Unit Test", () => {
 
   it("should 1 error in get error", () => {
     const error = new EntityValidationError({ field: ["some error"] });
-    expect(error.errors).toStrictEqual({ field: ["some error"] });
+    expect(error.error).toStrictEqual({ field: ["some error"] });
   });
 });

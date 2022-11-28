@@ -27,8 +27,8 @@ export class CategoryRules {
   @IsOptional()
   created_at: Date;
 
-  constructor({ name, description, is_active, created_at }: CategoryProps) {
-    Object.assign(this, { name, description, is_active, created_at });
+  constructor(data: CategoryProps) {
+    Object.assign(this, data);
   }
 }
 
@@ -42,12 +42,7 @@ export class CategoryRulesClassValidator extends ClassValidatorFields<
 }
 
 export class CategoryValidatorFactory {
-  static create(
-    type: "class-validator" = "class-validator"
-  ): ClassValidatorFields<CategoryRules, CategoryProps> {
-    switch (type) {
-      default:
-        return new CategoryRulesClassValidator();
-    }
+  public static create(): ClassValidatorFields<CategoryRules, CategoryProps> {
+    return new CategoryRulesClassValidator();
   }
 }

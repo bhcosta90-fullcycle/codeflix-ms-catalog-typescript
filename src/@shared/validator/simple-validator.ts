@@ -1,10 +1,10 @@
 import { ValidationError } from "../errors/validation.error";
 
-export class ValidatorRules {
+export class SimpleValidate {
   private constructor(private value: any, private property: string) { }
 
   static values(value: any, property: string) {
-    return new ValidatorRules(value, property);
+    return new SimpleValidate(value, property);
   }
 
   required(): Omit<this, 'required'> {

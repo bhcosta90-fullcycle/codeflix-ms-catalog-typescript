@@ -1,5 +1,5 @@
 import { ValidationError } from "../../errors/validation.error";
-import { ValidatorRules } from "../validator-rules";
+import { SimpleValidate } from "../simple-validator";
 
 type Values = {
   value: any;
@@ -9,7 +9,7 @@ type Values = {
 type ExpectedRule = {
   value: any;
   property: string;
-  rule: keyof ValidatorRules;
+  rule: keyof SimpleValidate;
   error: ValidationError;
   params?: any[];
 };
@@ -32,15 +32,15 @@ function runRule({
   rule,
   params = [],
 }: Omit<ExpectedRule, "error">) {
-  const validator = ValidatorRules.values(value, property);
+  const validator = SimpleValidate.values(value, property);
   const method = validator[rule];
   method.apply(validator, params);
 }
 
-describe("ValidatorRules Unit Tests", () => {
+describe("SimpleValidate Unit Tests", () => {
   test("values method", () => {
-    const validator = ValidatorRules.values("some value", "field");
-    expect(validator).toBeInstanceOf(ValidatorRules);
+    const validator = SimpleValidate.values("some value", "field");
+    expect(validator).toBeInstanceOf(SimpleValidate);
     expect(validator["value"]).toBe("some value");
     expect(validator["property"]).toBe("field");
   });
@@ -184,29 +184,29 @@ describe("ValidatorRules Unit Tests", () => {
   });
 
   it("should throw a validation error when combine two or more validation rules", () => {
-    let validator = ValidatorRules.values(null, "field");
+    let validator = SimpleValidate.values(null, "field");
     expect(() => {
       validator.required().string().maxLength(5);
     }).toThrow(new ValidationError("The field is required"));
 
-    validator = ValidatorRules.values(5, "field");
+    validator = SimpleValidate.values(5, "field");
     expect(() => {
       validator.required().string().maxLength(5);
     }).toThrow(new ValidationError("The field must be a string"));
 
-    validator = ValidatorRules.values("aaaaaa", "field");
+    validator = SimpleValidate.values("aaaaaa", "field");
     expect(() => {
       validator.required().string().maxLength(5);
     }).toThrow(
       new ValidationError("The field must be less or equal than 5 characters")
     );
 
-    validator = ValidatorRules.values(null, "field");
+    validator = SimpleValidate.values(null, "field");
     expect(() => {
       validator.required().boolean();
     }).toThrow(new ValidationError("The field is required"));
 
-    validator = ValidatorRules.values(5, "field");
+    validator = SimpleValidate.values(5, "field");
     expect(() => {
       validator.required().boolean();
     }).toThrow(new ValidationError("The field must be a boolean"));
@@ -214,10 +214,10 @@ describe("ValidatorRules Unit Tests", () => {
 
   it("should valid when combine two or more validation rules", () => {
     expect.assertions(0);
-    ValidatorRules.values("test", "field").required().string();
-    ValidatorRules.values("aaaaa", "field").required().string().maxLength(5);
+    SimpleValidate.values("test", "field").required().string();
+    SimpleValidate.values("aaaaa", "field").required().string().maxLength(5);
 
-    ValidatorRules.values(true, "field").required().boolean();
-    ValidatorRules.values(false, "field").required().boolean();
+    SimpleValidate.values(true, "field").required().boolean();
+    SimpleValidate.values(false, "field").required().boolean();
   });
 });

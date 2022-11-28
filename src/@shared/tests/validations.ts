@@ -18,7 +18,7 @@ expect.extend({
         return isValid();
       } catch (e) {
         const error = e as EntityValidationError;
-        retErrors = error.errors;
+        retErrors = error.error;
       }
     } else {
       const { validator, data } = expected;
