@@ -1,17 +1,17 @@
 import { UniqueId } from "../vo/unique-id.vo";
 
-export abstract class EntityAbstract<Props> {
+export abstract class EntityAbstract<Props = any> {
 
   abstract update(props: Props);
 
-  private _uniqueId?: UniqueId;
+  public readonly uniqueId?: UniqueId;
 
   constructor(protected readonly props: Props, protected readonly _id?: UniqueId) {
-    this._uniqueId = _id || new UniqueId();
+    this.uniqueId = _id || new UniqueId();
   }
 
   get id(): string {
-    return this._uniqueId.value;
+    return this.uniqueId.value;
   }
 
   toJSON(): Required<{ id: string } & Props> {

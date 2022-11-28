@@ -1,7 +1,7 @@
 import { EntityValidationError } from "../../../@shared/errors/entity-validation.error";
 import { EntityAbstract } from "../../../@shared/domains/entity/entity.abstract";
 import { UniqueId } from "../../../@shared/domains/vo/unique-id.vo";
-import { CategoryValidatorFactory } from "./../../validators/category.validator";
+import { CategoryValidatorFactory } from "./../validators/category.validator";
 
 export class CategoryEntity extends EntityAbstract<CategoryProps> {
   protected _name: string;

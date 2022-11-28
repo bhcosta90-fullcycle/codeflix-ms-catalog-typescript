@@ -1,4 +1,4 @@
-import { CategoryProps } from "../domain/entity/category.entity";
+import { CategoryProps } from "../../domain/entity/category.entity";
 import {
   IsBoolean,
   IsDate,
@@ -7,7 +7,7 @@ import {
   IsString,
   MaxLength,
 } from "class-validator";
-import { ClassValidatorFields } from "../../@shared/validator/class-validator-fields";
+import { ClassValidatorFields } from "../../../@shared/validator/class-validator-fields";
 
 export class CategoryRules {
   @MaxLength(100)
