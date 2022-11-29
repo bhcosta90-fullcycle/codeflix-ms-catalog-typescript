@@ -4,6 +4,7 @@ import { UniqueId } from "../vo/unique-id.vo";
 import {
   RepositoryInterface,
   SearchableRepositoryInterface,
+  SearchParams,
 } from "./@interface/repository.interface";
 
 export abstract class InMemoryRepository<E extends EntityAbstract>
@@ -50,7 +51,8 @@ export class InMemorySearchableRepository<E extends EntityAbstract, Filter>
   extends InMemoryRepository<E>
   implements SearchableRepositoryInterface<E, Filter>
 {
-  search(props: any): Promise<any> {
+  search(props: SearchParams<Filter>): Promise<null> {
     throw new Error("Method not implemented.");
   }
+ 
 }

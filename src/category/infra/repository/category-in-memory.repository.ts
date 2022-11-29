@@ -7,5 +7,12 @@ export class CategoryInMemoryRepository
   implements CategoryRepository {}
 
 type CategoryFilter = {
-  name: string;
+  name?: string;
 };
+
+const x = new CategoryInMemoryRepository();
+x.search({
+  page: 1,
+  per_page: 1,
+  filter: {}
+});

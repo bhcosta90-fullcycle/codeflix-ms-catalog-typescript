@@ -10,14 +10,14 @@ export interface RepositoryInterface<E extends EntityAbstract> {
 }
 
 export class SearchParams<Filter> {
-  protected _page: number;
-  protected _per_page: number = 15;
-  protected _filter: Filter;
+  private _page: number;
+  private _per_page: number = 15;
+  public filter: Filter | null;
 
-  constructor(props: SearchProps<Filter> = {}) {
+  constructor(props: SearchProps<Filter>) {
     this.page = props.page;
     this.per_page = props.per_page;
-    this._filter = props.filter;
+    this.filter = props.filter;
   }
 
   get page(): number {
@@ -51,23 +51,19 @@ export class SearchParams<Filter> {
 
     this._per_page = _per_page;
   }
-
-  get filter(): Filter {
-    return this._filter;
-  }
 }
 
 export type SearchProps<Filter> = {
   page?: number;
   per_page?: number;
-  filter?: Filter;
+  filter?: Filter | null;
 };
 
 export interface SearchableRepositoryInterface<
   E extends EntityAbstract,
-  SearchFilter,
-  SearchInput = SearchParams<SearchFilter>,
-  SearchOutput = null,
+  Filter,
+  SearchInput = SearchParams<Filter>,
+  SearchOutput = null
 > extends RepositoryInterface<E> {
   search(props: SearchInput): Promise<SearchOutput>;
 }
