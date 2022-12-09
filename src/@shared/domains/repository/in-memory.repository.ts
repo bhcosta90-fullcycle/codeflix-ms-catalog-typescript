@@ -4,13 +4,15 @@ import { UniqueId } from "../vo/unique-id.vo";
 import {
   RepositoryInterface,
   SearchableRepositoryInterface,
+  SearchProps,
   SearchParams,
+  SearchResult,
 } from "./@interface/repository.interface";
 
 export abstract class InMemoryRepository<E extends EntityAbstract>
   implements RepositoryInterface<E>
 {
-  private items: E[] = [];
+  protected items: E[] = [];
 
   async insert(entity: E): Promise<void> {
     this.items.push(entity);
@@ -47,12 +49,39 @@ export abstract class InMemoryRepository<E extends EntityAbstract>
   }
 }
 
-export class InMemorySearchableRepository<E extends EntityAbstract, Filter>
+export abstract class InMemorySearchableRepository<E extends EntityAbstract, Filter>
   extends InMemoryRepository<E>
   implements SearchableRepositoryInterface<E, Filter>
 {
-  search(props: SearchParams<Filter>): Promise<null> {
-    throw new Error("Method not implemented.");
+  async search(props: SearchProps<Filter>): Promise<SearchResult<E>> {
+    const itemsFiltered = await this.applyFilter(this.items, props.filter);
+
+    const itemsPaginated = await this.applyPaginate(
+      this.items,
+      props.page,
+      props.per_page
+    );
+
+    return new SearchResult({
+      items: itemsPaginated,
+      total: itemsFiltered.length,
+      current_page: props.page,
+      per_page: props.per_page,
+    });
   }
- 
+
+  protected abstract applyFilter(
+    items: E[],
+    filter: Filter | null
+  ): Promise<E[]>;
+
+  protected async applyPaginate(
+    items: E[],
+    page: SearchParams<Filter>["page"],
+    per_page: SearchParams<Filter>["per_page"]
+  ): Promise<E[]> {
+    const start = (page - 1) * per_page; // 1 * 15 = 15
+    const limit = start + per_page; // 15 + 15 = 30
+    return items.slice(start, limit);
+  }
 }
