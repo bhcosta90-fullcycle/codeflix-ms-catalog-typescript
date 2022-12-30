@@ -5,7 +5,7 @@ describe("RepositoryInterface Unit Test", () => {
     type TypeData = { page: any; expect: number };
 
     it("without params", () => {
-      const params = new SearchParams();
+      const params = new SearchParams({});
       expect(params.page).toBe(1);
     })
 
@@ -65,7 +65,7 @@ describe("RepositoryInterface Unit Test", () => {
     type TypeData = { per_page: any; expect: number };
 
     it("without params", () => {
-      const params = new SearchParams();
+      const params = new SearchParams({});
       expect(params.per_page).toBe(15);
     });
 
@@ -125,7 +125,7 @@ describe("RepositoryInterface Unit Test", () => {
     type TypeData = { filter: any; expect: number };
 
     it("without params", () => {
-      let params = new SearchParams();
+      let params = new SearchParams({});
       expect(params.filter).toBe(undefined);
 
       params = new SearchParams({ filter: null });

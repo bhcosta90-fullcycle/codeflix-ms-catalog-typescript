@@ -51,6 +51,10 @@ export class SearchParams<Filter> {
 
     this._per_page = _per_page;
   }
+
+  get filter(): Filter {
+    return this._filter;
+  }
 }
 
 export type SearchProps<Filter> = {
