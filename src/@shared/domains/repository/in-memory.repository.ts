@@ -57,7 +57,7 @@ export abstract class InMemorySearchableRepository<E extends EntityAbstract, Fil
     const itemsFiltered = await this.applyFilter(this.items, props.filter);
 
     const itemsPaginated = await this.applyPaginate(
-      this.items,
+      itemsFiltered,
       props.page,
       props.per_page
     );
