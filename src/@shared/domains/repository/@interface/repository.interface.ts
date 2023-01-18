@@ -65,7 +65,7 @@ export type SearchProps<Filter> = {
 
 export interface SearchableRepositoryInterface<
   E extends EntityAbstract,
-  Filter = {},
+  Filter = string,
   SearchInput = SearchParams<Filter>,
   SearchOutput = SearchResult<E>
 > extends RepositoryInterface<E> {
