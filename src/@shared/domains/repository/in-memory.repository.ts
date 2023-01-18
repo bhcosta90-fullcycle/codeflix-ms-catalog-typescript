@@ -9,10 +9,10 @@ import {
   SearchResult,
 } from "./@interface/repository.interface";
 
-export abstract class InMemoryRepository<E extends EntityAbstract>
-  implements RepositoryInterface<E>
+export abstract class InMemoryRepository<E extends EntityAbstract, Filter>
+  implements RepositoryInterface<E, Filter>
 {
-  protected items: E[] = [];
+  public items: E[] = [];
 
   async insert(entity: E): Promise<void> {
     this.items.push(entity);
@@ -50,7 +50,7 @@ export abstract class InMemoryRepository<E extends EntityAbstract>
 }
 
 export abstract class InMemorySearchableRepository<E extends EntityAbstract, Filter>
-  extends InMemoryRepository<E>
+  extends InMemoryRepository<E, Filter>
   implements SearchableRepositoryInterface<E, Filter>
 {
   async search(props: SearchProps<Filter>): Promise<SearchResult<E>> {
