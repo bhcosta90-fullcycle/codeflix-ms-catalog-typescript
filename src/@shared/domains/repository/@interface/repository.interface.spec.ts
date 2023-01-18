@@ -1,4 +1,4 @@
-import { SearchParams } from "./repository.interface";
+import { Params, SearchParams } from "./repository.interface";
 
 describe("RepositoryInterface Unit Test", () => {
   describe("page prop", () => {
@@ -124,32 +124,64 @@ describe("RepositoryInterface Unit Test", () => {
   describe("filter prop", () => {
     type TypeData = { filter: any; expect: number };
 
-    it("without params", () => {
-      let params = new SearchParams({});
-      expect(params.filter).toBe(undefined);
+    describe("Search Params", () => {
+      it("without params", () => {
+        let params = new SearchParams({});
+        expect(params.filter).toBe(undefined);
 
-      params = new SearchParams({ filter: null });
-      expect(params.filter).toBe(null);
+        params = new SearchParams({ filter: null });
+        expect(params.filter).toBe(null);
 
-      params = new SearchParams({ filter: { name: "test" } });
-      expect(params.filter).toStrictEqual({ name: "test" });
+        params = new SearchParams({ filter: { name: "test" } });
+        expect(params.filter).toStrictEqual({ name: "test" });
+      });
+
+      const arranges = [
+        {
+          filter: null,
+          expect: null,
+        },
+        {
+          filter: {},
+          expect: {},
+        },
+      ];
+
+      test.each(arranges)("validate %o", (i: TypeData) => {
+        expect(
+          new SearchParams({ filter: i.filter as any }).filter
+        ).toStrictEqual(i.expect);
+      });
     });
 
-    const arranges = [
-      {
-        filter: null,
-        expect: null,
-      },
-      {
-        filter: {},
-        expect: {},
-      },
-    ];
+    describe("Params", () => {
+      it("without params", () => {
+        let params = new Params({});
+        expect(params.filter).toBe(undefined);
 
-    test.each(arranges)("validate %o", (i: TypeData) => {
-      expect(
-        new SearchParams({ filter: i.filter as any }).filter
-      ).toStrictEqual(i.expect);
+        params = new Params({ filter: null });
+        expect(params.filter).toBe(null);
+
+        params = new Params({ filter: { name: "test" } });
+        expect(params.filter).toStrictEqual({ name: "test" });
+      });
+
+      const arranges = [
+        {
+          filter: null,
+          expect: null,
+        },
+        {
+          filter: {},
+          expect: {},
+        },
+      ];
+
+      test.each(arranges)("validate %o", (i: TypeData) => {
+        expect(new Params({ filter: i.filter as any }).filter).toStrictEqual(
+          i.expect
+        );
+      });
     });
-  })
+  });
 });

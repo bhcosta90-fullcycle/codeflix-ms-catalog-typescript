@@ -1,23 +1,38 @@
 import { UniqueId } from "../../vo/unique-id.vo";
 import { EntityAbstract } from "./../../entity/entity.abstract";
 
-export interface RepositoryInterface<E extends EntityAbstract> {
+export interface RepositoryInterface<
+  E extends EntityAbstract,
+  Filter,
+  SearchInput = Params<Filter>
+> {
   insert(entity: E): Promise<void>;
   findById(id: string | UniqueId): Promise<E>;
-  findAll(): Promise<E[]>;
+  findAll(props: SearchInput): Promise<E[]>;
   update(entity: E): Promise<void>;
   delete(id: string | UniqueId): Promise<void>;
 }
 
-export class SearchParams<Filter> {
-  private _page: number;
-  private _per_page: number = 15;
+export class Params<Filter> {
   private _filter: Filter = null;
 
+  constructor(props: { filter?: Filter }) {
+    this._filter = props.filter;
+  }
+
+  get filter(): Filter {
+    return this._filter;
+  }
+}
+
+export class SearchParams<Filter> extends Params<Filter> {
+  private _page: number;
+  private _per_page: number = 15;
+
   constructor(props: SearchProps<Filter>) {
+    super({filter: props.filter});
     this.page = props.page;
     this.per_page = props.per_page;
-    this._filter = props.filter;
   }
 
   get page(): number {
@@ -51,10 +66,6 @@ export class SearchParams<Filter> {
 
     this._per_page = _per_page;
   }
-
-  get filter(): Filter {
-    return this._filter;
-  }
 }
 
 export type SearchProps<Filter> = {
@@ -68,7 +79,7 @@ export interface SearchableRepositoryInterface<
   Filter = string,
   SearchInput = SearchParams<Filter>,
   SearchOutput = SearchResult<E>
-> extends RepositoryInterface<E> {
+> extends RepositoryInterface<E, Filter> {
   search(props: SearchInput): Promise<SearchOutput>;
 }
 
