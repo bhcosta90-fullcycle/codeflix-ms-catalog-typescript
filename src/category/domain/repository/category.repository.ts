@@ -2,7 +2,7 @@ import {
   SearchableRepositoryInterface,
   SearchParams as P,
   SearchResult as R,
-} from "@shared/domains/repository/@interface/repository.interface";
+} from "../../../@shared/domains/repository/@interface/repository.interface";
 import { CategoryEntity } from "../entity/category.entity";
 
 export namespace CategoryRepository {
@@ -16,7 +16,7 @@ export namespace CategoryRepository {
       SearchResult
     > {}
 
-  class SearchParams extends P<Filter> {}
+  export class SearchParams extends P<Filter> {}
 
-  class SearchResult extends R<CategoryEntity> {}
+  export class SearchResult extends R<CategoryEntity> {}
 }

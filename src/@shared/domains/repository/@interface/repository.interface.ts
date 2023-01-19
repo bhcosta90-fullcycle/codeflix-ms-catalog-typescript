@@ -76,7 +76,7 @@ export type SearchProps<Filter> = {
 
 export interface SearchableRepositoryInterface<
   E extends EntityAbstract,
-  Filter = string,
+  Filter = string | null,
   SearchInput = SearchParams<Filter>,
   SearchOutput = SearchResult<E>
 > extends RepositoryInterface<E, Filter> {
@@ -90,7 +90,7 @@ type SearchResultProps<E extends EntityAbstract> = {
   per_page: number;
 };
 
-export class SearchResult<E extends EntityAbstract> {
+export class SearchResult<E extends EntityAbstract = EntityAbstract> {
   readonly items: E[];
   readonly total: number;
   readonly current_page: number;

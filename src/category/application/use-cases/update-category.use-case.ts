@@ -1,5 +1,5 @@
 import { CategoryEntity } from './../../domain/entity/category.entity';
-import { CategoryRepository } from "category/domain/repository/category.repository";
+import { CategoryRepository } from "../../../category/domain/repository/category.repository";
 import { CategoryOutput } from "./dto/category.output";
 export class UpdateCategoryUseCase
   implements UseCaseInterface<CategoryUseCaseInput, CategoryOutput>
