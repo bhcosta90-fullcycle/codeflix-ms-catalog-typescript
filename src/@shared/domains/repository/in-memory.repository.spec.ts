@@ -25,7 +25,7 @@ class StubEntity extends EntityAbstract<StubEntityProps> {
   }
 }
 
-class StubInMemoryRepository extends InMemoryRepository<StubEntity> {}
+class StubInMemoryRepository extends InMemoryRepository<StubEntity, string> {}
 
 class StubInMemorySearchableRepository extends InMemorySearchableRepository<
   StubEntity,

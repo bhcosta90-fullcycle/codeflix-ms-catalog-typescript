@@ -1,14 +1,23 @@
 {
   "compilerOptions": {
-    "incremental": true,
     "rootDir": "src",
     "baseUrl": "./src",
     "outDir": "./dist",
-    "strict": false,
     "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2017",
-    "strictNullChecks": false
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "allowJs": true
   },
   "include": ["src/"],
   "exclude": ["node_modules"]

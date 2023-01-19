@@ -28,7 +28,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
     expect(output).toStrictEqual({
       id: entity.id,
       name: "test",
-      description: undefined,
+      description: null,
       is_active: true,
       created_at: entity.created_at,
     });
@@ -71,7 +71,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
         expected: {
           id: entity.id,
           name: "test",
-          description: undefined,
+          description: null,
           is_active: true,
           created_at: entity.created_at,
         },
@@ -85,7 +85,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
         expected: {
           id: entity.id,
           name: "test",
-          description: undefined,
+          description: null,
           is_active: false,
           created_at: entity.created_at,
         },
@@ -98,7 +98,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
         expected: {
           id: entity.id,
           name: "test",
-          description: undefined,
+          description: null,
           is_active: false,
           created_at: entity.created_at,
         },
@@ -112,7 +112,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
         expected: {
           id: entity.id,
           name: "test",
-          description: undefined,
+          description: null,
           is_active: true,
           created_at: entity.created_at,
         },
