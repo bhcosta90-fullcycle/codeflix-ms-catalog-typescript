@@ -6,11 +6,12 @@
   "scripts": {
     "ts-node": "ts-node",
     "tsc": "tsc",
-    "clean": "rimraf ./dist/",
-    "build": "npm run clean && tsc -b ./tsconfig.build.json",
+    "tsc:check": "npm run tsc -- --noEmit",
+    "clean:tsc": "rimraf tsconfig.tsbuildinfo",
     "test": "jest",
-    "test:tsc": "npm run tsc -- --noEmit && npm run test",
-    "test:cov": "npm run test -- --coverage"
+    "test:cov": "npm run test -- --coverage",
+    "clean": "rimraf ./dist/",
+    "build": "npm run clean && tsc -b ./tsconfig.build.json"
   },
   "author": "",
   "license": "ISC",
