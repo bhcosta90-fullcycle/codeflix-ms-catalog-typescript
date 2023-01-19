@@ -23,7 +23,7 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
   }
 
   get description(): string {
-    return this._description;
+    return this._description ?? null;
   }
 
   get is_active(): boolean {
