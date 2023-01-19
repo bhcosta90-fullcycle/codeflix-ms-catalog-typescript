@@ -82,7 +82,7 @@ describe("CategoryEntity Unit Test", () => {
       description: "Test",
       is_active: true,
     });
-    category.deactive();
+    category.deactivate();
     expect(category.is_active).toBeFalsy();
   })
 });

@@ -11,12 +11,12 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
 
   constructor(props: CategoryProps, id?: UniqueId) {
     CategoryEntity.validate(props);
-    super(props, id)
+    super(props, id);
     this._name = props.name;
     this._description = props.description ?? null;
     this._is_active = props.is_active ?? true;
     this._created_at = props.created_at ?? new Date();
-  };
+  }
 
   get name(): string {
     return this._name;
@@ -34,13 +34,13 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
     return this._created_at;
   }
 
-  update(props: Pick<CategoryProps, 'name' | 'description'>) {
+  update(props: Pick<CategoryProps, "name" | "description">) {
     CategoryEntity.validate(props);
     this._name = props.name;
     this._description = props.description;
   }
 
-  private static validate(props: Omit<CategoryProps, 'id' | 'created_at'>) {
+  private static validate(props: Omit<CategoryProps, "id" | "created_at">) {
     const validator = CategoryValidatorFactory.create();
     if (!validator.validate(props)) {
       throw new EntityValidationError(validator.errors);
@@ -51,7 +51,7 @@ export class CategoryEntity extends EntityAbstract<CategoryProps> {
     this._is_active = true;
   }
 
-  deactive() {
+  deactivate() {
     this._is_active = false;
   }
 }
