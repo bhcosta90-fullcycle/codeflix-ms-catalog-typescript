@@ -194,4 +194,6 @@ export default {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
+  setupFilesAfterEnv: ["./src/@shared/tests/validations.ts"],
 };

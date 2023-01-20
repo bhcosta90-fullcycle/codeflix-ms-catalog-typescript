@@ -9,6 +9,12 @@ export type CategoryOutput = {
 
 export class CategoryOutputMapper {
   static toOutput(entity: CategoryEntity): CategoryOutput {
-    return entity.toJSON();
+    return {
+      id: entity.id,
+      name: entity.name,
+      created_at: entity.created_at,
+      description: entity.description,
+      is_active: entity.is_active,
+    };
   }
 }
