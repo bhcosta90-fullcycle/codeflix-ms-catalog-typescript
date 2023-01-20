@@ -27,11 +27,9 @@ export abstract class InMemoryRepository<E extends EntityAbstract, Filter>
   }
 
   async update(entity: E): Promise<void> {
-    console.log(this.items);
     const _entity = await this.getItem(entity.id);
     const _index = this.items.findIndex((i) => i.id === _entity.id);
     this.items[_index] = entity;
-    console.log(this.items);
   }
 
   async delete(id: string | UniqueId): Promise<void> {
