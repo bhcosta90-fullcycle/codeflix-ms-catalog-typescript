@@ -6,7 +6,8 @@
     "prebuild": "rimraf dist & rimraf tsconfig.*tsbuildinfo",
     "build": "tsc -b tsconfig.json",
     "build:w": "tsc -w",
-    "test": "jest"
+    "test": "jest",
+    "test:cov": "jest -- --coverage"
   },
   "author": "",
   "license": "ISC",
