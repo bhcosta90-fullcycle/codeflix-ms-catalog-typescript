@@ -2,17 +2,19 @@ import { CategoryRepository } from "../../../category/domain/repository/category
 import { CategoryOutput, CategoryOutputMapper } from "./dto/category.output";
 export namespace GetCategoryUseCase {
   export class UseCase
-    implements UseCaseInterface<CategoryUseCaseInput, CategoryOutput>
+    implements UseCaseInterface<Input, Output>
   {
     constructor(protected repository: CategoryRepository.Repository) {}
 
-    async execute(input: CategoryUseCaseInput): Promise<CategoryOutput> {
+    async execute(input: Input): Promise<Output> {
       const entity = await this.repository.findById(input.id);
       return CategoryOutputMapper.toOutput(entity);
     }
   }
 
-  type CategoryUseCaseInput = {
+  type Input = {
     id: string;
   };
+
+  export type Output = CategoryOutput;
 }

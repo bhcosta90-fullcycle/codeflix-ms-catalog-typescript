@@ -1,4 +1,4 @@
-import { CategoryRepository } from "../../../category/domain/repository/category.repository";
+import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";
 
 export namespace DeleteCategoryUseCase {
   export class UseCase implements UseCaseInterface<Input, void> {

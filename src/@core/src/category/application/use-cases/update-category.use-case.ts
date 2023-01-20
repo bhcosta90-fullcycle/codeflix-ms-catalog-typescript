@@ -3,11 +3,11 @@ import { CategoryRepository } from "../../../category/domain/repository/category
 import { CategoryOutput } from "./dto/category.output";
 export namespace UpdateCategoryUseCase {
   export class UseCase
-    implements UseCaseInterface<Input, CategoryOutput>
+    implements UseCaseInterface<Input, Output>
   {
     constructor(protected repository: CategoryRepository.Repository) {}
 
-    async execute(input: Input): Promise<CategoryOutput> {
+    async execute(input: Input): Promise<Output> {
       const entity: CategoryEntity = await this.repository.findById(input.id);
 
       entity.update({
@@ -41,4 +41,6 @@ export namespace UpdateCategoryUseCase {
     description: string | null;
     is_active?: boolean;
   };
+
+  export type Output = CategoryOutput;
 }

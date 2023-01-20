@@ -4,11 +4,11 @@ import { CategoryOutput, CategoryOutputMapper } from "./dto/category.output";
 
 export namespace CreateCategoryUseCase {
   export class UseCase
-    implements UseCaseInterface<Input, CategoryOutput>
+    implements UseCaseInterface<Input, Output>
   {
     constructor(protected repository: CategoryRepository.Repository) {}
 
-    async execute(input: Input): Promise<CategoryOutput> {
+    async execute(input: Input): Promise<Output> {
       const entity = new CategoryEntity(input);
       await this.repository.insert(entity);
       return CategoryOutputMapper.toOutput(entity);
@@ -20,4 +20,6 @@ export namespace CreateCategoryUseCase {
     description?: string;
     is_active?: boolean;
   };
+
+  export type Output = CategoryOutput;
 }

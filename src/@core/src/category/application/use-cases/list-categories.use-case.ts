@@ -30,5 +30,5 @@ export namespace ListCategoriesUseCase {
 
   export type Input = SearchInputDto<CategoryRepository.Filter>;
 
-  type Output = SearchOutputDto<CategoryOutput>;
+  export type Output = SearchOutputDto<CategoryOutput>;
 }
