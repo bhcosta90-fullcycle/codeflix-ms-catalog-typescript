@@ -3,6 +3,7 @@
     "parser": {
       "syntax": "typescript",
       "decorators": true
-    }
+    },
+    "baseUrl": "./src"
   }
 }

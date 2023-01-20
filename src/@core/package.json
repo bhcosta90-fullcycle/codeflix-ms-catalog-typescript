@@ -1,0 +1,37 @@
+{
+  "name": "@ca/core",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prebuild": "rimraf dist & rimraf tsconfig.*tsbuildinfo",
+    "build": "tsc -b tsconfig.json",
+    "build:w": "tsc -w",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "exports": {
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    ">=4.0": {
+      "*": [
+        "./dist/*"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@swc/core": "^1.3.27",
+    "@swc/jest": "^0.2.24",
+    "@types/jest": "^29.2.5",
+    "@types/uuid": "^9.0.0",
+    "jest": "^29.3.1",
+    "rimraf": "^4.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "class-validator": "^0.14.0",
+    "uuid": "^9.0.0"
+  }
+}
