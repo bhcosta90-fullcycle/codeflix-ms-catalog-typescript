@@ -1,3 +1,5 @@
+import { CreateCategoryUseCase } from '@ca/core/category/application/use-cases/create-category.use-case';
+import { ListCategoriesUseCase } from '@ca/core/category/application/use-cases/list-categories.use-case';
 import {
   Controller,
   Get,
@@ -8,38 +10,44 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('category')
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(
+    private readonly createUseCase: CreateCategoryUseCase.UseCase,
+    private readonly listUseCase: ListCategoriesUseCase.UseCase,
+    private readonly categoryService: CategoryService,
+  ) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoryService.create(createCategoryDto);
+  create(@Body() createCategoryDto) {
+    return this.createUseCase.execute({
+      name: 'test',
+    });
   }
 
   @Get()
   findAll() {
-    return this.categoryService.findAll();
+    return this.listUseCase.execute({});
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
+    return this.categoryService.findOne(id);
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto,
-  ) {
-    return this.categoryService.update(+id, updateCategoryDto);
+  update(@Param('id') id: string, @Body() updateCategoryDto) {
+    return this.categoryService.update({
+      id: id,
+      name: 'test update',
+      description: null,
+      is_active: true,
+    });
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+    return this.categoryService.remove(id);
   }
 }

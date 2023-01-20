@@ -1,4 +1,11 @@
 GET http://localhost:3200/category
 
+# @name createCategory
 ###
 POST http://localhost:3200/category
+
+###
+GET http://localhost:3200/category/8e8a5b9c-441e-4bdc-9e4b-86fe1ad93060
+
+###
+PATCH  http://localhost:3200/category/f6bc0914-fec3-4f50-8216-8a4279c83958
