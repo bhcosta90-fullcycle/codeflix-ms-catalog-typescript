@@ -1,13 +1,17 @@
 version: "3.8"
 services:
-  dev:
-    container_name: micro-videos-app-typescript
+  app:
     build:
       context: .
       target: dev
-    # ports:
-    #   - "3000:3000"
-    #   - "9229:9229"
-    command: ./run.sh
     volumes:
-      - .:/home/node/app
+      - .:/app
+    ports:
+      - 3000:3000
+
+  prod:
+    build:
+      context: .
+      target: prod
+    ports:
+      - 3000:3000
