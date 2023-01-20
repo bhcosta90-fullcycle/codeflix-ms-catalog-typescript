@@ -1,13 +1,30 @@
-GET http://localhost:3200/category
+@port = 3200
+
+GET http://localhost:{{port}}/category
 
 ###
-POST http://localhost:3200/category
+# @name create
+@id = {{create.response.body.$.id}}
+POST http://localhost:{{port}}/category
+Content-Type: application/json
+
+{
+    "name": "test 123"
+}
+
 
 ###
-GET http://localhost:3200/category/3a6c42d2-0a17-42ae-a73f-66376200e6a5
+GET http://localhost:{{port}}/category/{{id}}
 
 ###
-PATCH  http://localhost:3200/category/3a6c42d2-0a17-42ae-a73f-66376200e6a5
+PUT  http://localhost:{{port}}/category/{{id}}
+Content-Type: application/json
+
+{
+    "name": "test 456"
+}
+###
+GET http://localhost:{{port}}/category/{{id}}
 
 ###
-DELETE http://localhost:3200/category/3a6c42d2-0a17-42ae-a73f-66376200e6a5
+DELETE http://localhost:{{port}}/category/{{id}}

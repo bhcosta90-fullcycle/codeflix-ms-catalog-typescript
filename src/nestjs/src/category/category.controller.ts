@@ -1,3 +1,4 @@
+import { CreateCategoryDto } from './dto/create-category.dto';
 import { GetCategoryUseCase } from '@ca/core/category/application/use-cases/get-category.use-case';
 import { DeleteCategoryUseCase } from '@ca/core/category/application/use-cases/delete-category.use-case';
 import { UpdateCategoryUseCase } from '@ca/core/category/application/use-cases/update-category.use-case';
@@ -9,11 +10,15 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
   Inject,
+  Query,
+  HttpCode,
 } from '@nestjs/common';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+import { SearchCategoryDto } from './dto/search-category.dto';
 
 @Controller('category')
 export class CategoryController {
@@ -33,15 +38,13 @@ export class CategoryController {
   protected updateUseCase: UpdateCategoryUseCase.UseCase;
 
   @Post()
-  create(@Body() createCategoryDto) {
-    return this.createUseCase.execute({
-      name: 'test',
-    });
+  create(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.createUseCase.execute(createCategoryDto);
   }
 
   @Get()
-  findAll() {
-    return this.listUseCase.execute({});
+  search(@Query() body: SearchCategoryDto) {
+    return this.listUseCase.execute(body);
   }
 
   @Get(':id')
@@ -49,16 +52,18 @@ export class CategoryController {
     return this.getUseCase.execute({ id });
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
     return this.updateUseCase.execute({
-      id: id,
-      name: 'test update',
-      description: null,
-      is_active: true,
+      id,
+      ...updateCategoryDto,
     });
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.deleteUseCase.execute({ id });
