@@ -33,6 +33,7 @@ describe('CategoryController', () => {
     };
     const output = await controller.create(input);
     expect(mockCreateUseCase.execute).toHaveBeenCalledWith(input);
+    expect(mockCreateUseCase.execute).toHaveBeenCalledTimes(1);
     expect(expectedOutput).toStrictEqual(output);
   });
 
@@ -56,6 +57,7 @@ describe('CategoryController', () => {
     };
     const output = await controller.update(id, input);
     expect(mockUpdateUseCase.execute).toHaveBeenCalledWith({ id, ...input });
+    expect(mockUpdateUseCase.execute).toHaveBeenCalledTimes(1);
     expect(expectedOutput).toStrictEqual(output);
   });
 
@@ -74,6 +76,7 @@ describe('CategoryController', () => {
     controller['getUseCase'] = mockGetUseCase as any;
     const output = await controller.findOne(id);
     expect(mockGetUseCase.execute).toHaveBeenCalledWith({ id });
+    expect(mockGetUseCase.execute).toHaveBeenCalledTimes(1);
     expect(expectedOutput).toStrictEqual(output);
   });
 
@@ -87,6 +90,7 @@ describe('CategoryController', () => {
     expect(controller.remove(id)).toBeInstanceOf(Promise);
     const output = await controller.remove(id);
     expect(mockDeleteUseCase.execute).toHaveBeenCalledWith({ id });
+    expect(mockDeleteUseCase.execute).toHaveBeenCalledTimes(2);
     expect(expectedOutput).toStrictEqual(output);
   });
 
@@ -117,6 +121,7 @@ describe('CategoryController', () => {
     };
     const output = await controller.search(searchParams);
     expect(mockListUseCase.execute).toHaveBeenCalledWith(searchParams);
+    expect(mockListUseCase.execute).toHaveBeenCalledTimes(1);
     expect(expectedOutput).toStrictEqual(output);
   });
 });
