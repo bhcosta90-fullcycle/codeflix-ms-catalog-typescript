@@ -2,12 +2,16 @@ FROM node:18-alpine as base
 WORKDIR /app
 
 FROM base as dev
+RUN npm install -g npm@9.3.1 @nestjs/cli && \
+    apk add --update bash && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
+
 CMD yarn dev
 
 FROM base as build
 COPY . .
 RUN yarn && \
-    npm install -g npm@9.3.1 && \
     npm run build -w @ca/core && \
     npm run build -w nestjs && \
     yarn install --production --frozen-lockfile && \

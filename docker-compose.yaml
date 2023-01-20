@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - 3000:3000
+      - 3200:3000
 
   prod:
     build:

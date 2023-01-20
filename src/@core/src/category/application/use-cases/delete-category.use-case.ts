@@ -1,15 +1,16 @@
-import { CategoryRepository } from "../../../category/domain/repository/category.repository";
-export class DeleteCategoryUseCase
-  implements UseCaseInterface<CategoryUseCaseInput, void>
-{
-  constructor(protected repository: CategoryRepository.Repository) {}
+import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";
 
-  async execute(input: CategoryUseCaseInput): Promise<void> {
-    const entity = await this.repository.findById(input.id);
-    await this.repository.delete(entity.id);
+export namespace DeleteCategoryUseCase {
+  export class UseCase implements UseCaseInterface<Input, void> {
+    constructor(protected repository: CategoryRepository.Repository) {}
+
+    async execute(input: Input): Promise<void> {
+      const entity = await this.repository.findById(input.id);
+      await this.repository.delete(entity.id);
+    }
   }
-}
 
-export type CategoryUseCaseInput = {
-  id: string;
-};
+  type Input = {
+    id: string;
+  };
+}
