@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "baseUrl": "./src",
-    "outDir": "./dist",
+    "outDir": "dist",
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -17,8 +15,14 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "allowJs": true
+    "allowJs": true,
+    "rootDir": "./src/",
+    "sourceMap": true,
+    "declarationMap": true,
+    "paths": {
+      "@ca/core/*": ["./src/*"]
+    }
   },
-  "include": ["src/"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
