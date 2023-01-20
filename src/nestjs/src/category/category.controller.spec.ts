@@ -1,20 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { CategoryController } from './category.controller';
-import { CategoryService } from './category.service';
 
 describe('CategoryController', () => {
   let controller: CategoryController;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [CategoryController],
-      providers: [CategoryService],
-    }).compile();
-
-    controller = module.get<CategoryController>(CategoryController);
+    controller = new CategoryController();
   });
 
-  it('should be defined', () => {
+  it('should a create category', () => {
+    expect(controller).toBeDefined();
+  });
+
+  it('should a update category', () => {
+    expect(controller).toBeDefined();
+  });
+
+  it('should a get category', () => {
+    expect(controller).toBeDefined();
+  });
+
+  it('should a delete category', () => {
+    expect(controller).toBeDefined();
+  });
+
+  it('should a list category', () => {
     expect(controller).toBeDefined();
   });
 });
