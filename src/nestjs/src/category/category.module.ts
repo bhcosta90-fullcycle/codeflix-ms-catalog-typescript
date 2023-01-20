@@ -5,14 +5,12 @@ import { ListCategoriesUseCase } from '@ca/core/category/application/use-cases/l
 import { CategoryInMemoryRepository } from '@ca/core/category/infra/repository/category-in-memory.repository';
 import { CreateCategoryUseCase } from '@ca/core/category/application/use-cases/create-category.use-case';
 import { Module } from '@nestjs/common';
-import { CategoryService } from './category.service';
 import { CategoryController } from './category.controller';
 import { CategoryRepository } from '@ca/core/category/domain/repository/category.repository';
 
 @Module({
   controllers: [CategoryController],
   providers: [
-    CategoryService,
     {
       provide: 'CategoryRepository',
       useClass: CategoryInMemoryRepository,

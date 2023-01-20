@@ -4,7 +4,10 @@ GET http://localhost:3200/category
 POST http://localhost:3200/category
 
 ###
-GET http://localhost:3200/category/ecb8d84d-3bac-4c23-acd6-354aa4442d9b
+GET http://localhost:3200/category/3a6c42d2-0a17-42ae-a73f-66376200e6a5
 
 ###
-PATCH  http://localhost:3200/category/ecb8d84d-3bac-4c23-acd6-354aa4442d9b
+PATCH  http://localhost:3200/category/3a6c42d2-0a17-42ae-a73f-66376200e6a5
+
+###
+DELETE http://localhost:3200/category/3a6c42d2-0a17-42ae-a73f-66376200e6a5

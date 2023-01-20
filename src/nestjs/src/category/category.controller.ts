@@ -1,5 +1,9 @@
-import { CreateCategoryUseCase } from '@ca/core/category/application/use-cases/create-category.use-case';
+import { GetCategoryUseCase } from '@ca/core/category/application/use-cases/get-category.use-case';
+import { DeleteCategoryUseCase } from '@ca/core/category/application/use-cases/delete-category.use-case';
+import { UpdateCategoryUseCase } from '@ca/core/category/application/use-cases/update-category.use-case';
 import { ListCategoriesUseCase } from '@ca/core/category/application/use-cases/list-categories.use-case';
+import { CreateCategoryUseCase } from '@ca/core/category/application/use-cases/create-category.use-case';
+
 import {
   Controller,
   Get,
@@ -8,16 +12,25 @@ import {
   Patch,
   Param,
   Delete,
+  Inject,
 } from '@nestjs/common';
-import { CategoryService } from './category.service';
 
 @Controller('category')
 export class CategoryController {
-  constructor(
-    private readonly createUseCase: CreateCategoryUseCase.UseCase,
-    private readonly listUseCase: ListCategoriesUseCase.UseCase,
-    private readonly categoryService: CategoryService,
-  ) {}
+  @Inject(CreateCategoryUseCase.UseCase)
+  protected createUseCase: CreateCategoryUseCase.UseCase;
+
+  @Inject(ListCategoriesUseCase.UseCase)
+  protected listUseCase: ListCategoriesUseCase.UseCase;
+
+  @Inject(GetCategoryUseCase.UseCase)
+  protected getUseCase: GetCategoryUseCase.UseCase;
+
+  @Inject(DeleteCategoryUseCase.UseCase)
+  protected deleteUseCase: DeleteCategoryUseCase.UseCase;
+
+  @Inject(UpdateCategoryUseCase.UseCase)
+  protected updateUseCase: UpdateCategoryUseCase.UseCase;
 
   @Post()
   create(@Body() createCategoryDto) {
@@ -33,12 +46,12 @@ export class CategoryController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(id);
+    return this.getUseCase.execute({ id });
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCategoryDto) {
-    return this.categoryService.update({
+    return this.updateUseCase.execute({
       id: id,
       name: 'test update',
       description: null,
@@ -48,6 +61,6 @@ export class CategoryController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.categoryService.remove(id);
+    return this.deleteUseCase.execute({ id });
   }
 }
