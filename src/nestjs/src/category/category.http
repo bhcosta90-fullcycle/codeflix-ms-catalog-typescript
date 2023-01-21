@@ -28,3 +28,6 @@ GET http://localhost:{{port}}/category/{{id}}
 
 ###
 DELETE http://localhost:{{port}}/category/{{id}}
+
+###
+GET http://localhost:{{port}}/category
