@@ -6,7 +6,7 @@ import {
 import { CategoryEntity } from "../entity/category.entity";
 
 export namespace CategoryRepository {
-  export type Filter = string;
+  export type Filter = string | null;
 
   export interface Repository
     extends SearchableRepositoryInterface<
