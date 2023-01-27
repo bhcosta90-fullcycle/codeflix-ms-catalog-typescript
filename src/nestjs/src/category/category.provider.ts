@@ -4,7 +4,7 @@ import { GetCategoryUseCase } from '@ca/core/category/application/use-cases/get-
 import { ListCategoriesUseCase } from '@ca/core/category/application/use-cases/list-categories.use-case';
 import { UpdateCategoryUseCase } from '@ca/core/category/application/use-cases/update-category.use-case';
 import { CategoryRepository } from '@ca/core/category/domain/repository/category.repository';
-import { CategoryInMemoryRepository } from '@ca/core/category/infra/repository/category-in-memory.repository';
+import { CategoryInMemoryRepository } from '@ca/core/category/infra/db/repository/category-in-memory.repository';
 
 export namespace CategoryProvider {
   export namespace Repository {
