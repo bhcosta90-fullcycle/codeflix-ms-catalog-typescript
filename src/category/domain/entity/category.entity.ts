@@ -1,7 +1,16 @@
 import { Entity } from "../../../@shared/domain/entity/entity";
 import { UniqueEntityId } from "../../../@shared/domain/value-object/unique-entity-id.vo";
 
-export class Category extends Entity<CategoryType> {
+export class Category extends Entity<
+  CategoryType,
+  Pick<CategoryType, "name" | "description">
+> {
+  
+  update(props: Pick<CategoryType, "name" | "description">) {
+    this.name = props.name;
+    this.description = props.description;
+  }
+
   constructor(public props: CategoryType, id?: UniqueEntityId) {
     super(props, id);
     this.description = this.props.description;

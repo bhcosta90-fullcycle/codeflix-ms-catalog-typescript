@@ -3,7 +3,7 @@ import { Category } from "./category.entity";
 import { omit } from "lodash";
 
 describe("Category Unit Test", () => {
-  describe("Constructor", () => {
+  describe("Create", () => {
     it("passed all parameters to the constructor", () => {
       const created_at = new Date();
 
@@ -84,4 +84,23 @@ describe("Category Unit Test", () => {
       });
     });
   });
+
+  describe("Update", () => {
+    const entity = new Category({
+      name: "movie",
+      description: "some description",
+      is_active: false,
+    });
+
+    entity.update({
+      name: 'movie 2',
+      description: null,
+    });
+
+    expect(omit(entity.props, "created_at")).toStrictEqual({
+      name: "movie 2",
+      description: null,
+      is_active: false,
+    });
+  })
 });

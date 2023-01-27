@@ -3,5 +3,5 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "jestrunner.jestCommand": "yarn test -- --coverage"
+  "jestrunner.jestCommand": "yarn test"
 }
