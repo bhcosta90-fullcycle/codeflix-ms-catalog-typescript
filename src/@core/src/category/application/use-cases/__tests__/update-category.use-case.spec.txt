@@ -1,6 +1,6 @@
-import { CategoryEntity } from '../../../domain/entity/category.entity';
-import { NotFoundError } from '../../../../@shared/errors/not-found.error';
-import { CategoryInMemoryRepository } from '../../../infra/repository/category-in-memory.repository';
+import { NotFoundError } from "@ca/core/@shared/errors/not-found.error";
+import { CategoryEntity } from "@ca/core/category/domain/entity/category.entity";
+import { CategoryInMemoryRepository } from "@ca/core/category/infra/db/repository/category-in-memory.repository";
 import { UpdateCategoryUseCase } from "../update-category.use-case";
 
 describe("UpdateCategoryUseCase Unit Tests", () => {

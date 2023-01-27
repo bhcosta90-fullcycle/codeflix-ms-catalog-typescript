@@ -6,7 +6,7 @@ import { CategoryValidatorFactory } from "./../validators/category.validator";
 export class CategoryEntity extends EntityAbstract<CategoryProps> {
   protected _name: string;
   protected _description?: string;
-  protected _is_active: boolean;
+  protected _is_active: boolean = true;
   protected _created_at?: Date;
 
   constructor(props: CategoryProps, id?: UniqueId) {

@@ -4,7 +4,6 @@ import { UniqueId } from "../vo/unique-id.vo";
 import {
   RepositoryInterface,
   SearchableRepositoryInterface,
-  SearchProps,
   SearchParams,
   SearchResult,
 } from "./@interface/repository.interface";
@@ -53,7 +52,7 @@ export abstract class InMemorySearchableRepository<E extends EntityAbstract, Fil
   extends InMemoryRepository<E, Filter>
   implements SearchableRepositoryInterface<E, Filter>
 {
-  async search(props: SearchProps<Filter>): Promise<SearchResult<E>> {
+  async search(props: SearchParams<Filter>): Promise<SearchResult<E>> {
     const itemsFiltered = await this.applyFilter(this.items, props.filter);
 
     const itemsPaginated = await this.applyPaginate(
@@ -69,6 +68,7 @@ export abstract class InMemorySearchableRepository<E extends EntityAbstract, Fil
       per_page: props.per_page,
     });
   }
+  
 
   protected abstract applyFilter(
     items: E[],
