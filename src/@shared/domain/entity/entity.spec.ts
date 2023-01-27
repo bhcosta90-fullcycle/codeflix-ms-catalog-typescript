@@ -2,8 +2,8 @@ import { UniqueEntityId } from "../value-object/unique-entity-id.vo";
 import { Entity } from "./entity";
 
 class StubEntity extends Entity<
-  { prop1: string; prop2: number },
-  { prop1: string }
+  { prop1: string; prop2: number; prop3?: string },
+  { prop1: string; prop3?: string }
 > {
   validate(): true {
     return true;
@@ -45,12 +45,14 @@ describe("Entity Unit Tests", () => {
       const spyValidated = jest.spyOn(StubEntity.prototype, "validate");
       entity.update({
         prop1: "testing",
+        prop3: undefined,
       });
 
       expect(entity.toJSON()).toStrictEqual({
         id: entity.id,
         prop1: "testing",
         prop2: 10,
+        prop3: null,
       });
       expect(spyValidated).toBeCalledTimes(1);
     });
