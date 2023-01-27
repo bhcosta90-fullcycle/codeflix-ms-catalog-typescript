@@ -1,4 +1,4 @@
-import { CategoryEntity } from './../../domain/entity/category.entity';
+import { CategoryEntity } from "@ca/core/category/domain/entity/category.entity";
 import { CategoryInMemoryRepository } from "./category-in-memory.repository";
 
 describe("CategoryInMemoryRepository", () => {
@@ -9,7 +9,7 @@ describe("CategoryInMemoryRepository", () => {
     const items = [new CategoryEntity({ name: "test" })];
     const filterSpy = jest.spyOn(items, "filter" as any);
 
-    let itemsFiltered = await repository["applyFilter"](items, null);
+    let itemsFiltered = await repository["applyFilter"](items, null as any);
     expect(filterSpy).not.toHaveBeenCalled();
     expect(itemsFiltered).toStrictEqual(items);
   });

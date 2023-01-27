@@ -1,6 +1,7 @@
-import { CategoryEntity } from './../../../domain/entity/category.entity';
-import { CategoryRepository } from '../../../../category/domain/repository/category.repository';
-import { CategoryInMemoryRepository } from './../../../infra/repository/category-in-memory.repository';
+import { NotFoundError } from "@ca/core/@shared/errors/not-found.error";
+import { CategoryEntity } from "@ca/core/category/domain/entity/category.entity";
+import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";
+import { CategoryInMemoryRepository } from "@ca/core/category/infra/db/repository/category-in-memory.repository";
 import { ListCategoriesUseCase } from "../list-categories.use-case";
 
 describe("ListCategoriesUseCase Unit Tests", () => {
@@ -9,7 +10,7 @@ describe("ListCategoriesUseCase Unit Tests", () => {
 
   beforeEach(() => {
     repository = new CategoryInMemoryRepository();
-    useCase = new ListCategoriesUseCase.UseCase(repository);
+    useCase = new ListCategoriesUseCase.UseCase(repository as any);
   });
 
   test("toOutput method", () => {
@@ -19,7 +20,7 @@ describe("ListCategoriesUseCase Unit Tests", () => {
       current_page: 1,
       per_page: 2,
     });
-    let output = useCase["toOutput"](result);
+    let output = useCase["toOutput"](result as any);
     expect(output).toStrictEqual({
       items: [],
       total: 1,
@@ -36,7 +37,7 @@ describe("ListCategoriesUseCase Unit Tests", () => {
       per_page: 2,
     });
 
-    output = useCase["toOutput"](result);
+    output = useCase["toOutput"](result as any);
     expect(output).toStrictEqual({
       items: [entity.toJSON()],
       total: 1,

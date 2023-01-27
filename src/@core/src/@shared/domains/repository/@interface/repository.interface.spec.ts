@@ -122,7 +122,7 @@ describe("RepositoryInterface Unit Test", () => {
   });
 
   describe("filter prop", () => {
-    type TypeData = { filter: any; expect: number };
+    type TypeData = { filter: any; expect: any };
 
     describe("Search Params", () => {
       it("without params", () => {
