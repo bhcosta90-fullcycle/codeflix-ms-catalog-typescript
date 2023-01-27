@@ -14,6 +14,7 @@ describe("CategoryValidator Tests", () => {
       name: [
         "name should not be empty",
         "name must be a string",
+        "name must be longer than or equal to 3 characters",
         "name must be shorter than or equal to 255 characters",
       ],
     });
@@ -22,17 +23,26 @@ describe("CategoryValidator Tests", () => {
       name: [
         "name should not be empty",
         "name must be a string",
+        "name must be longer than or equal to 3 characters",
         "name must be shorter than or equal to 255 characters",
       ],
     });
 
     expect({ validator, data: { name: "" } }).containsErrorMessages({
-      name: ["name should not be empty"],
+      name: [
+        "name should not be empty",
+        "name must be longer than or equal to 3 characters",
+      ],
+    });
+
+    expect({ validator, data: { name: "mo" } }).containsErrorMessages({
+      name: ["name must be longer than or equal to 3 characters"],
     });
 
     expect({ validator, data: { name: 5 as any } }).containsErrorMessages({
       name: [
         "name must be a string",
+        "name must be longer than or equal to 3 characters",
         "name must be shorter than or equal to 255 characters",
       ],
     });
@@ -47,7 +57,10 @@ describe("CategoryValidator Tests", () => {
 
   test("invalidation cases for description field", () => {
     expect({ validator, data: { description: 5 } }).containsErrorMessages({
-      description: ["description must be a string"],
+      description: [
+        "description must be a string",
+        "description must be longer than or equal to 3 characters",
+      ],
     });
   });
 

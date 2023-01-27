@@ -1,3 +1,4 @@
+import { EntityValidationError } from "./../../../@shared/errors/entity-validation.error";
 import { UniqueEntityId } from "./../../../@shared/domain/value-object/unique-entity-id.vo";
 import { AbstractEntityError } from "../../../@shared/errors/abstract-entity.error";
 import { Category } from "./category.entity";
@@ -12,33 +13,25 @@ describe("Category Unit Test", () => {
             new Category({
               name: "mo",
             })
-        ).toThrow(
-          new AbstractEntityError("Name must be at least than 3 characters")
-        );
+        ).toThrow(EntityValidationError);
 
         expect(
           () =>
             new Category({
               name: "m".repeat(256),
             })
-        ).toThrow(
-          new AbstractEntityError("Name must be at less than 255 characters")
-        );
+        ).toThrow(EntityValidationError);
       });
 
-      it("description field", () => {
-        expect(
-          () =>
-            new Category({
-              name: "movie",
-              description: "so",
-            })
-        ).toThrow(
-          new AbstractEntityError(
-            "Description must be at least than 3 characters"
-          )
-        );
-      });
+        it("description field", () => {
+          expect(
+            () =>
+              new Category({
+                name: "movie",
+                description: "so",
+              })
+          ).toThrow(EntityValidationError);
+        });
     });
     it("passed all parameters to the constructor", () => {
       const created_at = new Date();
@@ -140,17 +133,13 @@ describe("Category Unit Test", () => {
           entity.update({
             name: "mo",
           })
-        ).toThrow(
-          new AbstractEntityError("Name must be at least than 3 characters")
-        );
+        ).toThrow(EntityValidationError);
 
         expect(() =>
           entity.update({
             name: "m".repeat(256),
           })
-        ).toThrow(
-          new AbstractEntityError("Name must be at less than 255 characters")
-        );
+        ).toThrow(EntityValidationError);
       });
 
       it("description field", () => {
@@ -159,11 +148,7 @@ describe("Category Unit Test", () => {
             name: "movie",
             description: "so",
           })
-        ).toThrow(
-          new AbstractEntityError(
-            "Description must be at least than 3 characters"
-          )
-        );
+        ).toThrow(EntityValidationError);
       });
     });
 

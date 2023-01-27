@@ -7,15 +7,18 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  MinLength,
 } from "class-validator";
 import { CategoryType } from "../entity/category.entity";
 
 export class CategoryRules {
   @MaxLength(255)
+  @MinLength(3)
   @IsString()
   @IsNotEmpty()
   name: string;
 
+  @MinLength(3)
   @IsString()
   @IsOptional()
   description: string;
@@ -28,12 +31,7 @@ export class CategoryRules {
   @IsOptional()
   created_at: Date;
 
-  constructor({
-    name,
-    description,
-    is_active,
-    created_at,
-  }: CategoryType) {
+  constructor({ name, description, is_active, created_at }: CategoryType) {
     Object.assign(this, { name, description, is_active, created_at });
   }
 }

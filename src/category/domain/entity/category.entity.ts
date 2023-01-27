@@ -1,6 +1,7 @@
-import { AbstractEntityError } from '../../../@shared/errors/abstract-entity.error';
+import { EntityValidationError } from "./../../../@shared/errors/entity-validation.error";
 import { Entity } from "../../../@shared/domain/entity/entity";
 import { UniqueEntityId } from "../../../@shared/domain/value-object/unique-entity-id.vo";
+import { CategoryValidatorFactory } from "../validators/category.validator";
 
 export class Category extends Entity<
   CategoryType,
@@ -43,16 +44,11 @@ export class Category extends Entity<
   }
 
   validate(): true {
-    if (this.props.name.length < 3) {
-      throw new AbstractEntityError("Name must be at least than 3 characters");
-    }
+    const validator = CategoryValidatorFactory.create();
+    const isValid = validator.validate(this.props);
 
-    if (this.props.name.length > 255) {
-      throw new AbstractEntityError("Name must be at less than 255 characters");
-    }
-
-    if (this.props.description && this.props.description.length < 3) {
-      throw new AbstractEntityError("Description must be at least than 3 characters");
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors);
     }
 
     return true;
