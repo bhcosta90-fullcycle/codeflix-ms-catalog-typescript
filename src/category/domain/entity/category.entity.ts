@@ -1,3 +1,4 @@
+import { InvalidEntity } from "./../../../../.history/src/@shared/errors/invalid-abstract.error_20230127155145";
 import { Entity } from "../../../@shared/domain/entity/entity";
 import { UniqueEntityId } from "../../../@shared/domain/value-object/unique-entity-id.vo";
 
@@ -5,17 +6,12 @@ export class Category extends Entity<
   CategoryType,
   Pick<CategoryType, "name" | "description">
 > {
-  
-  update(props: Pick<CategoryType, "name" | "description">) {
-    this.name = props.name;
-    this.description = props.description;
-  }
-
   constructor(public props: CategoryType, id?: UniqueEntityId) {
     super(props, id);
     this.description = this.props.description;
     this.is_active = this.props.is_active;
     this.props.created_at = this.props.created_at ?? new Date();
+    this.validate();
   }
 
   get name() {
@@ -44,6 +40,22 @@ export class Category extends Entity<
 
   private set is_active(is_active) {
     this.props.is_active = is_active ?? true;
+  }
+
+  validate(): true {
+    if (this.props.name.length < 3) {
+      throw new InvalidEntity("Name must be at least than 3 characters");
+    }
+
+    if (this.props.name.length > 255) {
+      throw new InvalidEntity("Name must be at less than 255 characters");
+    }
+
+    if (this.props.description && this.props.description.length < 3) {
+      throw new InvalidEntity("Description must be at least than 3 characters");
+    }
+
+    return true;
   }
 }
 

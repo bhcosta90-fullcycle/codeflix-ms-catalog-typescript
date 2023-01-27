@@ -1,20 +1,51 @@
-import { UniqueEntityId } from './../../../@shared/domain/value-object/unique-entity-id.vo';
+import { InvalidEntity } from "./../../../../.history/src/@shared/errors/invalid-abstract.error_20230127155145";
+import { UniqueEntityId } from "./../../../@shared/domain/value-object/unique-entity-id.vo";
 import { Category } from "./category.entity";
 import { omit } from "lodash";
 
 describe("Category Unit Test", () => {
   describe("Create", () => {
+    describe("exception in the constructor", () => {
+      it("field name", () => {
+        expect(
+          () =>
+            new Category({
+              name: "mo",
+            })
+        ).toThrow(new InvalidEntity("Name must be at least than 3 characters"));
+
+        expect(
+          () =>
+            new Category({
+              name: "m".repeat(256),
+            })
+        ).toThrow(
+          new InvalidEntity("Name must be at less than 255 characters")
+        );
+      });
+
+      it("description field", () => {
+        expect(
+          () =>
+            new Category({
+              name: "movie",
+              description: "so",
+            })
+        ).toThrow(
+          new InvalidEntity("Description must be at least than 3 characters")
+        );
+      });
+    });
     it("passed all parameters to the constructor", () => {
       const created_at = new Date();
 
-      const entity = new Category(
-        {
-          name: "movie",
-          description: "some description",
-          is_active: false,
-          created_at,
-        }
-      );
+      const spyValidated = jest.spyOn(Category.prototype, "validate");
+      const entity = new Category({
+        name: "movie",
+        description: "some description",
+        is_active: false,
+        created_at,
+      });
 
       expect(entity.props).toStrictEqual({
         name: "movie",
@@ -22,6 +53,7 @@ describe("Category Unit Test", () => {
         is_active: false,
         created_at,
       });
+      expect(spyValidated).toBeCalledTimes(1);
     });
 
     describe("field id", () => {
@@ -30,12 +62,12 @@ describe("Category Unit Test", () => {
         undefined,
         new UniqueEntityId("df72a9be-1d35-4a86-94a0-e177978b31a2"),
       ];
-      
+
       test.each(data)("validate %o", (i: any) => {
         const category = new Category({ name: "testing" }, i);
         expect(category.id).not.toBeNull();
       });
-    })
+    });
 
     it("passed a minimum parameter to the constructor", () => {
       const entity = new Category({
@@ -86,21 +118,93 @@ describe("Category Unit Test", () => {
   });
 
   describe("Update", () => {
-    const entity = new Category({
-      name: "movie",
-      description: "some description",
-      is_active: false,
+    let entity: Category;
+
+    beforeEach(
+      () =>
+        (entity = new Category({
+          name: "movie",
+          description: "some description",
+          is_active: false,
+        }))
+    );
+
+    describe("exception in the constructor", () => {
+      it("field name", () => {
+        expect(() =>
+          entity.update({
+            name: "mo",
+          })
+        ).toThrow(new InvalidEntity("Name must be at least than 3 characters"));
+
+        expect(() =>
+          entity.update({
+            name: "m".repeat(256),
+          })
+        ).toThrow(
+          new InvalidEntity("Name must be at less than 255 characters")
+        );
+      });
+
+      it("description field", () => {
+        expect(() =>
+          entity.update({
+            name: "movie",
+            description: "so",
+          })
+        ).toThrow(
+          new InvalidEntity("Description must be at least than 3 characters")
+        );
+      });
     });
 
-    entity.update({
-      name: 'movie 2',
-      description: null,
+    it("a minimum prop", () => {
+      entity.update({
+        name: "movie 2",
+      });
+
+      expect(omit(entity.props, "created_at")).toStrictEqual({
+        name: "movie 2",
+        description: "some description",
+        is_active: false,
+      });
     });
 
-    expect(omit(entity.props, "created_at")).toStrictEqual({
-      name: "movie 2",
-      description: null,
-      is_active: false,
+    it("all props value", () => {
+      entity.update({
+        name: "movie 2",
+        description: "some description 2",
+      });
+
+      expect(omit(entity.props, "created_at")).toStrictEqual({
+        name: "movie 2",
+        description: "some description 2",
+        is_active: false,
+      });
     });
-  })
+
+    it("null and undefined description", () => {
+      entity.update({
+        name: "movie 2",
+        description: null,
+      });
+
+      expect(omit(entity.props, "created_at")).toStrictEqual({
+        name: "movie 2",
+        description: null,
+        is_active: false,
+      });
+
+      entity.update({
+        name: "movie 2",
+        description: undefined,
+      });
+
+      expect(omit(entity.props, "created_at")).toStrictEqual({
+        name: "movie 2",
+        description: null,
+        is_active: false,
+      });
+    });
+  });
 });

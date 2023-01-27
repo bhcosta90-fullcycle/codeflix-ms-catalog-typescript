@@ -5,8 +5,8 @@ class StubEntity extends Entity<
   { prop1: string; prop2: number },
   { prop1: string }
 > {
-  update(props: { prop1: string }) {
-    this.props.prop1 = props.prop1;
+  validate(): true {
+    return true;
   }
 }
 
@@ -39,17 +39,20 @@ describe("Entity Unit Tests", () => {
   });
 
   describe("Update", () => {
-    it("dddd", () => {
+    it("should edit a prop1 value", () => {
       const arrange = { prop1: "prop1 value", prop2: 10 };
       const entity = new StubEntity(arrange);
+      const spyValidated = jest.spyOn(StubEntity.prototype, "validate");
       entity.update({
-        prop1: "djdiwajdiajdwi"
+        prop1: "testing",
       });
 
       expect(entity.toJSON()).toStrictEqual({
         id: entity.id,
-        ...arrange,
+        prop1: "testing",
+        prop2: 10,
       });
+      expect(spyValidated).toBeCalledTimes(1);
     });
   });
 });
