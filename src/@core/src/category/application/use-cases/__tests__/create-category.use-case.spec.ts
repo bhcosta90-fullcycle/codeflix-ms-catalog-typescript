@@ -7,7 +7,7 @@ describe("CreateCategoryUseCase Unit Tests", () => {
 
   beforeEach(() => {
     repository = new CategoryInMemoryRepository();
-    useCase = new CreateCategoryUseCase.UseCase(repository as any);
+    useCase = new CreateCategoryUseCase.UseCase(repository);
   });
 
   it("should create a category", async () => {
