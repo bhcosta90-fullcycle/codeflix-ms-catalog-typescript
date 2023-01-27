@@ -1,4 +1,4 @@
-import { InvalidEntityIdError } from "../../../errors/invalid-entity-id.error";
+import { InvalidUniqueEntityIdError } from "../../../errors/invalid-unique-entity-id.error";
 import { UniqueEntityId } from "../unique-entity-id.vo";
 
 describe("UniqueEntityId Unit Test", () => {
@@ -6,7 +6,7 @@ describe("UniqueEntityId Unit Test", () => {
   
   it("should throw error when id is invalid", () => {
     expect(() => new UniqueEntityId("fake-id")).toThrow(
-      new InvalidEntityIdError()
+      new InvalidUniqueEntityIdError()
     );
     expect(validateSpy).toBeCalledTimes(1);
   });

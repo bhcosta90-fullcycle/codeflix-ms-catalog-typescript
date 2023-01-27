@@ -1,5 +1,5 @@
-import { InvalidEntity } from "./../../../../.history/src/@shared/errors/invalid-abstract.error_20230127155145";
-import { UniqueEntityId } from "./../../../@shared/domain/value-object/unique-entity-id.vo";
+import { UniqueEntityId } from './../../../@shared/domain/value-object/unique-entity-id.vo';
+import { InvalidAbstractEntityError } from './../../../@shared/errors/invalid-abstract-entity.error';
 import { Category } from "./category.entity";
 import { omit } from "lodash";
 
@@ -12,7 +12,7 @@ describe("Category Unit Test", () => {
             new Category({
               name: "mo",
             })
-        ).toThrow(new InvalidEntity("Name must be at least than 3 characters"));
+        ).toThrow(new InvalidAbstractEntityError("Name must be at least than 3 characters"));
 
         expect(
           () =>
@@ -20,7 +20,7 @@ describe("Category Unit Test", () => {
               name: "m".repeat(256),
             })
         ).toThrow(
-          new InvalidEntity("Name must be at less than 255 characters")
+          new InvalidAbstractEntityError("Name must be at less than 255 characters")
         );
       });
 
@@ -32,7 +32,7 @@ describe("Category Unit Test", () => {
               description: "so",
             })
         ).toThrow(
-          new InvalidEntity("Description must be at least than 3 characters")
+          new InvalidAbstractEntityError("Description must be at least than 3 characters")
         );
       });
     });
@@ -135,14 +135,14 @@ describe("Category Unit Test", () => {
           entity.update({
             name: "mo",
           })
-        ).toThrow(new InvalidEntity("Name must be at least than 3 characters"));
+        ).toThrow(new InvalidAbstractEntityError("Name must be at least than 3 characters"));
 
         expect(() =>
           entity.update({
             name: "m".repeat(256),
           })
         ).toThrow(
-          new InvalidEntity("Name must be at less than 255 characters")
+          new InvalidAbstractEntityError("Name must be at less than 255 characters")
         );
       });
 
@@ -153,7 +153,7 @@ describe("Category Unit Test", () => {
             description: "so",
           })
         ).toThrow(
-          new InvalidEntity("Description must be at least than 3 characters")
+          new InvalidAbstractEntityError("Description must be at least than 3 characters")
         );
       });
     });

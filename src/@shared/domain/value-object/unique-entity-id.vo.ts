@@ -1,4 +1,4 @@
-import { InvalidEntityIdError } from "../../errors/invalid-entity-id.error";
+import { InvalidUniqueEntityIdError } from "../../errors/invalid-unique-entity-id.error";
 import { randomUUID } from "crypto";
 import { ValueObject } from "./value-object";
 
@@ -13,7 +13,7 @@ export class UniqueEntityId extends ValueObject<string> {
       /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
 
     if (!regexExp.test(this.value)) {
-      throw new InvalidEntityIdError();
+      throw new InvalidUniqueEntityIdError();
     }
   }
 }
