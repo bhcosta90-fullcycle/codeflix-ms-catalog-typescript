@@ -1,8 +1,8 @@
-import { randomUUID } from "crypto";
+import { UniqueEntityId } from "../../../@shared/domain/unique-entity-id.vo";
 
 export class Category {
-  constructor(public props: CategoryType, public id?: string) {
-    this.id = this.id ?? randomUUID();
+  constructor(public props: CategoryType, public id?: UniqueEntityId) {
+    this.id = this.id ?? new UniqueEntityId();
     this.description = this.props.description;
     this.is_active = this.props.is_active;
     this.props.created_at = this.props.created_at ?? new Date();
