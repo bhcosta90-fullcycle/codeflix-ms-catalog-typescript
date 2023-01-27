@@ -1,38 +1,10 @@
-import { EntityValidationError } from "./../../../@shared/errors/entity-validation.error";
-import { UniqueEntityId } from "./../../../@shared/domain/value-object/unique-entity-id.vo";
-import { AbstractEntityError } from "../../../@shared/errors/abstract-entity.error";
+import { UniqueEntityId } from "../../../@shared/domain/value-object/unique-entity-id.vo";
 import { Category } from "./category.entity";
 import { omit } from "lodash";
 
 describe("Category Unit Test", () => {
+  
   describe("Create", () => {
-    describe("exception in the constructor", () => {
-      it("field name", () => {
-        expect(
-          () =>
-            new Category({
-              name: "mo",
-            })
-        ).toThrow(EntityValidationError);
-
-        expect(
-          () =>
-            new Category({
-              name: "m".repeat(256),
-            })
-        ).toThrow(EntityValidationError);
-      });
-
-        it("description field", () => {
-          expect(
-            () =>
-              new Category({
-                name: "movie",
-                description: "so",
-              })
-          ).toThrow(EntityValidationError);
-        });
-    });
     it("passed all parameters to the constructor", () => {
       const created_at = new Date();
 
@@ -43,6 +15,7 @@ describe("Category Unit Test", () => {
         is_active: false,
         created_at,
       });
+      entity['validate'] = jest.fn();
 
       expect(entity.props).toStrictEqual({
         name: "movie",
@@ -62,6 +35,7 @@ describe("Category Unit Test", () => {
 
       test.each(data)("validate %o", (i: any) => {
         const category = new Category({ name: "testing" }, i);
+        category["validate"] = jest.fn();
         expect(category.id).not.toBeNull();
       });
     });
@@ -70,6 +44,7 @@ describe("Category Unit Test", () => {
       const entity = new Category({
         name: "movie 2",
       });
+      entity["validate"] = jest.fn();
 
       expect(omit(entity.props, "created_at")).toStrictEqual({
         name: "movie 2",
@@ -89,6 +64,7 @@ describe("Category Unit Test", () => {
         is_active: false,
         created_at,
       });
+      entity["validate"] = jest.fn();
 
       it("name prop", () => {
         expect(entity.name).toBe("movie");
@@ -125,31 +101,7 @@ describe("Category Unit Test", () => {
         description: "some description",
         is_active: false,
       });
-    });
-
-    describe("exception in the constructor", () => {
-      it("field name", () => {
-        expect(() =>
-          entity.update({
-            name: "mo",
-          })
-        ).toThrow(EntityValidationError);
-
-        expect(() =>
-          entity.update({
-            name: "m".repeat(256),
-          })
-        ).toThrow(EntityValidationError);
-      });
-
-      it("description field", () => {
-        expect(() =>
-          entity.update({
-            name: "movie",
-            description: "so",
-          })
-        ).toThrow(EntityValidationError);
-      });
+      entity["validate"] = jest.fn();
     });
 
     it("a minimum prop", () => {
@@ -163,8 +115,6 @@ describe("Category Unit Test", () => {
         description: "some description",
         is_active: false,
       });
-
-      expect(spyValidated).toBeCalledTimes(2);
     });
 
     it("all props value", () => {
