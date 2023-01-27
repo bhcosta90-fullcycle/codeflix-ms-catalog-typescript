@@ -1,5 +1,5 @@
-import { UniqueEntityId } from './../../../@shared/domain/value-object/unique-entity-id.vo';
-import { AbstractEntityError } from '../../../@shared/errors/abstract-entity.error';
+import { UniqueEntityId } from "./../../../@shared/domain/value-object/unique-entity-id.vo";
+import { AbstractEntityError } from "../../../@shared/errors/abstract-entity.error";
 import { Category } from "./category.entity";
 import { omit } from "lodash";
 
@@ -12,7 +12,9 @@ describe("Category Unit Test", () => {
             new Category({
               name: "mo",
             })
-        ).toThrow(new AbstractEntityError("Name must be at least than 3 characters"));
+        ).toThrow(
+          new AbstractEntityError("Name must be at least than 3 characters")
+        );
 
         expect(
           () =>
@@ -32,7 +34,9 @@ describe("Category Unit Test", () => {
               description: "so",
             })
         ).toThrow(
-          new AbstractEntityError("Description must be at least than 3 characters")
+          new AbstractEntityError(
+            "Description must be at least than 3 characters"
+          )
         );
       });
     });
@@ -119,15 +123,16 @@ describe("Category Unit Test", () => {
 
   describe("Update", () => {
     let entity: Category;
+    let spyValidated: any;
 
-    beforeEach(
-      () =>
-        (entity = new Category({
-          name: "movie",
-          description: "some description",
-          is_active: false,
-        }))
-    );
+    beforeEach(() => {
+      spyValidated = jest.spyOn(Category.prototype, "validate");
+      entity = new Category({
+        name: "movie",
+        description: "some description",
+        is_active: false,
+      });
+    });
 
     describe("exception in the constructor", () => {
       it("field name", () => {
@@ -135,7 +140,9 @@ describe("Category Unit Test", () => {
           entity.update({
             name: "mo",
           })
-        ).toThrow(new AbstractEntityError("Name must be at least than 3 characters"));
+        ).toThrow(
+          new AbstractEntityError("Name must be at least than 3 characters")
+        );
 
         expect(() =>
           entity.update({
@@ -153,12 +160,15 @@ describe("Category Unit Test", () => {
             description: "so",
           })
         ).toThrow(
-          new AbstractEntityError("Description must be at least than 3 characters")
+          new AbstractEntityError(
+            "Description must be at least than 3 characters"
+          )
         );
       });
     });
 
     it("a minimum prop", () => {
+      expect(spyValidated).toBeCalledTimes(1);
       entity.update({
         name: "movie 2",
       });
@@ -168,6 +178,8 @@ describe("Category Unit Test", () => {
         description: "some description",
         is_active: false,
       });
+
+      expect(spyValidated).toBeCalledTimes(2);
     });
 
     it("all props value", () => {
