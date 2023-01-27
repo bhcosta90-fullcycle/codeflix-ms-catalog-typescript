@@ -1,5 +1,8 @@
+import { randomUUID } from "crypto";
+
 export class Category {
-  constructor(public props: CategoryType) {
+  constructor(public props: CategoryType, public id?: string) {
+    this.id = this.id ?? randomUUID();
     this.description = this.props.description;
     this.is_active = this.props.is_active;
     this.props.created_at = this.props.created_at ?? new Date();
@@ -21,15 +24,15 @@ export class Category {
     return this.props.created_at;
   }
 
-  private set name(name){
+  private set name(name) {
     this.props.name = name;
   }
 
-  private set description(description){
+  private set description(description) {
     this.props.description = description ?? null;
   }
 
-  private set is_active(is_active){
+  private set is_active(is_active) {
     this.props.is_active = is_active ?? true;
   }
 }

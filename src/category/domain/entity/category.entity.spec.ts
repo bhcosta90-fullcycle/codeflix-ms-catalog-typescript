@@ -6,12 +6,15 @@ describe("Category Unit Test", () => {
     it("passed all parameters to the constructor", () => {
       const created_at = new Date();
 
-      const entity = new Category({
-        name: "movie",
-        description: "some description",
-        is_active: false,
-        created_at,
-      });
+      const entity = new Category(
+        {
+          name: "movie",
+          description: "some description",
+          is_active: false,
+          created_at,
+        },
+        "df72a9be-1d35-4a86-94a0-e177978b31a2"
+      );
 
       expect(entity.props).toStrictEqual({
         name: "movie",
@@ -19,7 +22,22 @@ describe("Category Unit Test", () => {
         is_active: false,
         created_at,
       });
+
+      expect(entity.id).toBe("df72a9be-1d35-4a86-94a0-e177978b31a2");
     });
+
+    it("field id", () => {
+      const data: any[] = [
+        null,
+        undefined,
+        "df72a9be-1d35-4a86-94a0-e177978b31a2",
+      ];
+      
+      data.forEach( i=> {
+        const category = new Category({name: 'testing'}, i);
+        expect(category.id).not.toBeNull();
+      })
+    })
 
     it("passed a minimum parameter to the constructor", () => {
       const entity = new Category({
@@ -33,6 +51,7 @@ describe("Category Unit Test", () => {
       });
 
       expect(entity.created_at).toBeInstanceOf(Date);
+      expect(entity.id).not.toBeNull();
     });
 
     describe("Getter and setter", () => {
