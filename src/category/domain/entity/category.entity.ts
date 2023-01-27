@@ -12,7 +12,6 @@ export class Category extends Entity<
     this.description = this.props.description;
     this.is_active = this.props.is_active;
     this.props.created_at = this.props.created_at ?? new Date();
-    this.validate();
   }
 
   get name() {
@@ -42,16 +41,18 @@ export class Category extends Entity<
   private set is_active(is_active) {
     this.props.is_active = is_active ?? true;
   }
+  
+  update(props: Pick<CategoryType, "name" | "description">): void {
+    this.name = props.name;
+    this.description = props.description;
+  }
 
-  validate(): true {
+  static validate(props: CategoryType) {
     const validator = CategoryValidatorFactory.create();
-    const isValid = validator.validate(this.props);
-
+    const isValid = validator.validate(props);
     if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }
-
-    return true;
   }
 }
 

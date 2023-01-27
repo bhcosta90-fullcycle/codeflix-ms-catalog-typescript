@@ -64,7 +64,7 @@ describe("Category Unit Test", () => {
         is_active: false,
         created_at,
       });
-      entity["validate"] = jest.fn();
+      entity["validate"] = jest.fn().mockReturnValue(true);
 
       it("name prop", () => {
         expect(entity.name).toBe("movie");
