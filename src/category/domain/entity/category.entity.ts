@@ -1,4 +1,4 @@
-import { InvalidEntity } from "./../../../../.history/src/@shared/errors/invalid-abstract.error_20230127155145";
+import { InvalidAbstractEntityError } from './../../../@shared/errors/invalid-abstract-entity.error';
 import { Entity } from "../../../@shared/domain/entity/entity";
 import { UniqueEntityId } from "../../../@shared/domain/value-object/unique-entity-id.vo";
 
@@ -44,15 +44,15 @@ export class Category extends Entity<
 
   validate(): true {
     if (this.props.name.length < 3) {
-      throw new InvalidEntity("Name must be at least than 3 characters");
+      throw new InvalidAbstractEntityError("Name must be at least than 3 characters");
     }
 
     if (this.props.name.length > 255) {
-      throw new InvalidEntity("Name must be at less than 255 characters");
+      throw new InvalidAbstractEntityError("Name must be at less than 255 characters");
     }
 
     if (this.props.description && this.props.description.length < 3) {
-      throw new InvalidEntity("Description must be at least than 3 characters");
+      throw new InvalidAbstractEntityError("Description must be at least than 3 characters");
     }
 
     return true;
