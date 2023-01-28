@@ -36,7 +36,7 @@ describe("Category Integration Tests", () => {
 
     it("should a invalid category using description property", () => {
       expect(
-        () => new Category({ name: "test", description: 5 as any })
+        () => new Category({ description: 5 } as any)
       ).containsErrorMessages({
         description: [
           "description must be a string",
@@ -60,13 +60,13 @@ describe("Category Integration Tests", () => {
       new Category({ name: "Movie", description: "some description" }); // NOSONAR
       new Category({ name: "Movie", description: null }); // NOSONAR
 
-      new Category({
+      /* NOSONAR */ new Category({
         name: "Movie",
         description: "some description",
         is_active: false,
       });
 
-      new Category({
+      /* NOSONAR */ new Category({
         name: "Movie",
         description: "some description",
         is_active: true,
@@ -77,9 +77,7 @@ describe("Category Integration Tests", () => {
   describe("update method", () => {
     it("should a invalid category using name property", () => {
       const category = new Category({ name: "Movie" });
-      expect(() =>
-        category.update({ name: null, description: null })
-      ).containsErrorMessages({
+      expect(() => category.update({name: null, description: null})).containsErrorMessages({
         name: [
           "name should not be empty",
           "name must be a string",
@@ -108,7 +106,7 @@ describe("Category Integration Tests", () => {
       });
 
       expect(() =>
-        category.update({ name: "t".repeat(256), description: null })
+        category.update({name: "t".repeat(256), description: null})
       ).containsErrorMessages({
         name: ["name must be shorter than or equal to 255 characters"],
       });
@@ -117,7 +115,7 @@ describe("Category Integration Tests", () => {
     it("should a invalid category using description property", () => {
       const category = new Category({ name: "Movie" });
       expect(() =>
-        category.update({ name: "testing", description: 5 as any })
+        category.update({ name: null, description: 5 as any })
       ).containsErrorMessages({
         description: [
           "description must be a string",

@@ -8,6 +8,7 @@ export class Category extends Entity<
   Pick<CategoryType, "name" | "description">
 > {
   constructor(public props: CategoryType, id?: UniqueEntityId) {
+    Category.validate(props);
     super(props, id);
     this.description = this.props.description;
     this.is_active = this.props.is_active;
@@ -41,8 +42,9 @@ export class Category extends Entity<
   private set is_active(is_active) {
     this.props.is_active = is_active ?? true;
   }
-  
+
   update(props: Pick<CategoryType, "name" | "description">): void {
+    Category.validate(props);
     this.name = props.name;
     this.description = props.description;
   }
@@ -53,6 +55,14 @@ export class Category extends Entity<
     if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }
+  }
+
+  activate() {
+    this.props.is_active = true;
+  }
+
+  deactivate() {
+    this.props.is_active = false;
   }
 }
 
