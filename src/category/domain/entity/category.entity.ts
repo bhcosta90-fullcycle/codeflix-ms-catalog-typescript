@@ -1,17 +1,18 @@
-import { InvalidAbstractEntityError } from './../../../@shared/errors/invalid-abstract-entity.error';
+import { EntityValidationError } from "./../../../@shared/errors/entity-validation.error";
 import { Entity } from "../../../@shared/domain/entity/entity";
 import { UniqueEntityId } from "../../../@shared/domain/value-object/unique-entity-id.vo";
+import { CategoryValidatorFactory } from "../validators/category.validator";
 
 export class Category extends Entity<
   CategoryType,
   Pick<CategoryType, "name" | "description">
 > {
   constructor(public props: CategoryType, id?: UniqueEntityId) {
+    Category.validate(props);
     super(props, id);
     this.description = this.props.description;
     this.is_active = this.props.is_active;
     this.props.created_at = this.props.created_at ?? new Date();
-    this.validate();
   }
 
   get name() {
@@ -42,20 +43,26 @@ export class Category extends Entity<
     this.props.is_active = is_active ?? true;
   }
 
-  validate(): true {
-    if (this.props.name.length < 3) {
-      throw new InvalidAbstractEntityError("Name must be at least than 3 characters");
-    }
+  update(props: Pick<CategoryType, "name" | "description">): void {
+    Category.validate(props);
+    this.name = props.name;
+    this.description = props.description;
+  }
 
-    if (this.props.name.length > 255) {
-      throw new InvalidAbstractEntityError("Name must be at less than 255 characters");
+  static validate(props: CategoryType) {
+    const validator = CategoryValidatorFactory.create();
+    const isValid = validator.validate(props);
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors);
     }
+  }
 
-    if (this.props.description && this.props.description.length < 3) {
-      throw new InvalidAbstractEntityError("Description must be at least than 3 characters");
-    }
+  activate() {
+    this.props.is_active = true;
+  }
 
-    return true;
+  deactivate() {
+    this.props.is_active = false;
   }
 }
 

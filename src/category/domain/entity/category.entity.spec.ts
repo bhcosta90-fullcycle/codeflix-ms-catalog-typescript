@@ -1,210 +1,177 @@
 import { UniqueEntityId } from './../../../@shared/domain/value-object/unique-entity-id.vo';
-import { InvalidAbstractEntityError } from './../../../@shared/errors/invalid-abstract-entity.error';
-import { Category } from "./category.entity";
 import { omit } from "lodash";
+import { Category, CategoryType } from "./category.entity";
 
-describe("Category Unit Test", () => {
-  describe("Create", () => {
-    describe("exception in the constructor", () => {
-      it("field name", () => {
-        expect(
-          () =>
-            new Category({
-              name: "mo",
-            })
-        ).toThrow(new InvalidAbstractEntityError("Name must be at least than 3 characters"));
-
-        expect(
-          () =>
-            new Category({
-              name: "m".repeat(256),
-            })
-        ).toThrow(
-          new InvalidAbstractEntityError("Name must be at less than 255 characters")
-        );
-      });
-
-      it("description field", () => {
-        expect(
-          () =>
-            new Category({
-              name: "movie",
-              description: "so",
-            })
-        ).toThrow(
-          new InvalidAbstractEntityError("Description must be at least than 3 characters")
-        );
-      });
+describe("Category Unit Tests", () => {
+  beforeEach(() => {
+    Category.validate = jest.fn();
+  });
+  test("constructor of category", () => {
+    let category = new Category({ name: "Movie" });
+    let props = omit(category.props, "created_at");
+    expect(Category.validate).toHaveBeenCalled();
+    expect(props).toStrictEqual({
+      name: "Movie",
+      description: null,
+      is_active: true,
     });
-    it("passed all parameters to the constructor", () => {
-      const created_at = new Date();
+    expect(category.props.created_at).toBeInstanceOf(Date);
 
-      const spyValidated = jest.spyOn(Category.prototype, "validate");
-      const entity = new Category({
-        name: "movie",
-        description: "some description",
-        is_active: false,
-        created_at,
-      });
-
-      expect(entity.props).toStrictEqual({
-        name: "movie",
-        description: "some description",
-        is_active: false,
-        created_at,
-      });
-      expect(spyValidated).toBeCalledTimes(1);
+    let created_at = new Date(); //string
+    category = new Category({
+      name: "Movie",
+      description: "some description",
+      is_active: false,
+      created_at,
+    });
+    expect(category.props).toStrictEqual({
+      name: "Movie",
+      description: "some description",
+      is_active: false,
+      created_at,
     });
 
-    describe("field id", () => {
-      const data: any[] = [
-        null,
-        undefined,
-        new UniqueEntityId("df72a9be-1d35-4a86-94a0-e177978b31a2"),
-      ];
-
-      test.each(data)("validate %o", (i: any) => {
-        const category = new Category({ name: "testing" }, i);
-        expect(category.id).not.toBeNull();
-      });
+    category = new Category({
+      name: "Movie",
+      description: "other description",
+    });
+    expect(category.props).toMatchObject({
+      name: "Movie",
+      description: "other description",
     });
 
-    it("passed a minimum parameter to the constructor", () => {
-      const entity = new Category({
-        name: "movie 2",
-      });
-
-      expect(omit(entity.props, "created_at")).toStrictEqual({
-        name: "movie 2",
-        description: null,
-        is_active: true,
-      });
-
-      expect(entity.created_at).toBeInstanceOf(Date);
+    category = new Category({
+      name: "Movie",
+      is_active: true,
+    });
+    expect(category.props).toMatchObject({
+      name: "Movie",
+      is_active: true,
     });
 
-    describe("Getter and setter", () => {
-      const created_at = new Date();
+    created_at = new Date();
+    category = new Category({
+      name: "Movie",
+      created_at,
+    });
+    expect(category.props).toMatchObject({
+      name: "Movie",
+      created_at,
+    });
 
-      const entity = new Category({
-        name: "movie",
-        description: "some description",
-        is_active: false,
-        created_at,
-      });
+    // expect(category.name).toBe("Movie");
+    // expect(category.description).toBe("some description");
+    // expect(category.is_active).toBeTruthy();
+    // expect(category.created_at).toBe(created_at);
+  });
 
-      it("name prop", () => {
-        expect(entity.name).toBe("movie");
-        entity["name"] = "other movie";
-        expect(entity.name).toBe("other movie");
-      });
+  test("id field", () => {
+    type CategoryData = { props: CategoryType; id?: UniqueEntityId };
+    const data: CategoryData[] = [
+      { props: { name: "Movie" } },
+      { props: { name: "Movie" }, id: null },
+      { props: { name: "Movie" }, id: undefined },
+      { props: { name: "Movie" }, id: new UniqueEntityId() },
+    ];
 
-      it("description prop", () => {
-        expect(entity.description).toBe("some description");
-        entity["description"] = undefined;
-        expect(entity.description).toBeNull();
-      });
-
-      it("is_active prop", () => {
-        expect(entity.is_active).toBeFalsy();
-        entity["is_active"] = undefined;
-        expect(entity.is_active).toBeTruthy();
-      });
-
-      it("created_at prop", () => {
-        expect(entity.created_at).toBe(created_at);
-      });
+    data.forEach((i) => {
+      const category = new Category(i.props, i.id as any);
+      expect(category.id).not.toBeNull();
+      expect(category['_id']).toBeInstanceOf(UniqueEntityId);
     });
   });
 
-  describe("Update", () => {
-    let entity: Category;
+  test("getter and setter of name prop", () => {
+    const category = new Category({ name: "Movie" });
+    expect(category.name).toBe("Movie");
 
-    beforeEach(
-      () =>
-        (entity = new Category({
-          name: "movie",
-          description: "some description",
-          is_active: false,
-        }))
-    );
+    category["name"] = "other name";
+    expect(category.name).toBe("other name");
+  });
 
-    describe("exception in the constructor", () => {
-      it("field name", () => {
-        expect(() =>
-          entity.update({
-            name: "mo",
-          })
-        ).toThrow(new InvalidAbstractEntityError("Name must be at least than 3 characters"));
+  test("getter and setter of description prop", () => {
+    let category = new Category({
+      name: "Movie",
+    });
+    expect(category.description).toBeNull();
 
-        expect(() =>
-          entity.update({
-            name: "m".repeat(256),
-          })
-        ).toThrow(
-          new InvalidAbstractEntityError("Name must be at less than 255 characters")
-        );
-      });
+    category = new Category({
+      name: "Movie",
+      description: "some description",
+    });
+    expect(category.description).toBe("some description");
 
-      it("description field", () => {
-        expect(() =>
-          entity.update({
-            name: "movie",
-            description: "so",
-          })
-        ).toThrow(
-          new InvalidAbstractEntityError("Description must be at least than 3 characters")
-        );
-      });
+    category = new Category({
+      name: "Movie",
     });
 
-    it("a minimum prop", () => {
-      entity.update({
-        name: "movie 2",
-      });
+    category["description"] = "other description";
+    expect(category.description).toBe("other description");
 
-      expect(omit(entity.props, "created_at")).toStrictEqual({
-        name: "movie 2",
-        description: "some description",
-        is_active: false,
-      });
+    category["description"] = undefined;
+    expect(category.description).toBeNull();
+
+    category["description"] = null;
+    expect(category.description).toBeNull();
+  });
+
+  test("getter and setter of is_active prop", () => {
+    let category = new Category({
+      name: "Movie",
+    });
+    expect(category.is_active).toBeTruthy();
+
+    category = new Category({
+      name: "Movie",
+      is_active: true,
+    });
+    expect(category.is_active).toBeTruthy();
+
+    category = new Category({
+      name: "Movie",
+      is_active: false,
+    });
+    expect(category.is_active).toBeFalsy();
+  });
+
+  test("getter of created_at prop", () => {
+    let category = new Category({
+      name: "Movie",
     });
 
-    it("all props value", () => {
-      entity.update({
-        name: "movie 2",
-        description: "some description 2",
-      });
+    expect(category.created_at).toBeInstanceOf(Date);
 
-      expect(omit(entity.props, "created_at")).toStrictEqual({
-        name: "movie 2",
-        description: "some description 2",
-        is_active: false,
-      });
+    let created_at = new Date();
+    category = new Category({
+      name: "Movie",
+      created_at,
     });
+    expect(category.created_at).toBe(created_at);
+  });
 
-    it("null and undefined description", () => {
-      entity.update({
-        name: "movie 2",
-        description: null,
-      });
+  it("should update a category", () => {
+    const category = new Category({ name: "Movie" });
+    category.update({name: "Documentary", description: "some description"});
+    expect(Category.validate).toHaveBeenCalledTimes(2);
+    expect(category.name).toBe("Documentary");
+    expect(category.description).toBe("some description");
+  });
 
-      expect(omit(entity.props, "created_at")).toStrictEqual({
-        name: "movie 2",
-        description: null,
-        is_active: false,
-      });
-
-      entity.update({
-        name: "movie 2",
-        description: undefined,
-      });
-
-      expect(omit(entity.props, "created_at")).toStrictEqual({
-        name: "movie 2",
-        description: null,
-        is_active: false,
-      });
+  it("should active a category", () => {
+    const category = new Category({
+      name: "Movie",
+      is_active: false,
     });
+    category.activate();
+    expect(category.is_active).toBeTruthy();
+  });
+
+  test("should disable a category", () => {
+    const category = new Category({
+      name: "Movie",
+      is_active: true,
+    });
+    category.deactivate();
+    expect(category.is_active).toBeFalsy();
   });
 });

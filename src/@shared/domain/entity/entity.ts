@@ -9,16 +9,7 @@ export abstract class Entity<Props, PropUpdate = Props> {
     return this._id.value;
   }
 
-  abstract validate(): true;
-
-  public update(props: PropUpdate) {
-    (Object.keys(props) as (keyof typeof props)[]).forEach((key) => {
-      //@ts-ignore
-      this.props[`${key}`] = props[key] === undefined ? null : props[key];
-    });
-
-    this.validate();
-  }
+  abstract update(props: PropUpdate): void;
 
   toJSON(): Required<{ id: string } & Props> {
     return {

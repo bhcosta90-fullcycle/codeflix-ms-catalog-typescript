@@ -1,4 +1,4 @@
-export class InvalidUniqueEntityIdError extends Error {
+export class UniqueEntityIdError extends Error {
   constructor(message?: string) {
     super(message || "ID must be a valid");
     this.name = "InvalidUniqueEntityIdError";
