@@ -5,5 +5,8 @@ import { InMemorySearchableRepository } from "./../../../@shared/domain/reposito
 export class CategoryInMemoryRepository
   extends InMemorySearchableRepository<Category>
   implements CategoryRepository {
-  //
+  
+  protected applyFilter(items: Category[], filter: string): Promise<Category[]> {
+    throw new Error('Method not implemented.');
+  }  
 }

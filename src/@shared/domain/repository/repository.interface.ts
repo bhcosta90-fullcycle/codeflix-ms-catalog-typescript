@@ -1,6 +1,5 @@
 import { UniqueEntityId } from "../value-object/unique-entity-id.vo";
 import { Entity } from "../entity/entity";
-import { values } from "lodash";
 
 export interface RepositoryInterface<E extends Entity<any>> {
   insert(entity: E): Promise<void>;
