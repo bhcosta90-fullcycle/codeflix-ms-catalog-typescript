@@ -1,6 +1,6 @@
 import { deepFreeze } from "./object";
 
-describe("object Unit Tests", () => {
+describe("object Unit Test", () => {
   it("should not freeze a scalar value", () => {
     const str = deepFreeze("a");
     expect(typeof str).toBe("string");
