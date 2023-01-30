@@ -9,10 +9,14 @@ export interface RepositoryInterface<E extends Entity<any>> {
   delete(id: string | UniqueEntityId): Promise<void>;
 }
 
+export class SearchParams {
+
+}
+
 export interface SearchableRepositoryInterface<
   E extends Entity<any>,
-  SearchParams,
-  SearchResult
+  SearchInput,
+  SearchOutput
 > extends RepositoryInterface<E> {
-  search(props: SearchParams): Promise<E[]>;
+  search(props: SearchInput): Promise<SearchOutput>;
 }
