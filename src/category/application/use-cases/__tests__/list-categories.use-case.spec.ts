@@ -9,7 +9,7 @@ describe("ListCategoriesUseCase Unit Tests", () => {
 
   beforeEach(() => {
     repository = new CategoryInMemoryRepository();
-    useCase = new ListCategoriesUseCase.UseCase(repository as any);
+    useCase = new ListCategoriesUseCase.UseCase(repository);
   });
 
   test("toOutput method", () => {

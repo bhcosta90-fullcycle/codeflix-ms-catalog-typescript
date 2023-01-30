@@ -8,7 +8,7 @@ describe("GetCategoryUseCase Unit Tests", () => {
 
   beforeEach(() => {
     repository = new CategoryInMemoryRepository();
-    useCase = new GetCategoryUseCase.UseCase(repository as any);
+    useCase = new GetCategoryUseCase.UseCase(repository);
   });
 
   it("should throws error when entity not found", async () => {
