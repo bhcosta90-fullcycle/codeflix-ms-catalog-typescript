@@ -1,7 +1,7 @@
-import { CategoryRepository } from "./../../domain/repository/category.repository";
-import { Category } from "../../domain/entity/category.entity";
-import { InMemorySearchableRepository } from "./../../../@shared/domain/repository/in-memory.repository";
-import { SortDirection } from "../../../@shared/domain/repository/repository.interface";
+import { CategoryRepository } from "./../../../domain/repository/category.repository";
+import { Category } from "../../../domain/entity/category.entity";
+import { InMemorySearchableRepository } from "./../../../../@shared/domain/repository/in-memory.repository";
+import { SortDirection } from "../../../../@shared/domain/repository/repository.interface";
 
 export class CategoryInMemoryRepository
   extends InMemorySearchableRepository<Category>
