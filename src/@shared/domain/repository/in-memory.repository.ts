@@ -1,9 +1,12 @@
 import { NotFoundError } from "./../../errors/not-found.error";
-import { RepositoryInterface } from "./repository.interface";
+import {
+  RepositoryInterface,
+  SearchableRepositoryInterface,
+} from "./repository.interface";
 import { Entity } from "../entity/entity";
 import { UniqueEntityId } from "../value-object/unique-entity-id.vo";
 
-export class InMemoryRepository<E extends Entity<any>>
+export abstract class InMemoryRepository<E extends Entity<any>>
   implements RepositoryInterface<E>
 {
   public items: E[] = [];
@@ -39,5 +42,14 @@ export class InMemoryRepository<E extends Entity<any>>
       throw new NotFoundError(`Entity not found using id ${id}`);
     }
     return item;
+  }
+}
+
+export abstract class InMemorySearchableRepository<E extends Entity<any>>
+  extends InMemoryRepository<E>
+  implements SearchableRepositoryInterface<E, any, any> {
+  
+  search(props: any): Promise<E[]> {
+    throw new Error("Method not implemented.");
   }
 }
