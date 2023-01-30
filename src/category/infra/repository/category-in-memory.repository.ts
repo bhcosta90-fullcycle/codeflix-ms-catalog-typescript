@@ -1,4 +1,7 @@
-import { CategoryRepository } from "./../../domain/repository/category.repository";
+import {
+  CategoryFilter,
+  CategoryRepository,
+} from "./../../domain/repository/category.repository";
 import { Category } from "../../domain/entity/category.entity";
 import { InMemorySearchableRepository } from "./../../../@shared/domain/repository/in-memory.repository";
 import { SortDirection } from "../../../@shared/domain/repository/repository.interface";
@@ -9,7 +12,7 @@ export class CategoryInMemoryRepository
 {
   protected async applyFilter(
     items: Category[],
-    filter: string
+    filter: CategoryFilter
   ): Promise<Category[]> {
     if (!filter) {
       return items;
