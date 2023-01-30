@@ -51,7 +51,7 @@ export abstract class InMemorySearchableRepository<E extends Entity<any>>
   extends InMemoryRepository<E>
   implements SearchableRepositoryInterface<E, string>
 {
-  sortableFields: string[] = [];
+  sortableFields: string[] = ["name", "created_at"];
 
   async search(props: SearchParams<string>): Promise<SearchResult<E, string>> {
     const itemsFiltered = await this.applyFilter(this.items, props.filter);
@@ -101,7 +101,7 @@ export abstract class InMemorySearchableRepository<E extends Entity<any>>
       if (a.props[sort] > b.props[sort]) {
         return sort_dir === "asc" ? 1 : -1;
       }
-      
+
       return 0;
     });
   }
