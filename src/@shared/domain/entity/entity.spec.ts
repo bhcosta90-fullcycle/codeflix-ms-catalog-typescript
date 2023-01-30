@@ -15,7 +15,7 @@ class StubEntity extends Entity<
   }
 }
 
-describe("Entity Unit Tests", () => {
+describe("Entity Unit Test", () => {
   describe("Constructor", () => {
     it("should set props and id", () => {
       const arrange = { prop1: "prop1 value", prop2: 10 };

@@ -5,7 +5,7 @@ class StubClassValidatorFields extends ClassValidatorFields<{
   field: string;
 }> {}
 
-describe("ClassValidatorFields Unit Tests", () => {
+describe("ClassValidatorFields Unit Test", () => {
   it("should initialize erros and validatedData variables with null", () => {
     const validator = new StubClassValidatorFields();
     expect(validator.errors).toBeNull();

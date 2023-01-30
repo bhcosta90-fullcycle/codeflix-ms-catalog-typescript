@@ -2,7 +2,7 @@ import { UniqueEntityId } from './../../../@shared/domain/value-object/unique-en
 import { omit } from "lodash";
 import { Category, CategoryType } from "./category.entity";
 
-describe("Category Unit Tests", () => {
+describe("Category Unit Test", () => {
   beforeEach(() => {
     Category.validate = jest.fn();
   });

@@ -47,9 +47,8 @@ export abstract class InMemoryRepository<E extends Entity<any>>
 
 export abstract class InMemorySearchableRepository<E extends Entity<any>>
   extends InMemoryRepository<E>
-  implements SearchableRepositoryInterface<E, any, any> {
-  
-  search(props: any): Promise<E[]> {
+  implements SearchableRepositoryInterface<E, string, any, any> {
+  search(props: any): Promise<any> {
     throw new Error("Method not implemented.");
   }
 }

@@ -37,7 +37,7 @@ function runRule({
   method.apply(validator, params);
 }
 
-describe("ValidatorRules Unit Tests", () => {
+describe("ValidatorRules Unit Test", () => {
   test("values method", () => {
     const validator = ValidatorRules.values("some value", "field");
     expect(validator).toBeInstanceOf(ValidatorRules);
