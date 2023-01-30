@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "ts-node": "ts-node",
-    "pretsc": "rimraf tsconfig.tsbuildinfo ./dist",
+    "pretsc": "rimraf tsconfig.tsbuildinfo ./dist ./coverage",
     "tsc": "tsc",
     "test": "jest",
-    "test:cov": "npm run test -- --coverage",
-    "posttest": "tsc --noEmit"
+    "posttest": "tsc --noEmit",
+    "pretest:cov": "rimraf ./coverage",
+    "test:cov": "npm run test -- --coverage"
   },
   "repository": {
     "type": "git",
