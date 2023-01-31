@@ -94,11 +94,11 @@ export abstract class InMemorySearchableRepository<E extends Entity<any>>
     }
 
     return [...items].sort((a, b) => {
-      if (a.props[sort] < b.props[sort]) {
+      if (a['props'][sort] < b['props'][sort]) {
         return sort_dir === "asc" ? -1 : 1;
       }
 
-      if (a.props[sort] > b.props[sort]) {
+      if (a['props'][sort] > b['props'][sort]) {
         return sort_dir === "asc" ? 1 : -1;
       }
 

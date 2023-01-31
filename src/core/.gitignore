@@ -1,0 +1,6 @@
+node_modules
+dist
+node_modules
+tsconfig*.tsbuildinfo
+.history
+coverage

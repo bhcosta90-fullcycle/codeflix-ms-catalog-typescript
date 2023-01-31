@@ -1,7 +1,7 @@
 import { UniqueEntityId } from "../value-object/unique-entity-id.vo";
 
 export abstract class Entity<Props, PropUpdate = Props> {
-  constructor(public props: Props, private _id?: UniqueEntityId) {
+  constructor(protected props: Props, private _id?: UniqueEntityId) {
     this._id = this._id ?? new UniqueEntityId();
   }
 

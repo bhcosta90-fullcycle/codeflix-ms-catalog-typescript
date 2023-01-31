@@ -8,14 +8,14 @@ describe("Category Unit Test", () => {
   });
   test("constructor of category", () => {
     let category = new Category({ name: "Movie" });
-    let props = omit(category.props, "created_at");
+    let props = omit(category['props'], "created_at");
     expect(Category.validate).toHaveBeenCalled();
     expect(props).toStrictEqual({
       name: "Movie",
       description: null,
       is_active: true,
     });
-    expect(category.props.created_at).toBeInstanceOf(Date);
+    expect(category['props'].created_at).toBeInstanceOf(Date);
 
     let created_at = new Date(); //string
     category = new Category({
@@ -24,7 +24,7 @@ describe("Category Unit Test", () => {
       is_active: false,
       created_at,
     });
-    expect(category.props).toStrictEqual({
+    expect(category['props']).toStrictEqual({
       name: "Movie",
       description: "some description",
       is_active: false,
@@ -35,7 +35,7 @@ describe("Category Unit Test", () => {
       name: "Movie",
       description: "other description",
     });
-    expect(category.props).toMatchObject({
+    expect(category['props']).toMatchObject({
       name: "Movie",
       description: "other description",
     });
@@ -44,7 +44,7 @@ describe("Category Unit Test", () => {
       name: "Movie",
       is_active: true,
     });
-    expect(category.props).toMatchObject({
+    expect(category['props']).toMatchObject({
       name: "Movie",
       is_active: true,
     });
@@ -54,7 +54,7 @@ describe("Category Unit Test", () => {
       name: "Movie",
       created_at,
     });
-    expect(category.props).toMatchObject({
+    expect(category['props']).toMatchObject({
       name: "Movie",
       created_at,
     });

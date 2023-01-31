@@ -7,7 +7,7 @@ export class Category extends Entity<
   CategoryType,
   Pick<CategoryType, "name" | "description">
 > {
-  constructor(public props: CategoryType, id?: UniqueEntityId) {
+  constructor(protected props: CategoryType, id?: UniqueEntityId) {
     Category.validate(props);
     super(props, id);
     this.description = this.props.description;
