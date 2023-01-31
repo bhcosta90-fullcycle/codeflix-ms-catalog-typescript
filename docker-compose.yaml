@@ -8,10 +8,9 @@ services:
       - .:/app
     ports:
       - 3200:3000
-
-  prod:
-    build:
-      context: .
-      target: prod
-    ports:
-      - 3000:3000
+  # prod:
+  #   build:
+  #     context: .
+  #     target: prod
+  #   ports:
+  #     - 3000:3000
