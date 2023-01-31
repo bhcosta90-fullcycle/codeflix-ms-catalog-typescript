@@ -1,0 +1,38 @@
+@port = 3200
+@resource = categories
+
+GET http://localhost:{{port}}/{{resource}}
+
+###
+# @name create
+@id = {{create.response.body.$.id}}
+POST http://localhost:{{port}}/{{resource}}
+Content-Type: application/json
+
+{
+    "name": "test 123"
+}
+
+
+###
+GET http://localhost:{{port}}/{{resource}}/{{id}}
+
+###
+PUT  http://localhost:{{port}}/{{resource}}/{{id}}
+Content-Type: application/json
+
+{
+    "name": "test 456"
+}
+###
+GET http://localhost:{{port}}/{{resource}}/{{id}}
+
+###
+GET http://localhost:{{port}}/{{resource}}
+
+
+###
+DELETE http://localhost:{{port}}/{{resource}}/{{id}}
+
+###
+GET http://localhost:{{port}}/{{resource}}

@@ -19,6 +19,7 @@
 		"esbenp.prettier-vscode",
 		"dbaeumer.vscode-eslint",
 		"xyz.local-history",
+		"humao.rest-client",
 		"george-alisson.html-preview-vscode"
 	],
 

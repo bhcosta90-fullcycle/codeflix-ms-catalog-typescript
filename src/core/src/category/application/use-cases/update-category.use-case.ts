@@ -38,7 +38,7 @@ export namespace UpdateCategoryUseCase {
   export type Input = {
     id: string;
     name: string;
-    description: string | null;
+    description?: string | null;
     is_active?: boolean;
   };
 
