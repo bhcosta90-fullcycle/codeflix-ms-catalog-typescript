@@ -16,7 +16,7 @@ export class CategoryInMemoryRepository
     }
 
     return items.filter((i) => {
-      return i.props.name.toLowerCase().includes(filter.toLowerCase());
+      return i["props"].name.toLowerCase().includes(filter.toLowerCase());
     });
   }
 
