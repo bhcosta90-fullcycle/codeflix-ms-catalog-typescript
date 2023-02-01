@@ -1,7 +1,7 @@
 import { GetCategoryUseCase } from "../get-category.use-case";
 import { NotFoundError } from "../../../../@shared/errors/not-found.error";
 import { Category } from "../../../domain/entity/category.entity";
-import { CategoryInMemoryRepository } from "../../../infra/db/repository/category-in-memory.repository";
+import { CategoryInMemoryRepository } from "../../../infra/db/in-memory/category-in-memory.repository";
 describe("GetCategoryUseCase Unit Tests", () => {
   let useCase: GetCategoryUseCase.UseCase;
   let repository: CategoryInMemoryRepository;

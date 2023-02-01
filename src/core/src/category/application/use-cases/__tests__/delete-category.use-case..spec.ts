@@ -1,7 +1,7 @@
 import { NotFoundError } from '../../../../@shared/errors/not-found.error';
 import { DeleteCategoryUseCase } from '../../../application/use-cases/delete-category.use-case';
 import { Category } from '../../../domain/entity/category.entity';
-import { CategoryInMemoryRepository } from "../../../infra/db/repository/category-in-memory.repository";
+import { CategoryInMemoryRepository } from "../../../infra/db/in-memory/category-in-memory.repository";
 describe("DeleteCategoryUseCase Unit Tests", () => {
   let useCase: DeleteCategoryUseCase.UseCase;
   let repository: CategoryInMemoryRepository;
