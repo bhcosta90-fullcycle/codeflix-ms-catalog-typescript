@@ -7,6 +7,8 @@ export class CategoryInMemoryRepository
   extends InMemorySearchableRepository<Category>
   implements CategoryRepository.Repository
 {
+  sortableFields: string[] = ["name", "created_at"];
+  
   protected async applyFilter(
     items: Category[],
     filter: CategoryRepository.Filter
