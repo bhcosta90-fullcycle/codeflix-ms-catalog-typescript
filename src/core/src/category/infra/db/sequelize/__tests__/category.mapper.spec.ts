@@ -47,22 +47,6 @@ describe("CategoryMapper Unit Test", () => {
     }
   });
 
-  it("should throw a generic error", () => {
-    const error = new Error("Generic error");
-
-    const spyValidate = jest
-      .spyOn(Category, "validate")
-      .mockImplementation(() => {
-        throw error;
-      });
-
-    const model = CategoryModel.build({
-      id: "fc761756-648b-4fad-88cc-8b7ee10ac84a",
-    });
-    expect(() => CategoryMapper.toEntity(model)).toThrow(error);
-    expect(spyValidate).toHaveBeenCalledTimes(1);
-  });
-
   it("should convert a category model to a category entity", () => {
     const created_at = new Date();
     const model = CategoryModel.build({
@@ -84,5 +68,21 @@ describe("CategoryMapper Unit Test", () => {
         new UniqueEntityId("5490020a-e866-4229-9adc-aa44b83234c4")
       ).toJSON()
     );
+  });
+
+  it("should throw a generic error", () => {
+    const error = new Error("Generic error");
+
+    const spyValidate = jest
+      .spyOn(Category, "validate")
+      .mockImplementation(() => {
+        throw error;
+      });
+
+    const model = CategoryModel.build({
+      id: "fc761756-648b-4fad-88cc-8b7ee10ac84a",
+    });
+    expect(() => CategoryMapper.toEntity(model)).toThrow(error);
+    expect(spyValidate).toHaveBeenCalledTimes(1);
   });
 });

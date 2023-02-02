@@ -29,15 +29,21 @@ export class CategorySequelizeRepository
   }
 
   async findAll(): Promise<Category[]> {
-    throw new Error("Method not implemented.");
+    const models = await this.categoryModel.findAll();
+    return models.map((model) => CategoryMapper.toEntity(model));
   }
 
   async update(entity: Category): Promise<void> {
-    throw new Error("Method not implemented.");
+    await this._get(entity.id);
+    await this.categoryModel.update(entity.toJSON(), {
+      where: { id: entity.id },
+    });
   }
 
   async delete(id: string | UniqueEntityId): Promise<void> {
-    throw new Error("Method not implemented.");
+    const _id = `${id}`;
+    await this._get(_id);
+    this.categoryModel.destroy({ where: { id: _id } });
   }
 
   protected async _get(id: string): Promise<CategoryModel> {
