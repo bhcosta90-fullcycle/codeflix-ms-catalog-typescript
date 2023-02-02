@@ -6,6 +6,7 @@ import {
   Table,
   Model,
 } from "sequelize-typescript";
+import { SequelizeModelFactory } from "@ca/core/@shared/infra/sequelize/sequelize-model.factory";
 
 export type CategoryModelType = {
   id: string;
@@ -28,4 +29,16 @@ export class CategoryModel extends Model<CategoryModelType> {
 
   @Column({ allowNull: false, type: DataType.DATE(3) })
   declare created_at: Date;
+
+  static factory() {
+    const chance: Chance.Chance = require("chance")();
+
+    return new SequelizeModelFactory(CategoryModel, () => ({
+      id: chance.guid({ version: 4 }),
+      name: chance.word(),
+      description: chance.paragraph(),
+      is_active: true,
+      created_at: chance.date(),
+    }));
+  }
 }
