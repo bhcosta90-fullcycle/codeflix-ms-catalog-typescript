@@ -1,7 +1,15 @@
-import { UniqueEntityId } from './../../domain/value-object/unique-entity-id.vo';
-import { Column, DataType, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
+import { UniqueEntityId } from "./../../domain/value-object/unique-entity-id.vo";
+import {
+  Column,
+  DataType,
+  Model,
+  PrimaryKey,
+  Sequelize,
+  Table,
+} from "sequelize-typescript";
 import { SequelizeModelFactory } from "./sequelize-model.factory";
 import _chance from "chance";
+import { setupSequelize } from "../testing/helpers/db";
 const chance = _chance();
 
 @Table
@@ -23,20 +31,7 @@ class StubModel extends Model {
 }
 
 describe("SequelizeModelFactory Feature Test", () => {
-  let sequelize: Sequelize;
-  beforeAll(
-    () =>
-      (sequelize = new Sequelize({
-        dialect: "sqlite",
-        host: ":memory:",
-        logging: false,
-        models: [StubModel],
-      }))
-  );
-
-  beforeEach(async () => await sequelize.sync({ force: true }));
-
-  afterAll(async () => await sequelize.close());
+  setupSequelize({ models: [StubModel] });
 
   describe("create a method", () => {
     it("no param", async () => {

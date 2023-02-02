@@ -1,31 +1,12 @@
-import { CategorySequelizeRepository } from "./../category-sequelize.repository";
-import { Sequelize } from "sequelize-typescript";
 import { CategoryModel } from "../category.model";
 import { CategoryMapper } from "../category.mapper";
 import { LoadEntityError } from "@ca/core/@shared/errors/load-entity.error";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { UniqueEntityId } from "@ca/core/@shared/domain/value-object/unique-entity-id.vo";
+import { setupSequelize } from "@ca/core/@shared/infra/testing/helpers/db";
 
 describe("CategoryMapper Unit Test", () => {
-  let sequelize: Sequelize;
-  let repository: CategorySequelizeRepository;
-
-  beforeAll(
-    () =>
-      (sequelize = new Sequelize({
-        dialect: "sqlite",
-        host: ":memory:",
-        logging: false,
-        models: [CategoryModel],
-      }))
-  );
-
-  beforeEach(async () => {
-    repository = new CategorySequelizeRepository(CategoryModel);
-    await sequelize.sync({ force: true });
-  });
-
-  afterAll(async () => await sequelize.close());
+  setupSequelize({ models: [CategoryModel] });
 
   it("should throw error when category is invalid", () => {
     const model = CategoryModel.build({

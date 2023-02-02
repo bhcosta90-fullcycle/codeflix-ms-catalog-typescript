@@ -4,27 +4,16 @@ import { CategoryModel } from "../category.model";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { NotFoundError } from "@ca/core/@shared/errors/not-found.error";
 import { UniqueEntityId } from "@ca/core/@shared/domain/value-object/unique-entity-id.vo";
+import { setupSequelize } from "@ca/core/@shared/infra/testing/helpers/db";
 
 describe("CategorySequelizeRepository Feature Test", () => {
-  let sequelize: Sequelize;
+  setupSequelize({ models: [CategoryModel] });
+  
   let repository: CategorySequelizeRepository;
-
-  beforeAll(
-    () =>
-      (sequelize = new Sequelize({
-        dialect: "sqlite",
-        host: ":memory:",
-        logging: false,
-        models: [CategoryModel],
-      }))
-  );
 
   beforeEach(async () => {
     repository = new CategorySequelizeRepository(CategoryModel);
-    await sequelize.sync({ force: true });
   });
-
-  afterAll(async () => await sequelize.close());
 
   test("should a execute action a insert", async () => {
     let category = new Category({ name: "testing" });
