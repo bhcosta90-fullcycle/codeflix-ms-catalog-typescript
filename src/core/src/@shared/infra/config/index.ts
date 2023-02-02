@@ -14,12 +14,20 @@ function makeConfig(envFile): Config {
 
   return {
     db: {
-      vendor: (output.parsed?.DB_VENDOR as any) || "sqlite",
-      host: output.parsed?.DB_HOST || ":memory:",
-      logging: output.parsed?.DB_LOGGING === "true" || false,
+      vendor:
+        (output.parsed?.DB_VENDOR as any) ||
+        (process.env.NODE_ENV == "test" ? "sqlite" : null),
+      host:
+        output.parsed?.DB_HOST ||
+        (process.env.NODE_ENV == "test" ? ":memory:" : null),
+      logging:
+        output.parsed?.DB_LOGGING === "true" ||
+        (process.env.NODE_ENV == "test" ? false : null),
     },
   };
 }
+
+console.log(process.env.NODE_ENV);
 
 const envTestingFile = join(__dirname, "../../../../.env.test");
 export const configTest = makeConfig(envTestingFile);
