@@ -37,7 +37,7 @@ export class CategoryModel extends Model<CategoryModelType> {
       CategoryModel,
       () => ({
         id: chance.guid({ version: 4 }),
-        name: chance.word(),
+        name: chance.word({length: 15}),
         description: chance.paragraph(),
         is_active: true,
         created_at: chance.date(),

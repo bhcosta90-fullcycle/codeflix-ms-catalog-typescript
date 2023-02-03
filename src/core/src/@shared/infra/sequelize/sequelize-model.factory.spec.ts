@@ -7,8 +7,8 @@ import {
   Table,
 } from "sequelize-typescript";
 import { SequelizeModelFactory } from "./sequelize-model.factory";
-import _chance from "chance";
 import { setupSequelize } from "../testing/helpers/db";
+import _chance from "chance";
 const chance = _chance();
 
 @Table
