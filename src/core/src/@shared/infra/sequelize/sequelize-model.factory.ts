@@ -19,16 +19,23 @@ export class SequelizeModelFactory {
   async bulkCreate(factoryProps?: (index: number) => any) {
     const data = new Array(this.#count)
       .fill(factoryProps ? factoryProps : this.defaultFactoryProps)
-      .map((factory, index) => factory(index));
-
+      .map((factory, index) => factory(index))
+      .map((data) => ({
+        ...this.defaultFactoryProps(),
+        ...data,
+      }));
+    
     return this.model.bulkCreate(data);
   }
 
   bulkMake(factoryProps?: (index: number) => any) {
     const data = new Array(this.#count)
       .fill(factoryProps ? factoryProps : this.defaultFactoryProps)
-      .map((factory, index) => factory(index));
-
+      .map((factory, index) => factory(index))
+      .map((data) => ({
+        ...this.defaultFactoryProps(),
+        ...data,
+      }));
     return this.model.bulkBuild(data);
   }
 }

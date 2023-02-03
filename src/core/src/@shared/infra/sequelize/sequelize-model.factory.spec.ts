@@ -120,7 +120,6 @@ describe("SequelizeModelFactory Feature Test", () => {
 
       it("with param", async () => {
         const entity = await StubModel.factory().count(2).bulkCreate(() => ({
-          id: chance.guid({version: 4}),
           name: "testing",
         }));
         expect(entity[0].id).not.toBeNull();
@@ -176,7 +175,6 @@ describe("SequelizeModelFactory Feature Test", () => {
         const entity = await StubModel.factory()
           .count(2)
           .bulkMake(() => ({
-            id: chance.guid({ version: 4 }),
             name: "testing",
           }));
         expect(entity[0].id).not.toBeNull();
