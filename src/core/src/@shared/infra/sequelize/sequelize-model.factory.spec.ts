@@ -22,7 +22,7 @@ class StubModel extends Model {
   declare name;
 
   static factory() {
-    return new SequelizeModelFactory(StubModel, () => ({
+    return new SequelizeModelFactory<StubModel, {id?: string, name: string}>(StubModel, () => ({
       id: chance.guid({ version: 4 }),
       name: chance.word(),
     }));
@@ -54,8 +54,8 @@ describe("SequelizeModelFactory Feature Test", () => {
   });
 
   describe("make a method", () => {
-    it("no param", async () => {
-      const entity = await StubModel.factory().make();
+    it("no param", () => {
+      const entity = StubModel.factory().make();
       expect(entity.id).not.toBeNull();
       expect(entity.name).not.toBeNull();
       new UniqueEntityId(entity.id);
@@ -148,8 +148,8 @@ describe("SequelizeModelFactory Feature Test", () => {
         new UniqueEntityId(entity[0].id);
       });
 
-      it("with param", async () => {
-        const entity = await StubModel.factory().bulkMake(() => ({
+      it("with param", () => {
+        const entity = StubModel.factory().bulkMake(() => ({
           id: "e07807e9-874c-4189-9d07-3a3d2bb82153",
           name: "testing",
         }));
@@ -159,8 +159,8 @@ describe("SequelizeModelFactory Feature Test", () => {
     });
 
     describe("using count = 2", () => {
-      it("no param", async () => {
-        const entity = await StubModel.factory().count(2).bulkMake();
+      it("no param", () => {
+        const entity = StubModel.factory().count(2).bulkMake();
         expect(entity).toHaveLength(2);
 
         expect(entity[0].id).not.toBeNull();
@@ -171,8 +171,8 @@ describe("SequelizeModelFactory Feature Test", () => {
         new UniqueEntityId(entity[1].id);
       });
 
-      it("with param", async () => {
-        const entity = await StubModel.factory()
+      it("with param", () => {
+        const entity = StubModel.factory()
           .count(2)
           .bulkMake(() => ({
             name: "testing",
