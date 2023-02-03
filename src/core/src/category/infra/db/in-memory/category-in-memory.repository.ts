@@ -1,12 +1,14 @@
-import { CategoryRepository } from "./../../../domain/repository/category.repository";
+import { CategoryRepository } from "../../../domain/repository/category.repository";
 import { Category } from "../../../domain/entity/category.entity";
-import { InMemorySearchableRepository } from "./../../../../@shared/domain/repository/in-memory.repository";
+import { InMemorySearchableRepository } from "../../../../@shared/domain/repository/in-memory.repository";
 import { SortDirection } from "../../../../@shared/domain/repository/repository.interface";
 
 export class CategoryInMemoryRepository
   extends InMemorySearchableRepository<Category>
   implements CategoryRepository.Repository
 {
+  sortableFields: string[] = ["name", "created_at"];
+  
   protected async applyFilter(
     items: Category[],
     filter: CategoryRepository.Filter
