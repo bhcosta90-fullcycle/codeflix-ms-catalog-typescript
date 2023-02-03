@@ -16,13 +16,13 @@ function makeConfig(envFile): Config {
     db: {
       vendor:
         (output.parsed?.DB_VENDOR as any) ||
-        (process.env.NODE_ENV == "test" ? "sqlite" : null),
+        (process.env.NODE_ENV === "test" ? "sqlite" : null),
       host:
         output.parsed?.DB_HOST ||
-        (process.env.NODE_ENV == "test" ? ":memory:" : null),
+        (process.env.NODE_ENV === "test" ? ":memory:" : null),
       logging:
         output.parsed?.DB_LOGGING === "true" ||
-        (process.env.NODE_ENV == "test" ? false : null),
+        (process.env.NODE_ENV === "test" ? false : null),
     },
   };
 }
