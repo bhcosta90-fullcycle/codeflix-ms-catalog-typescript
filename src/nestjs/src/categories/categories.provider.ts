@@ -4,7 +4,7 @@ import { UpdateCategoryUseCase } from '@ca/core/category/application/use-cases/u
 import { ListCategoriesUseCase } from '@ca/core/category/application/use-cases/list-categories.use-case';
 import { GetCategoryUseCase } from '@ca/core/category/application/use-cases/get-category.use-case';
 import { CategoryRepository } from '@ca/core/category/domain/repository/category.repository';
-import { CategoryInMemoryRepository } from '@ca/core/category/infra/db/repository/category-in-memory.repository';
+import { CategoryInMemoryRepository } from '@ca/core/category/infra/db/in-memory/category-in-memory.repository';
 
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace CATEGORY_PROVIDERS {
