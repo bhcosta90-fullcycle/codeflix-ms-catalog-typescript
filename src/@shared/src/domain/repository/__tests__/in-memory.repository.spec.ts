@@ -1,6 +1,6 @@
-import { NotFoundError } from "./../../../errors/not-found.error";
-import { UniqueEntityId } from "./../../value-object/unique-entity-id.vo";
-import { Entity } from "../../../domain/entity/entity";
+import { NotFoundError } from "../../../errors/not-found.error";
+import { UniqueEntityId } from "../../value-object/unique-entity-id.vo";
+import { Entity } from "../../entity/entity";
 import { RepositoryInterface } from "../repository.interface";
 import { InMemoryRepository } from "../in-memory.repository";
 

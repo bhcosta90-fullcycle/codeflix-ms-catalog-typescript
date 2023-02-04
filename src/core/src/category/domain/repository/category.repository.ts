@@ -1,9 +1,9 @@
 import {
   SearchParams as DefaultSearchParams,
   SearchResult as DefaultSearchResult,
-} from "../../../@shared/domain/repository/repository.interface";
+} from "@ca/shared/domain/repository/repository.interface";
 import { Category } from "../entity/category.entity";
-import { SearchableRepositoryInterface } from "./../../../@shared/domain/repository/repository.interface";
+import { SearchableRepositoryInterface } from "@ca/shared/domain/repository/repository.interface";
 
 export namespace CategoryRepository {
   export type Filter = string;

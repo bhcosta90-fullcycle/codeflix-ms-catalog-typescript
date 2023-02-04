@@ -1,4 +1,4 @@
-import { UniqueEntityId } from "./../../domain/value-object/unique-entity-id.vo";
+import { UniqueEntityId } from "../../domain/value-object/unique-entity-id.vo";
 import {
   Column,
   DataType,

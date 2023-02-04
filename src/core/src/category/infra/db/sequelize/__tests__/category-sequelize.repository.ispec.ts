@@ -1,9 +1,9 @@
 import { CategorySequelizeRepository } from "./../category-sequelize.repository";
 import { CategoryModel } from "../category.model";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
-import { NotFoundError } from "@ca/core/@shared/errors/not-found.error";
-import { UniqueEntityId } from "@ca/core/@shared/domain/value-object/unique-entity-id.vo";
-import { setupSequelize } from "@ca/core/@shared/infra/testing/helpers/db";
+import { NotFoundError } from "@ca/shared/errors/not-found.error";
+import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
+import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 import _chance from "chance";
 import { CategoryMapper } from "../category.mapper";
 import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";

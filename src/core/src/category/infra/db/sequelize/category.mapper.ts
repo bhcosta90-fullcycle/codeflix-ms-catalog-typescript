@@ -1,6 +1,6 @@
-import { UniqueEntityId } from "@ca/core/@shared/domain/value-object/unique-entity-id.vo";
-import { EntityValidationError } from "@ca/core/@shared/errors/entity-validation.error";
-import { LoadEntityError } from "@ca/core/@shared/errors/load-entity.error";
+import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
+import { EntityValidationError } from "@ca/shared/errors/entity-validation.error";
+import { LoadEntityError } from "@ca/shared/errors/load-entity.error";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { CategoryModel } from "./category.model";
 

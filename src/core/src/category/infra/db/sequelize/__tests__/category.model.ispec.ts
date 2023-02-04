@@ -1,4 +1,4 @@
-import { setupSequelize } from "@ca/core/@shared/infra/testing/helpers/db";
+import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 import { DataType } from "sequelize-typescript";
 import { CategoryModel } from "../category.model";
 

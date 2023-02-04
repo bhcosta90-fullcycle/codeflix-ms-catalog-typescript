@@ -1,4 +1,5 @@
-import { setupSequelize } from '@ca/core/@shared/infra/testing/helpers/db';
+import { setupSequelize } from "./db";
+
 describe("DB Unit Test", () => {
   const db = setupSequelize({});
 

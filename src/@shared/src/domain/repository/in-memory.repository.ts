@@ -1,4 +1,4 @@
-import { NotFoundError } from "./../../errors/not-found.error";
+import { NotFoundError } from "../../errors/not-found.error";
 import {
   RepositoryInterface,
   SearchableRepositoryInterface,

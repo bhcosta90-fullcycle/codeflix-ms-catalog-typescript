@@ -1,12 +1,10 @@
-import { UseCaseInterface } from '../../../@shared/use-cases/use-case.interface';
+import { UseCaseInterface } from "@ca/shared/use-cases/use-case.interface";
 import { CategoryRepository } from "../../../category/domain/repository/category.repository";
 import { Category } from "../../domain/entity/category.entity";
 import { CategoryOutput, CategoryOutputMapper } from "./dto/category.output";
 
 export namespace CreateCategoryUseCase {
-  export class UseCase
-    implements UseCaseInterface<Input, Output>
-  {
+  export class UseCase implements UseCaseInterface<Input, Output> {
     constructor(protected repository: CategoryRepository.Repository) {}
 
     async execute(input: Input): Promise<Output> {

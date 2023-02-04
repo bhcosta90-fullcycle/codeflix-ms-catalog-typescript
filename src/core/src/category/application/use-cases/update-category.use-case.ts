@@ -1,4 +1,4 @@
-import { UseCaseInterface } from "../../../@shared/use-cases/use-case.interface";
+import { UseCaseInterface } from "@ca/shared/use-cases/use-case.interface";
 import { Category } from "./../../domain/entity/category.entity";
 import { CategoryRepository } from "../../../category/domain/repository/category.repository";
 import { CategoryOutput } from "./dto/category.output";

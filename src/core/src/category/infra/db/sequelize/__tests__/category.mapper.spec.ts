@@ -1,9 +1,9 @@
 import { CategoryModel } from "../category.model";
 import { CategoryMapper } from "../category.mapper";
-import { LoadEntityError } from "@ca/core/@shared/errors/load-entity.error";
+import { LoadEntityError } from "@ca/shared/errors/load-entity.error";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
-import { UniqueEntityId } from "@ca/core/@shared/domain/value-object/unique-entity-id.vo";
-import { setupSequelize } from "@ca/core/@shared/infra/testing/helpers/db";
+import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
+import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 
 describe("CategoryMapper Unit Test", () => {
   setupSequelize({ models: [CategoryModel] });

@@ -1,4 +1,4 @@
-import { NotFoundError } from '../../../../@shared/errors/not-found.error';
+import { NotFoundError } from '@ca/shared/errors/not-found.error';
 import { DeleteCategoryUseCase } from '../../../application/use-cases/delete-category.use-case';
 import { Category } from '../../../domain/entity/category.entity';
 import { CategoryInMemoryRepository } from "../../../infra/db/in-memory/category-in-memory.repository";

@@ -1,4 +1,4 @@
-import { SortDirection } from '@ca/core/@shared/domain/repository/repository.interface';
+import { SortDirection } from '@ca/shared/domain/repository/repository.interface';
 import { ListCategoriesUseCase } from '@ca/core/category/application/use-cases/list-categories.use-case';
 
 export class SearchCategoryDto implements ListCategoriesUseCase.Input {

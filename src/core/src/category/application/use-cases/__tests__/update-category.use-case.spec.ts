@@ -1,5 +1,5 @@
 import { Category } from './../../../domain/entity/category.entity';
-import { NotFoundError } from "./../../../../@shared/errors/not-found.error";
+import { NotFoundError } from "@ca/shared/errors/not-found.error";
 import { CategoryInMemoryRepository } from "../../../infra/db/in-memory/category-in-memory.repository";
 import { UpdateCategoryUseCase } from "../update-category.use-case";
 
