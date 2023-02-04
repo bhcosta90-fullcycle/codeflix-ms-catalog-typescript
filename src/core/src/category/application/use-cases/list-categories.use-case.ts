@@ -1,7 +1,7 @@
-import { UseCaseInterface } from "../../../@shared/use-cases/use-case.interface";
-import { SearchOutputMapper } from "./../../../@shared/use-cases/dto/search-output";
-import { SearchOutputDto } from "../../../@shared/use-cases/dto/search-output";
-import { SearchInputDto } from "../../../@shared/use-cases/dto/search-input";
+import { UseCaseInterface } from "@ca/shared/use-cases/use-case.interface";
+import { SearchOutputMapper } from "@ca/shared/use-cases/dto/search-output";
+import { SearchOutputDto } from "@ca/shared/use-cases/dto/search-output";
+import { SearchInputDto } from "@ca/shared/use-cases/dto/search-input";
 import { CategoryRepository } from "../../../category/domain/repository/category.repository";
 import { CategoryOutput, CategoryOutputMapper } from "./dto/category.output";
 

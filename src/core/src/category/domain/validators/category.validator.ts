@@ -1,4 +1,4 @@
-import { ClassValidatorFields } from "../../../@shared/domain/validators/class-validator-fields";
+import { ClassValidatorFields } from "@ca/shared/domain/validators/class-validator-fields";
 
 import {
   IsBoolean,

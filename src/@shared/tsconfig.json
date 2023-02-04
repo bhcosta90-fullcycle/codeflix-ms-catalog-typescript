@@ -18,7 +18,7 @@
     "allowJs": true,
     "rootDir": "./src/",
     "paths": {
-      "@ca/core/*": ["./src/*"]
+      "@ca/shared/*": ["./src/*"]
     }
   },
   "include": ["./src/"]

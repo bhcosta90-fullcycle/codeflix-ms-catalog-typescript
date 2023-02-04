@@ -1,4 +1,4 @@
-import { UseCaseInterface } from "../../../@shared/use-cases/use-case.interface";
+import { UseCaseInterface } from "@ca/shared/use-cases/use-case.interface";
 import { CategoryRepository } from "../../domain/repository/category.repository";
 
 export namespace DeleteCategoryUseCase {

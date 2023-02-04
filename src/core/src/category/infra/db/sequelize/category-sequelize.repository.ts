@@ -1,9 +1,9 @@
 import { CategoryModel } from "./category.model";
-import { UniqueEntityId } from "@ca/core/@shared/domain/value-object/unique-entity-id.vo";
+import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";
 import { CategoryMapper } from "./category.mapper";
-import { NotFoundError } from "@ca/core/@shared/errors/not-found.error";
+import { NotFoundError } from "@ca/shared/errors/not-found.error";
 import { Op } from "sequelize";
 
 export class CategorySequelizeRepository

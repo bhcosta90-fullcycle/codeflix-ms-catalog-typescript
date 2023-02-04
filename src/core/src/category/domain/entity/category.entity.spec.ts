@@ -1,4 +1,4 @@
-import { UniqueEntityId } from './../../../@shared/domain/value-object/unique-entity-id.vo';
+import { UniqueEntityId } from '@ca/shared/domain/value-object/unique-entity-id.vo';
 import { omit } from "lodash";
 import { Category, CategoryType } from "./category.entity";
 

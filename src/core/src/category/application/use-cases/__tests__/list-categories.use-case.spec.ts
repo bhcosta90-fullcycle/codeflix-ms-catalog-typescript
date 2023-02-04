@@ -1,7 +1,7 @@
-import { NotFoundError } from "../../../../@shared/errors/not-found.error";
 import { Category } from "../../../domain/entity/category.entity";
 import { CategoryRepository } from "../../../domain/repository/category.repository";
-import { CategoryInMemoryRepository } from "../../../infra/db/in-memory/category-in-memory.repository";import { ListCategoriesUseCase } from "../list-categories.use-case";
+import { CategoryInMemoryRepository } from "../../../infra/db/in-memory/category-in-memory.repository";
+import { ListCategoriesUseCase } from "../list-categories.use-case";
 
 describe("ListCategoriesUseCase Unit Tests", () => {
   let useCase: ListCategoriesUseCase.UseCase;
@@ -93,7 +93,7 @@ describe("ListCategoriesUseCase Unit Tests", () => {
     let output = await useCase.execute({
       page: 1,
       per_page: 2,
-      filter: "a"
+      filter: "a",
     });
 
     expect(output).toStrictEqual({

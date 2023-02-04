@@ -6,7 +6,7 @@ import {
   Table,
   Model,
 } from "sequelize-typescript";
-import { SequelizeModelFactory } from "@ca/core/@shared/infra/sequelize/sequelize-model.factory";
+import { SequelizeModelFactory } from "@ca/shared/infra/sequelize/sequelize-model.factory";
 
 export type CategoryModelType = {
   id: string;

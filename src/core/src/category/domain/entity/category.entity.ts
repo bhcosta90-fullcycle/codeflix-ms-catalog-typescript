@@ -1,6 +1,6 @@
-import { EntityValidationError } from "../../../@shared/errors/entity-validation.error";
-import { Entity } from "../../../@shared/domain/entity/entity";
-import { UniqueEntityId } from "../../../@shared/domain/value-object/unique-entity-id.vo";
+import { EntityValidationError } from "@ca/shared/errors/entity-validation.error";
+import { Entity } from "@ca/shared/domain/entity/entity";
+import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
 import { CategoryValidatorFactory } from "../validators/category.validator";
 
 export class Category extends Entity<
