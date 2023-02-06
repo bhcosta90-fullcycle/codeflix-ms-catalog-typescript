@@ -8,6 +8,7 @@ services:
       - .:/app
     ports:
       - 3200:3000
+    entrypoint: ./start.sh
   # prod:
   #   build:
   #     context: .

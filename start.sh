@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-if [ ! -f "./src/@core/.env.testing" ]; then
-    cp ./src/@core/.env.test.example ./src/@core/.env.test
+if [ ! -f "./src/@shared/.env.testing.example" ]; then
+    cp ./src/@shared/.env.testing.example ./src/@shared/.env.testing
 fi
 
 yarn install
