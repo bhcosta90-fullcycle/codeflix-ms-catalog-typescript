@@ -1,4 +1,4 @@
-import { CategoryModel } from "./category.model";
+import { CategorySequelize } from "./category.model";
 import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";
@@ -6,12 +6,12 @@ import { CategoryMapper } from "./category.mapper";
 import { NotFoundError } from "@ca/shared/errors/not-found.error";
 import { Op } from "sequelize";
 
-export class CategorySequelizeRepository
-  implements CategoryRepository.Repository
-{
+export class CategorySequelizeRepository implements CategoryRepository.Repository {
   sortableFields: string[] = ["name", "created_at"];
 
-  constructor(protected categoryModel: typeof CategoryModel) {}
+  constructor(
+    protected categoryModel: typeof CategorySequelize.CategoryModel
+  ) {}
 
   async search(
     props: CategoryRepository.SearchParams
@@ -69,7 +69,7 @@ export class CategorySequelizeRepository
     this.categoryModel.destroy({ where: { id: _id } });
   }
 
-  protected async _get(id: string): Promise<CategoryModel> {
+  protected async _get(id: string): Promise<CategorySequelize.CategoryModel> {
     return await this.categoryModel.findByPk(id, {
       rejectOnEmpty: new NotFoundError(`Entity not found using id ${id}`),
     });

@@ -1,14 +1,14 @@
 import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 import { DataType } from "sequelize-typescript";
-import { CategoryModel } from "../category.model";
+import { CategorySequelize } from "../category.model";
 
 describe("CategoryModel Feature Test", () => {
-  setupSequelize({ models: [CategoryModel] });
+  setupSequelize({ models: [CategorySequelize.CategoryModel] });
 
   test("create", async () => {
     const created_at = new Date();
 
-    const category = await CategoryModel.create({
+    const category = await CategorySequelize.CategoryModel.create({
       id: "d95c23d1-3b6d-4af5-8bdf-e60a67d5cb21",
       name: "testing",
       is_active: true,
@@ -24,8 +24,8 @@ describe("CategoryModel Feature Test", () => {
   });
 
   test("mapping props", () => {
-    const attributesMap = CategoryModel.getAttributes();
-    const attributes = Object.keys(CategoryModel.getAttributes());
+    const attributesMap = CategorySequelize.CategoryModel.getAttributes();
+    const attributes = Object.keys(CategorySequelize.CategoryModel.getAttributes());
     expect(attributes).toStrictEqual([
       "id",
       "name",

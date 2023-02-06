@@ -2,10 +2,10 @@ import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.
 import { EntityValidationError } from "@ca/shared/errors/entity-validation.error";
 import { LoadEntityError } from "@ca/shared/errors/load-entity.error";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
-import { CategoryModel } from "./category.model";
+import { CategorySequelize } from "./category.model";
 
 export class CategoryMapper {
-  static toEntity(model: CategoryModel): Category {
+  static toEntity(model: CategorySequelize.CategoryModel): Category {
     const { id, ...data } = model.toJSON();
     try {
       return new Category(data, new UniqueEntityId(id));

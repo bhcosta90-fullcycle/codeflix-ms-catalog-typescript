@@ -1,4 +1,4 @@
-import { CategoryModel } from "../category.model";
+import { CategorySequelize } from "../category.model";
 import { CategoryMapper } from "../category.mapper";
 import { LoadEntityError } from "@ca/shared/errors/load-entity.error";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
@@ -6,10 +6,10 @@ import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.
 import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 
 describe("CategoryMapper Unit Test", () => {
-  setupSequelize({ models: [CategoryModel] });
+  setupSequelize({ models: [CategorySequelize.CategoryModel] });
 
   it("should throw error when category is invalid", () => {
-    const model = CategoryModel.build({
+    const model = CategorySequelize.CategoryModel.build({
       id: "033b983a-1c10-4b95-a71e-0f4579ab29e7",
     });
     try {
@@ -30,7 +30,7 @@ describe("CategoryMapper Unit Test", () => {
 
   it("should convert a category model to a category entity", () => {
     const created_at = new Date();
-    const model = CategoryModel.build({
+    const model = CategorySequelize.CategoryModel.build({
       id: "5490020a-e866-4229-9adc-aa44b83234c4",
       name: "some value",
       description: "some description",
@@ -60,7 +60,7 @@ describe("CategoryMapper Unit Test", () => {
         throw error;
       });
 
-    const model = CategoryModel.build({
+    const model = CategorySequelize.CategoryModel.build({
       id: "fc761756-648b-4fad-88cc-8b7ee10ac84a",
     });
     expect(() => CategoryMapper.toEntity(model)).toThrow(error);
