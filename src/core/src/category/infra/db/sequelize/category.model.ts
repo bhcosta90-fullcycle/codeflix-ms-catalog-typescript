@@ -7,6 +7,10 @@ import {
   Model,
 } from "sequelize-typescript";
 import { SequelizeModelFactory } from "@ca/shared/infra/sequelize/sequelize-model.factory";
+import { Category } from "@ca/core/category/domain/entity/category.entity";
+import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
+import { EntityValidationError } from "@ca/shared/errors/entity-validation.error";
+import { LoadEntityError } from "@ca/shared/errors/load-entity.error";
 
 export namespace CategorySequelize {
   
@@ -45,6 +49,20 @@ export namespace CategorySequelize {
           created_at: chance.date(),
         })
       );
+    }
+  }
+}
+
+export class CategoryMapper {
+  static toEntity(model: CategorySequelize.CategoryModel): Category {
+    const { id, ...data } = model.toJSON();
+    try {
+      return new Category(data, new UniqueEntityId(id));
+    } catch (e) {
+      if (e instanceof EntityValidationError) {
+        throw new LoadEntityError(e.error);
+      }
+      throw e;
     }
   }
 }

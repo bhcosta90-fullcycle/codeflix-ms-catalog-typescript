@@ -1,5 +1,4 @@
-import { CategorySequelize } from "../category.model";
-import { CategoryMapper } from "../category.mapper";
+import { CategorySequelize, CategoryMapper } from "../category.model";
 import { LoadEntityError } from "@ca/shared/errors/load-entity.error";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";

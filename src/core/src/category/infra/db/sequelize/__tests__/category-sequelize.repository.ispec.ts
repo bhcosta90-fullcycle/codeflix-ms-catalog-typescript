@@ -1,11 +1,10 @@
 import { CategorySequelizeRepository } from "./../category-sequelize.repository";
-import { CategorySequelize } from "../category.model";
+import { CategorySequelize, CategoryMapper } from "../category.model";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { NotFoundError } from "@ca/shared/errors/not-found.error";
 import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
 import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 import _chance from "chance";
-import { CategoryMapper } from "../category.mapper";
 import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";
 const chance = _chance();
 
