@@ -1,27 +1,28 @@
 import { CategorySequelizeRepository } from "./../category-sequelize.repository";
-import { CategoryModel } from "../category.model";
+import { CategorySequelize, CategoryMapper } from "../category.model";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { NotFoundError } from "@ca/shared/errors/not-found.error";
 import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
 import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 import _chance from "chance";
-import { CategoryMapper } from "../category.mapper";
 import { CategoryRepository } from "@ca/core/category/domain/repository/category.repository";
 const chance = _chance();
 
 describe("CategorySequelizeRepository Feature Test", () => {
-  setupSequelize({ models: [CategoryModel] });
+  setupSequelize({ models: [CategorySequelize.CategoryModel] });
 
   let repository: CategorySequelizeRepository;
 
   beforeEach(async () => {
-    repository = new CategorySequelizeRepository(CategoryModel);
+    repository = new CategorySequelizeRepository(
+      CategorySequelize.CategoryModel
+    );
   });
 
   test("should a execute action a insert", async () => {
     let category = new Category({ name: "testing" });
     await repository.insert(category);
-    let model = await CategoryModel.findByPk(category.id);
+    let model = await CategorySequelize.CategoryModel.findByPk(category.id);
     expect(model.toJSON()).toStrictEqual(category.toJSON());
 
     category = new Category({
@@ -30,7 +31,7 @@ describe("CategorySequelizeRepository Feature Test", () => {
       is_active: false,
     });
     await repository.insert(category);
-    model = await CategoryModel.findByPk(category.id);
+    model = await CategorySequelize.CategoryModel.findByPk(category.id);
     expect(model.toJSON()).toStrictEqual(category.toJSON());
   });
 
@@ -104,7 +105,9 @@ describe("CategorySequelizeRepository Feature Test", () => {
       await repository.insert(entity);
 
       await repository.delete(entity.id);
-      const entityFound = await CategoryModel.findByPk(entity.id);
+      const entityFound = await CategorySequelize.CategoryModel.findByPk(
+        entity.id
+      );
 
       expect(entityFound).toBeNull();
     });
@@ -121,7 +124,7 @@ describe("CategorySequelizeRepository Feature Test", () => {
   describe("search method tests", () => {
     it("should only apply paginate when other params are null", async () => {
       const created_at = new Date();
-      await CategoryModel.factory()
+      await CategorySequelize.CategoryModel.factory()
         .count(16)
         .bulkCreate(() => ({
           id: chance.guid({ version: 4 }),
@@ -163,7 +166,7 @@ describe("CategorySequelizeRepository Feature Test", () => {
 
     it("should order by created_at DESC when search params are null", async () => {
       const created_at = new Date();
-      await CategoryModel.factory()
+      await CategorySequelize.CategoryModel.factory()
         .count(16)
         .bulkCreate((index) => ({
           id: chance.guid({ version: 4 }),
@@ -194,7 +197,9 @@ describe("CategorySequelizeRepository Feature Test", () => {
         { id: chance.guid({ version: 4 }), name: "TEST", ...defaultProps },
         { id: chance.guid({ version: 4 }), name: "TeSt", ...defaultProps },
       ];
-      const categories = await CategoryModel.bulkCreate(categoriesProp);
+      const categories = await CategorySequelize.CategoryModel.bulkCreate(
+        categoriesProp
+      );
 
       let searchOutput = await repository.search(
         new CategoryRepository.SearchParams({
@@ -253,7 +258,9 @@ describe("CategorySequelizeRepository Feature Test", () => {
         { id: chance.guid({ version: 4 }), name: "testing e", ...defaultProps },
         { id: chance.guid({ version: 4 }), name: "testing c", ...defaultProps },
       ];
-      const categories = await CategoryModel.bulkCreate(categoriesProp);
+      const categories = await CategorySequelize.CategoryModel.bulkCreate(
+        categoriesProp
+      );
 
       const arrange = [
         {
@@ -396,7 +403,7 @@ describe("CategorySequelizeRepository Feature Test", () => {
       ];
 
       beforeEach(async () => {
-        await CategoryModel.bulkCreate(categoriesProps);
+        await CategorySequelize.CategoryModel.bulkCreate(categoriesProps);
       });
 
       test.each(arrange)(
