@@ -7,7 +7,7 @@ RUN npm install -g npm@9.3.1 @nestjs/cli pnpm && \
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/*
 
-CMD yarn dev
+ENTRYPOINT [ "./start.sh" ]
 
 # FROM base as build
 # COPY . .
