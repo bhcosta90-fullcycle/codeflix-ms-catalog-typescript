@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -f "./src/@shared/.env.testing.example" ]; then
+if [ ! -f "./src/@shared/.env.testing" ]; then
     cp ./src/@shared/.env.testing.example ./src/@shared/.env.testing
 fi
 
