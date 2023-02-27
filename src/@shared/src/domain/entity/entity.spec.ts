@@ -40,6 +40,11 @@ describe("Entity Unit Test", () => {
         id: entity.id,
         ...arrange,
       });
+
+      expect(entity.toJSON()).toStrictEqual({
+        id: entity.id,
+        ...arrange,
+      });
     });
   });
 
