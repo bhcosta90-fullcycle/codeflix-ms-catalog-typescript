@@ -9,9 +9,12 @@ import { DatabaseModule } from './../../../database/database.module';
 import { ConfigModule } from './../../../config/config.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from '../../categories.controller';
+import { CategoryRepository } from '@ca/core/category/domain/repository/category.repository';
+import { CATEGORY_PROVIDERS } from '../../categories.provider';
 
 describe('CategoriesController Unit Tests', () => {
   let controller: CategoriesController;
+  let repository: CategoryRepository.Repository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -19,6 +22,9 @@ describe('CategoriesController Unit Tests', () => {
     }).compile();
 
     controller = module.get(CategoriesController);
+    repository = module.get(
+      CATEGORY_PROVIDERS.REPOSITORIES.CATEGORY_REPOSITORY.provide,
+    );
   });
 
   it('should be defined', () => {
@@ -44,7 +50,77 @@ describe('CategoriesController Unit Tests', () => {
     );
   });
 
-  it('xpto', () => {
-    console.log(controller);
+  it('should create a category', async () => {
+    const output = await controller.create({
+      name: 'test',
+    });
+
+    const entity = await repository.findById(output.id);
+    expect(output).toStrictEqual({
+      id: entity.id,
+      name: 'test',
+      description: null,
+      is_active: true,
+      created_at: entity.created_at,
+    });
+  });
+
+  describe('should create a category', () => {
+    const arrange = [
+      {
+        request: {
+          name: 'Movie',
+        },
+        expectedPresenter: {
+          name: 'Movie',
+          description: null,
+          is_active: true,
+        },
+      },
+      {
+        request: {
+          name: 'Movie',
+          description: null,
+        },
+        expectedPresenter: {
+          name: 'Movie',
+          description: null,
+          is_active: true,
+        },
+      },
+      {
+        request: {
+          name: 'Movie',
+          is_active: true,
+        },
+        expectedPresenter: {
+          name: 'Movie',
+          description: null,
+          is_active: true,
+        },
+      },
+    ];
+
+    test.each(arrange)(
+      'with request $request',
+      async ({ request, expectedPresenter }) => {
+        const presenter = await controller.create(request);
+        const entity = await repository.findById(presenter.id);
+
+        expect(entity).toMatchObject({
+          id: presenter.id,
+          name: expectedPresenter.name,
+          description: expectedPresenter.description,
+          is_active: expectedPresenter.is_active,
+          created_at: presenter.created_at,
+        });
+
+        expect(presenter.id).toBe(entity.id);
+        expect(presenter.name).toBe(expectedPresenter.name);
+        expect(presenter.description).toBe(expectedPresenter.description);
+        expect(presenter.is_active).toBe(expectedPresenter.is_active);
+        expect(presenter.created_at).toStrictEqual(entity.created_at);
+      },
+    );
   });
 });

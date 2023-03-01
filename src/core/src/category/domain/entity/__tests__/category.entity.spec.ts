@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@ca/shared/domain/value-object/unique-entity-id.vo';
 import { omit } from "lodash";
-import { Category, CategoryType } from "./category.entity";
+import { Category, CategoryType } from "./../category.entity";
 
 describe("Category Unit Test", () => {
   beforeEach(() => {
