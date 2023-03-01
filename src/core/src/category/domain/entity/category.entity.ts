@@ -2,6 +2,7 @@ import { EntityValidationError } from "@ca/shared/errors/entity-validation.error
 import { Entity } from "@ca/shared/domain/entity/entity";
 import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
 import { CategoryValidatorFactory } from "../validators/category.validator";
+import { CategoryFakeBuilder } from "./category.faker";
 
 export class Category extends Entity<
   CategoryType,
@@ -63,6 +64,10 @@ export class Category extends Entity<
 
   deactivate() {
     this.props.is_active = false;
+  }
+
+  static fake() {
+    return CategoryFakeBuilder;
   }
 }
 
