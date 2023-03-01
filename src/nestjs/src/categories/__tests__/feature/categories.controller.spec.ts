@@ -1,6 +1,6 @@
-import { CategoriesController } from './categories.controller';
+import { CategoriesController } from '../../categories.controller';
 
-describe('CategoriesController', () => {
+describe('CategoriesController Feature Tests', () => {
   let controller: CategoriesController;
 
   beforeEach(async () => {

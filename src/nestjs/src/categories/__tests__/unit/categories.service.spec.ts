@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CategoriesService } from './categories.service';
+import { CategoriesService } from '../../categories.service';
 
-describe('CategoriesService', () => {
+describe('CategoriesService Unit Tests', () => {
   let service: CategoriesService;
 
   beforeEach(async () => {
