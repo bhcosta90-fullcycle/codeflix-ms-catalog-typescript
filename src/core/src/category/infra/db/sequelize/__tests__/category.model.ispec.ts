@@ -1,6 +1,6 @@
 import { setupSequelize } from "@ca/shared/infra/testing/helpers/db";
 import { DataType } from "sequelize-typescript";
-import { CategorySequelize } from "../category.model";
+import { CategorySequelize } from "../category-sequelize.repository";
 
 describe("CategoryModel Feature Test", () => {
   setupSequelize({ models: [CategorySequelize.CategoryModel] });

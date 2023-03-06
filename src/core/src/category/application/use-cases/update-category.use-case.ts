@@ -23,7 +23,7 @@ export namespace UpdateCategoryUseCase {
         entity.deactivate();
       }
 
-      this.repository.update(entity);
+      await this.repository.update(entity);
 
       return {
         id: entity.id,

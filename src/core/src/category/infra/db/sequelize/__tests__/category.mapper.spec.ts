@@ -1,4 +1,4 @@
-import { CategorySequelize, CategoryMapper } from "../category.model";
+import { CategorySequelize } from "../category-sequelize.repository";
 import { LoadEntityError } from "@ca/shared/errors/load-entity.error";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
@@ -12,7 +12,7 @@ describe("CategoryMapper Unit Test", () => {
       id: "033b983a-1c10-4b95-a71e-0f4579ab29e7",
     });
     try {
-      CategoryMapper.toEntity(model);
+      CategorySequelize.CategoryMapper.toEntity(model);
       fail("The category is valid, but it throw a LoadEntityError");
     } catch (e) {
       expect(e).toBeInstanceOf(LoadEntityError);
@@ -36,7 +36,7 @@ describe("CategoryMapper Unit Test", () => {
       is_active: true,
       created_at,
     });
-    const entity = CategoryMapper.toEntity(model);
+    const entity = CategorySequelize.CategoryMapper.toEntity(model);
     expect(entity.toJSON()).toStrictEqual(
       new Category(
         {
@@ -62,7 +62,7 @@ describe("CategoryMapper Unit Test", () => {
     const model = CategorySequelize.CategoryModel.build({
       id: "fc761756-648b-4fad-88cc-8b7ee10ac84a",
     });
-    expect(() => CategoryMapper.toEntity(model)).toThrow(error);
+    expect(() => CategorySequelize.CategoryMapper.toEntity(model)).toThrow(error);
     expect(spyValidate).toHaveBeenCalledTimes(1);
   });
 });

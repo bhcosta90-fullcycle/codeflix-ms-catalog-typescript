@@ -1,5 +1,4 @@
-import { CategorySequelizeRepository } from "./../category-sequelize.repository";
-import { CategorySequelize, CategoryMapper } from "../category.model";
+import { CategorySequelize } from "./../category-sequelize.repository";
 import { Category } from "@ca/core/category/domain/entity/category.entity";
 import { NotFoundError } from "@ca/shared/errors/not-found.error";
 import { UniqueEntityId } from "@ca/shared/domain/value-object/unique-entity-id.vo";
@@ -11,10 +10,10 @@ const chance = _chance();
 describe("CategorySequelizeRepository Feature Test", () => {
   setupSequelize({ models: [CategorySequelize.CategoryModel] });
 
-  let repository: CategorySequelizeRepository;
+  let repository: CategorySequelize.Repository;
 
   beforeEach(async () => {
-    repository = new CategorySequelizeRepository(
+    repository = new CategorySequelize.Repository(
       CategorySequelize.CategoryModel
     );
   });
@@ -133,7 +132,10 @@ describe("CategorySequelizeRepository Feature Test", () => {
           is_active: true,
           created_at: created_at,
         }));
-      const spyToEntity = jest.spyOn(CategoryMapper, "toEntity");
+      const spyToEntity = jest.spyOn(
+        CategorySequelize.CategoryMapper,
+        "toEntity"
+      );
 
       const searchOutput = await repository.search(
         new CategoryRepository.SearchParams({})
@@ -211,8 +213,8 @@ describe("CategorySequelizeRepository Feature Test", () => {
       expect(searchOutput.toJSON(true)).toMatchObject(
         new CategoryRepository.SearchResult({
           items: [
-            CategoryMapper.toEntity(categories[0]),
-            CategoryMapper.toEntity(categories[2]),
+            CategorySequelize.CategoryMapper.toEntity(categories[0]),
+            CategorySequelize.CategoryMapper.toEntity(categories[2]),
           ],
           total: 3,
           current_page: 1,
@@ -232,7 +234,7 @@ describe("CategorySequelizeRepository Feature Test", () => {
       );
       expect(searchOutput.toJSON(true)).toMatchObject(
         new CategoryRepository.SearchResult({
-          items: [CategoryMapper.toEntity(categories[3])],
+          items: [CategorySequelize.CategoryMapper.toEntity(categories[3])],
           total: 3,
           current_page: 2,
           per_page: 2,
@@ -271,8 +273,8 @@ describe("CategorySequelizeRepository Feature Test", () => {
           }),
           result: new CategoryRepository.SearchResult({
             items: [
-              CategoryMapper.toEntity(categories[1]),
-              CategoryMapper.toEntity(categories[0]),
+              CategorySequelize.CategoryMapper.toEntity(categories[1]),
+              CategorySequelize.CategoryMapper.toEntity(categories[0]),
             ],
             total: 5,
             current_page: 1,
@@ -290,8 +292,8 @@ describe("CategorySequelizeRepository Feature Test", () => {
           }),
           result: new CategoryRepository.SearchResult({
             items: [
-              CategoryMapper.toEntity(categories[4]),
-              CategoryMapper.toEntity(categories[2]),
+              CategorySequelize.CategoryMapper.toEntity(categories[4]),
+              CategorySequelize.CategoryMapper.toEntity(categories[2]),
             ],
             total: 5,
             current_page: 2,
@@ -310,8 +312,8 @@ describe("CategorySequelizeRepository Feature Test", () => {
           }),
           result: new CategoryRepository.SearchResult({
             items: [
-              CategoryMapper.toEntity(categories[3]),
-              CategoryMapper.toEntity(categories[2]),
+              CategorySequelize.CategoryMapper.toEntity(categories[3]),
+              CategorySequelize.CategoryMapper.toEntity(categories[2]),
             ],
             total: 5,
             current_page: 1,
@@ -330,8 +332,8 @@ describe("CategorySequelizeRepository Feature Test", () => {
           }),
           result: new CategoryRepository.SearchResult({
             items: [
-              CategoryMapper.toEntity(categories[4]),
-              CategoryMapper.toEntity(categories[0]),
+              CategorySequelize.CategoryMapper.toEntity(categories[4]),
+              CategorySequelize.CategoryMapper.toEntity(categories[0]),
             ],
             total: 5,
             current_page: 2,

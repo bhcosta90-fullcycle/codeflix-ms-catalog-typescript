@@ -8,6 +8,7 @@
         "test:all": "npm run test -w @ca/shared && npm run test -w @ca/core",
         "test:cov:all": "npm run test:cov -w @ca/shared && npm run test:cov -w @ca/core",
         "predev": "npm run build -w @ca/shared && npm run build -w @ca/core",
+        "build:all": "npm run build -w @ca/shared & npm run build -w @ca/core",
         "dev": "npm run build:w -w @ca/shared & npm run build:w -w @ca/core & npm run start:dev -w nestjs"
     },
     "workspaces": [

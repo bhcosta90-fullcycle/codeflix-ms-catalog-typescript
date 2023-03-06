@@ -6,7 +6,7 @@ import { GetCategoryUseCase } from '@ca/core/category/application/use-cases/get-
 import { CategoryRepository } from '@ca/core/category/domain/repository/category.repository';
 import { CategoryInMemoryRepository } from '@ca/core/category/infra/db/in-memory/category-in-memory.repository';
 import { getModelToken } from '@nestjs/sequelize';
-import { CategorySequelize } from '@ca/core/category/infra/db/sequelize/category.model';
+import { CategorySequelize } from '@ca/core/category/infra/db/sequelize/category-sequelize.repository';
 
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace CATEGORY_PROVIDERS {
@@ -19,7 +19,7 @@ export namespace CATEGORY_PROVIDERS {
     export const CATEGORY_SEQUELIZE_REPOSITORY = {
       provide: 'CategorySequelizeRepository',
       useFactory: (categoryModel: typeof CategorySequelize.CategoryModel) => {
-        return new CategorySequelize.CategoryRepository(categoryModel);
+        return new CategorySequelize.Repository(categoryModel);
       },
       inject: [getModelToken(CategorySequelize.CategoryModel)],
     };

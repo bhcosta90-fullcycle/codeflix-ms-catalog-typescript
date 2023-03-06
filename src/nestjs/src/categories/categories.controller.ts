@@ -41,8 +41,8 @@ export class CategoriesController {
   protected readonly listCategoriesUseCase: ListCategoriesUseCase.UseCase;
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.createCategoryUseCase.execute(createCategoryDto);
+  async create(@Body() createCategoryDto: CreateCategoryDto) {
+    return await this.createCategoryUseCase.execute(createCategoryDto);
   }
 
   @Get()
@@ -56,11 +56,11 @@ export class CategoriesController {
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.updateCategoryUseCase.execute({
+    return await this.updateCategoryUseCase.execute({
       id,
       ...updateCategoryDto,
     });
