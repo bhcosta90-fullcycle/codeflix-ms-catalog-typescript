@@ -19,7 +19,10 @@ import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { SearchCategoryDto } from './dto/search-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { CategoryPresenter } from './presenter/category.presenter';
+import {
+  CategoryCollectionPresenter,
+  CategoryPresenter,
+} from './presenter/category.presenter';
 
 @Controller('categories')
 export class CategoriesController {
@@ -49,12 +52,13 @@ export class CategoriesController {
 
   @Get()
   async findAll(@Query() searchParams: SearchCategoryDto) {
-    return await this.listCategoriesUseCase.execute(searchParams);
+    const output = await this.listCategoriesUseCase.execute(searchParams);
+    return new CategoryCollectionPresenter(output);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.getCategoryUseCase.execute({ id });
+    return new CategoryPresenter(await this.getCategoryUseCase.execute({ id }));
   }
 
   @Patch(':id')

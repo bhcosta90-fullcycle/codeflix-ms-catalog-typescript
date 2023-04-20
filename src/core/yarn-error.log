@@ -1,5 +1,5 @@
 Arguments: 
-  /home/bruno.costa/.nvm/versions/node/v18.12.1/bin/node /home/bruno.costa/.nvm/versions/node/v18.12.1/bin/yarn
+  /home/bruno.costa/.nvm/versions/node/v18.12.1/bin/node /home/bruno.costa/.nvm/versions/node/v18.12.1/bin/yarn add -D @types/class-transformer
 
 PATH: 
   /home/bruno.costa/.nvm/versions/node/v18.12.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -14,7 +14,17 @@ Platform:
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/bruno.costa/Documentos/.full-cycle/codeflix-ms-catalog-typescript/src/core/node_modules/.bin/jest'
+  Error: https://registry.yarnpkg.com/@types%2fclass-transformer: Not found
+      at params.callback [as _callback] (/home/bruno.costa/.nvm/versions/node/v18.12.1/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at self.callback (/home/bruno.costa/.nvm/versions/node/v18.12.1/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/home/bruno.costa/.nvm/versions/node/v18.12.1/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/home/bruno.costa/.nvm/versions/node/v18.12.1/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
@@ -72,6 +82,7 @@ npm manifest:
     },
     "dependencies": {
       "chance": "^1.1.9",
+      "class-transformer": "^0.5.1",
       "class-validator": "^0.14.0",
       "sequelize": "^6.28.0",
       "sequelize-typescript": "^2.1.5"
@@ -1250,6 +1261,11 @@ Lockfile:
     version "1.2.2"
     resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
     integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
+  
+  class-transformer@^0.5.1:
+    version "0.5.1"
+    resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.5.1.tgz#24147d5dffd2a6cea930a3250a677addf96ab336"
+    integrity sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==
   
   class-validator@^0.14.0:
     version "0.14.0"
