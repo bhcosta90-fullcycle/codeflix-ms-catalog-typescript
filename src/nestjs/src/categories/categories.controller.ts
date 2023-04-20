@@ -19,6 +19,7 @@ import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { SearchCategoryDto } from './dto/search-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoryPresenter } from './presenter/category.presenter';
 
 @Controller('categories')
 export class CategoriesController {
@@ -42,17 +43,18 @@ export class CategoriesController {
 
   @Post()
   async create(@Body() createCategoryDto: CreateCategoryDto) {
-    return await this.createCategoryUseCase.execute(createCategoryDto);
+    const output = await this.createCategoryUseCase.execute(createCategoryDto);
+    return new CategoryPresenter(output);
   }
 
   @Get()
-  findAll(@Query() searchParams: SearchCategoryDto) {
-    return this.listCategoriesUseCase.execute(searchParams);
+  async findAll(@Query() searchParams: SearchCategoryDto) {
+    return await this.listCategoriesUseCase.execute(searchParams);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.getCategoryUseCase.execute({ id });
+  async findOne(@Param('id') id: string) {
+    return await this.getCategoryUseCase.execute({ id });
   }
 
   @Patch(':id')
@@ -60,15 +62,17 @@ export class CategoriesController {
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return await this.updateCategoryUseCase.execute({
+    const output = await this.updateCategoryUseCase.execute({
       id,
       ...updateCategoryDto,
     });
+
+    return new CategoryPresenter(output);
   }
 
   @HttpCode(204)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.deleteCategoryUseCase.execute({ id });
+  async remove(@Param('id') id: string) {
+    return await this.deleteCategoryUseCase.execute({ id });
   }
 }
